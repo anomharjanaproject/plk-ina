@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Dashboard Monev Pos Layanan Komunitas</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: #f4f6f9;
+      color: #333;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 30px;
+      color: #2e8b57;
+      font-size: 28px;
+      letter-spacing: 0.5px;
+    }
+
+    iframe {
+      width: 100%;
+      height: 80vh;
+      border: none;
+      border-radius: 12px;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+    }
+
+    .button-group {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+      margin-top: 30px;
+    }
+
+    .button-group button {
+      padding: 14px 24px;
+      background: #2e8b57;
+      color: white;
+      border: none;
+      border-radius: 12px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .button-group button:hover {
+      background: linear-gradient(135deg, #3aa76d, #2e8b57);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 14px rgba(0, 0, 0, 0.12);
+    }
+
+    @media (max-width: 768px) {
+      iframe {
+        height: 60vh;
+      }
+
+      /* Tombol tetap horizontal, jadi kita HAPUS flex-direction: column */
+      .button-group button {
+        flex: 1 1 100px;
+        max-width: 200px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Dashboard Monitoring dan Evaluasi</h1>
+    <iframe src="https://lookerstudio.google.com/embed/reporting/9b8b3317-1566-479e-930a-acd40ddc5a18/page/KGCBE" allowfullscreen></iframe>
+
+    <div class="button-group">
+      <button onclick="window.open('https://example.com/pedoman', '_blank')">Lihat Pedoman</button>
+      <button onclick="window.open('https://example.com/elearning', '_blank')">Lihat E-Learning</button>
+      <button onclick="window.location.href='login.html'">Buat Laporan</button>
+    </div>
+  </div>
+</body>
+</html>
