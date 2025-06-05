@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Dashboard Capaian Program Pos Layanan Komunitas – HIV/IMS</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
   <style>
     :root {
       --primary: #009688;
@@ -27,7 +27,6 @@
       min-height: 100vh;
     }
 
-    /* ---------------- HEADER ---------------- */
     header {
       background: var(--light);
       color: var(--accent);
@@ -96,6 +95,7 @@
       color: var(--light);
       animation: pulse 2.5s ease-in-out infinite;
     }
+
     .login-btn:hover {
       background: var(--primary-dark);
       transform: scale(1.05);
@@ -105,6 +105,7 @@
       background: var(--info-btn);
       color: var(--light);
     }
+
     .info-btn:hover {
       background: var(--info-btn-dark);
       transform: scale(1.05);
@@ -115,7 +116,6 @@
       50% { transform: scale(1.06); }
     }
 
-    /* ---------------- CONTENT ---------------- */
     main {
       flex: 1;
       width: 100%;
@@ -124,46 +124,143 @@
       padding: 20px;
     }
 
-    .dashboard-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 20px;
-    }
-    @media (max-width: 800px) {
-      .dashboard-grid { grid-template-columns: 1fr; }
-    }
-
-    .card {
-      background: var(--light);
-      border-radius: 10px;
-      box-shadow: 0 2px 6px rgba(0,0,0,.1);
-      padding: 20px;
-    }
-    .card h2 {
-      margin-bottom: 12px;
-      color: var(--primary-dark);
-      font-size: 1.1rem;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-    .looker-embed {
-      width: 100%;
-      height: 420px;
-      border: 0;
-    }
-    @media (max-width: 600px) {
-      .looker-embed { height: 320px; }
-      .login-btn, .info-btn { width: 100%; }
-    }
-
-    /* ---------------- FOOTER ---------------- */
     footer {
       background: var(--footer-dark);
       color: var(--light);
       text-align: center;
       padding: 14px 8px;
       font-size: 0.9rem;
+    }
+
+    .dashboard-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 24px;
+      padding-top: 20px;
+    }
+
+    .card {
+      background-color: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.07);
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .card h2 {
+      font-size: 1.2rem;
+      color: var(--accent);
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .looker-embed {
+      border: none;
+      border-radius: 8px;
+      width: 100%;
+      height: 300px;
+    }
+
+    @media (max-width: 768px) {
+      .looker-embed {
+        height: 400px;
+      }
+    }
+
+    .popup-overlay {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.5);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 999;
+    }
+
+    .popup-box {
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      max-width: 400px;
+      width: 100%;
+      position: relative;
+      box-shadow: 0 0 20px rgba(0,0,0,0.2);
+    }
+
+    .popup-box h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      margin-top: 15px;
+      font-weight: 600;
+    }
+
+    select, input {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+    }
+
+    .password-wrapper {
+      position: relative;
+    }
+
+    .password-wrapper input {
+      padding-right: 40px;
+    }
+
+    .toggle-password {
+      position: absolute;
+      top: 50%;
+      right: 12px;
+      transform: translateY(-50%);
+      cursor: pointer;
+      color: #888;
+    }
+
+    .popup-box button[type="submit"] {
+      width: 100%;
+      margin-top: 20px;
+      padding: 12px;
+      background: var(--primary);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .popup-box .close-btn {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      font-size: 18px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: #888;
+    }
+
+    .error {
+      color: red;
+      margin-top: 10px;
+      text-align: center;
+    }
+
+    @media (max-width: 600px) {
+      .login-btn, .info-btn {
+        width: 100%;
+      }
     }
   </style>
 </head>
@@ -186,42 +283,42 @@
 
   <main>
     <div class="dashboard-grid">
-      <section id="overview" class="card">
+      <section class="card">
         <h2><i class="fas fa-chart-pie"></i>Ringkasan Capaian Utama</h2>
         <iframe class="looker-embed" src="https://lookerstudio.google.com/embed/reporting/OVERVIEW_PLACEHOLDER" allowfullscreen></iframe>
       </section>
 
-      <section id="statistik" class="card">
+      <section class="card">
         <h2><i class="fas fa-chart-line"></i>Statistik Capaian Program HIV</h2>
         <iframe class="looker-embed" src="https://lookerstudio.google.com/embed/reporting/STATISTIK_PLACEHOLDER" allowfullscreen></iframe>
       </section>
 
-      <section id="populasi" class="card">
+      <section class="card">
         <h2><i class="fas fa-users"></i>Segmentasi Populasi Kunci</h2>
         <iframe class="looker-embed" src="https://lookerstudio.google.com/embed/reporting/POPULASI_PLACEHOLDER" allowfullscreen></iframe>
       </section>
 
-      <section id="lokasi" class="card">
+      <section class="card">
         <h2><i class="fas fa-map-marked-alt"></i>Capaian Berdasarkan Lokasi</h2>
         <iframe class="looker-embed" src="https://lookerstudio.google.com/embed/reporting/LOKASI_PLACEHOLDER" allowfullscreen></iframe>
       </section>
 
-      <section id="tren" class="card">
+      <section class="card">
         <h2><i class="fas fa-clock"></i>Tren Waktu</h2>
         <iframe class="looker-embed" src="https://lookerstudio.google.com/embed/reporting/TREN_PLACEHOLDER" allowfullscreen></iframe>
       </section>
 
-      <section id="target" class="card">
+      <section class="card">
         <h2><i class="fas fa-bullseye"></i>Perbandingan dengan Target</h2>
         <iframe class="looker-embed" src="https://lookerstudio.google.com/embed/reporting/TARGET_PLACEHOLDER" allowfullscreen></iframe>
       </section>
 
-      <section id="tantangan" class="card">
+      <section class="card">
         <h2><i class="fas fa-exclamation-triangle"></i>Tantangan & Temuan Khusus</h2>
         <iframe class="looker-embed" src="https://lookerstudio.google.com/embed/reporting/TANTANGAN_PLACEHOLDER" allowfullscreen></iframe>
       </section>
 
-      <section id="rekomendasi" class="card">
+      <section class="card">
         <h2><i class="fas fa-lightbulb"></i>Rekomendasi Tindak Lanjut</h2>
         <iframe class="looker-embed" src="https://lookerstudio.google.com/embed/reporting/REKOMENDASI_PLACEHOLDER" allowfullscreen></iframe>
       </section>
@@ -232,10 +329,78 @@
     <p>Disiapkan oleh PIKAT untuk Kementerian Kesehatan Republik Indonesia © 2025</p>
   </footer>
 
-  <script>
-    document.getElementById('loginBtn').addEventListener('click', () => window.location.href = 'login.html');
-    document.getElementById('infoBtn').addEventListener('click', () => window.location.href = 'media.html');
-  </script>
+  <!-- POPUP LOGIN -->
+  <div class="popup-overlay" id="loginPopup">
+    <div class="popup-box">
+      <button class="close-btn" onclick="closePopup()"><i class="fas fa-times"></i></button>
+      <h2>Login Capaian Program</h2>
+      <form id="loginForm">
+        <label for="role">Role:</label>
+        <select id="role" required>
+          <option value="">-- Pilih Role --</option>
+          <option value="Dinas Kesehatan Kabupaten/Kota">Dinas Kesehatan Kabupaten/Kota</option>
+          <option value="Petugas Pos Layanan Komunitas">Petugas Pos Layanan Komunitas</option>
+        </select>
 
+        <label for="username">Username:</label>
+        <input type="text" id="username" required>
+
+        <label for="password">Password:</label>
+        <div class="password-wrapper">
+          <input type="password" id="password" required>
+          <span class="toggle-password"><i class="fas fa-eye"></i></span>
+        </div>
+
+        <button type="submit">Masuk</button>
+        <p id="error" class="error"></p>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    const loginBtn = document.getElementById("loginBtn");
+    const loginPopup = document.getElementById("loginPopup");
+    const closePopup = () => loginPopup.style.display = "none";
+    loginBtn.onclick = () => loginPopup.style.display = "flex";
+
+    const togglePassword = document.querySelector(".toggle-password");
+    const passwordInput = document.getElementById("password");
+
+    togglePassword.addEventListener("click", function () {
+      const type = passwordInput.type === "password" ? "text" : "password";
+      passwordInput.type = type;
+      this.innerHTML = type === "text"
+        ? '<i class="fas fa-eye-slash"></i>'
+        : '<i class="fas fa-eye"></i>';
+    });
+
+    document.getElementById("loginForm").addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      const role = document.getElementById("role").value.trim();
+      const username = document.getElementById("username").value.trim();
+      const password = document.getElementById("password").value.trim();
+      const errorText = document.getElementById("error");
+
+      const users = [
+        { role: "Dinas Kesehatan Kabupaten/Kota", username: "dinkes_badung", password: "Dinkes@Badung8492", link: "badung.html" },
+        { role: "Petugas Pos Layanan Komunitas", username: "pos_badung", password: "Pos@Badung3175", link: "badung.html" },
+        { role: "Dinas Kesehatan Kabupaten/Kota", username: "dinkes_bogor", password: "Dinkes@Bogor2951", link: "bogor.html" },
+        { role: "Petugas Pos Layanan Komunitas", username: "pos_bogor", password: "Pos@Bogor7608", link: "bogor.html" }
+      ];
+
+      const found = users.find(u => u.role === role && u.username === username && u.password === password);
+
+      if (found) {
+        window.location.href = found.link;
+      } else {
+        errorText.textContent = "Login gagal. Silakan periksa kembali.";
+      }
+    });
+
+    document.getElementById("infoBtn").addEventListener("click", () => {
+      window.location.href = "media.html";
+    });
+  </script>
 </body>
 </html>
