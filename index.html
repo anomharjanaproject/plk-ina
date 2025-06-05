@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Dashboard Capaian Program Pos Layanan Komunitas Program HIV</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <style>
     :root {
       --primary: #009688;
@@ -38,6 +39,11 @@
       align-items: center;
     }
 
+    header h1 {
+      margin: 0;
+      font-size: 1.6rem;
+    }
+
     .login-btn {
       margin-top: 24px;
       background-color: var(--light);
@@ -69,14 +75,21 @@
       max-width: 1200px;
       margin: 0 auto;
       padding: 20px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+      gap: 20px;
     }
 
     .card {
       background-color: var(--light);
       padding: 20px;
-      margin-bottom: 24px;
       border-radius: 10px;
       box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+
+    .card h2 i {
+      margin-right: 10px;
+      color: var(--primary-dark);
     }
 
     .looker-embed {
@@ -108,49 +121,49 @@
 <body>
 
   <header>
-    <h1>Dashboard Capaian Program </h1>
-    <h1>Pos Layanan Komunitas Program HIV AIDS dan PIMS</h1>
+    <h1>Dashboard Capaian Program Pos Layanan Komunitas</h1>
+    <h1>Program HIV/AIDS dan IMS</h1>
     <button id="loginBtn" class="login-btn">Login</button>
   </header>
 
   <main>
     <section id="overview" class="card">
-      <h2>Ringkasan Capaian Utama</h2>
+      <h2><i class="fas fa-chart-pie"></i>Ringkasan Capaian Utama</h2>
       <iframe class="looker-embed" src="https://lookerstudio.google.com/embed/reporting/OVERVIEW_PLACEHOLDER" allowfullscreen></iframe>
     </section>
 
     <section id="statistik" class="card">
-      <h2>Statistik Capaian Program HIV</h2>
+      <h2><i class="fas fa-chart-line"></i>Statistik Capaian Program HIV</h2>
       <iframe class="looker-embed" src="https://lookerstudio.google.com/embed/reporting/STATISTIK_PLACEHOLDER" allowfullscreen></iframe>
     </section>
 
     <section id="populasi" class="card">
-      <h2>Segmentasi Populasi Kunci</h2>
+      <h2><i class="fas fa-users"></i>Segmentasi Populasi Kunci</h2>
       <iframe class="looker-embed" src="https://lookerstudio.google.com/embed/reporting/POPULASI_PLACEHOLDER" allowfullscreen></iframe>
     </section>
 
     <section id="lokasi" class="card">
-      <h2>Capaian Berdasarkan Lokasi</h2>
+      <h2><i class="fas fa-map-marked-alt"></i>Capaian Berdasarkan Lokasi</h2>
       <iframe class="looker-embed" src="https://lookerstudio.google.com/embed/reporting/LOKASI_PLACEHOLDER" allowfullscreen></iframe>
     </section>
 
     <section id="tren" class="card">
-      <h2>Tren Waktu</h2>
+      <h2><i class="fas fa-clock"></i>Tren Waktu</h2>
       <iframe class="looker-embed" src="https://lookerstudio.google.com/embed/reporting/TREN_PLACEHOLDER" allowfullscreen></iframe>
     </section>
 
     <section id="target" class="card">
-      <h2>Perbandingan dengan Target</h2>
+      <h2><i class="fas fa-bullseye"></i>Perbandingan dengan Target</h2>
       <iframe class="looker-embed" src="https://lookerstudio.google.com/embed/reporting/TARGET_PLACEHOLDER" allowfullscreen></iframe>
     </section>
 
     <section id="tantangan" class="card">
-      <h2>Tantangan & Temuan Khusus</h2>
+      <h2><i class="fas fa-exclamation-triangle"></i>Tantangan & Temuan Khusus</h2>
       <iframe class="looker-embed" src="https://lookerstudio.google.com/embed/reporting/TANTANGAN_PLACEHOLDER" allowfullscreen></iframe>
     </section>
 
     <section id="rekomendasi" class="card">
-      <h2>Rekomendasi Tindak Lanjut</h2>
+      <h2><i class="fas fa-lightbulb"></i>Rekomendasi Tindak Lanjut</h2>
       <iframe class="looker-embed" src="https://lookerstudio.google.com/embed/reporting/REKOMENDASI_PLACEHOLDER" allowfullscreen></iframe>
     </section>
   </main>
