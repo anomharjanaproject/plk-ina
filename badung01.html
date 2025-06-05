@@ -31,7 +31,6 @@
       min-height: 100vh;
     }
 
-    /* ---------- HEADER ---------- */
     header {
       background: var(--light);
       color: var(--accent);
@@ -128,25 +127,12 @@
       }
     }
 
-    /* ---------- MAIN ---------- */
     main {
       flex: 1;
       width: 100%;
       max-width: 1200px;
       margin: 0 auto;
       padding: 20px;
-    }
-
-    .content-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 24px;
-    }
-
-    @media (max-width: 768px) {
-      .content-grid {
-        grid-template-columns: 1fr;
-      }
     }
 
     .embed-card {
@@ -156,7 +142,7 @@
       padding: 20px;
       display: flex;
       flex-direction: column;
-      height: 100%;
+      margin-bottom: 24px;
     }
 
     .card-header {
@@ -197,17 +183,26 @@
       min-height: 2923px;
     }
 
+    .content-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+
     @media (max-width: 768px) {
-      .embed-frame {
-        min-height: 600px;
+      .content-grid {
+        grid-template-columns: 1fr;
       }
 
       .form-iframe {
         min-height: 3000px;
       }
+
+      .embed-frame {
+        min-height: 600px;
+      }
     }
 
-    /* ---------- FOOTER ---------- */
     footer {
       background: var(--footer-dark);
       color: var(--light);
@@ -246,7 +241,23 @@
 
   <!-- ===== MAIN ===== -->
   <main>
+
+    <!-- Embed Looker Studio -->
+    <section class="embed-card">
+      <div class="card-header">
+        <h2><i class="fas fa-chart-line"></i> Visualisasi Data (Looker Studio)</h2>
+      </div>
+      <iframe class="embed-frame" height="600"
+        src="https://lookerstudio.google.com/embed/reporting/db65eb65-5e58-4c8a-a9c6-e0d69f3b7da0/page/djCNF"
+        frameborder="0"
+        allowfullscreen
+        sandbox="allow-storage-access-by-user-activation allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox">
+      </iframe>
+    </section>
+
+    <!-- Dua kolom: Form dan Spreadsheet -->
     <div class="content-grid">
+
       <!-- KIRI: Google Form -->
       <section class="embed-card">
         <div class="card-header">
@@ -257,7 +268,7 @@
           frameborder="0" marginheight="0" marginwidth="0">Memuat…</iframe>
       </section>
 
-      <!-- KANAN: Google Spreadsheet -->
+      <!-- KANAN: Spreadsheet -->
       <section class="embed-card">
         <div class="card-header">
           <h2><i class="fas fa-table"></i> Rekap Capaian (Spreadsheet)</h2>
@@ -269,6 +280,7 @@
           src="https://docs.google.com/spreadsheets/d/e/2PACX-1vTyjddzPu1h-Y59qZxjX9vSee0Ye_O8hcrRAQv1CzAyqmGk3ans7kasGu4QhEkINt34mljpvO6iv-hU/pubhtml?widget=true&amp;headers=false">
         </iframe>
       </section>
+
     </div>
   </main>
 
