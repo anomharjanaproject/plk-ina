@@ -13,6 +13,8 @@
       --light: #ffffff;
       --bg: #f5f5f5;
       --footer-dark: #263238;
+      --info-btn: #00bcd4;
+      --info-btn-dark: #0097a7;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -72,9 +74,14 @@
       100% { transform: translateX(-100%); }
     }
 
-    .login-btn {
-      background: var(--primary);
-      color: var(--light);
+    .button-group {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .login-btn, .info-btn {
       border: none;
       padding: 10px 26px;
       border-radius: 6px;
@@ -82,10 +89,24 @@
       font-weight: bold;
       font-size: 16px;
       transition: transform 0.2s, background-color 0.3s;
+    }
+
+    .login-btn {
+      background: var(--primary);
+      color: var(--light);
       animation: pulse 2.5s ease-in-out infinite;
     }
     .login-btn:hover {
       background: var(--primary-dark);
+      transform: scale(1.05);
+    }
+
+    .info-btn {
+      background: var(--info-btn);
+      color: var(--light);
+    }
+    .info-btn:hover {
+      background: var(--info-btn-dark);
       transform: scale(1.05);
     }
 
@@ -133,7 +154,7 @@
     }
     @media (max-width: 600px) {
       .looker-embed { height: 320px; }
-      .login-btn { width: 100%; }
+      .login-btn, .info-btn { width: 100%; }
     }
 
     /* ---------------- FOOTER ---------------- */
@@ -157,7 +178,10 @@
     <div class="running-text">
       <span>Kesehatan adalah hak semua, dan pelayanan terbaik dimulai dari kedekatan dengan komunitas.</span>
     </div>
-    <button id="loginBtn" class="login-btn">Login</button>
+    <div class="button-group">
+      <button id="loginBtn" class="login-btn">Login</button>
+      <button id="infoBtn" class="info-btn">Media Informasi</button>
+    </div>
   </header>
 
   <main>
@@ -210,6 +234,7 @@
 
   <script>
     document.getElementById('loginBtn').addEventListener('click', () => window.location.href = 'login.html');
+    document.getElementById('infoBtn').addEventListener('click', () => window.location.href = 'media.html');
   </script>
 
 </body>
