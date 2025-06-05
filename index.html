@@ -28,7 +28,6 @@
       min-height: 100vh;
     }
 
-    /* ---------- HEADER ---------- */
     header {
       background-color: var(--primary);
       color: var(--light);
@@ -68,16 +67,22 @@
       50% { transform: scale(1.06); }
     }
 
-    /* ---------- CONTENT ---------- */
     main {
       flex: 1;
       width: 100%;
       max-width: 1200px;
       margin: 0 auto;
       padding: 20px;
+    }
+
+    .dashboard-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+      grid-template-columns: repeat(2, 1fr);
       gap: 20px;
+    }
+
+    .dashboard-grid > .card:nth-child(n+3) {
+      grid-column: span 2;
     }
 
     .card {
@@ -98,7 +103,6 @@
       border: 0;
     }
 
-    /* ---------- FOOTER ---------- */
     footer {
       background-color: var(--accent);
       color: var(--light);
@@ -106,7 +110,16 @@
       padding: 12px 8px;
     }
 
-    /* ---------- RESPONSIVE ---------- */
+    @media (max-width: 800px) {
+      .dashboard-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .dashboard-grid > .card:nth-child(n+3) {
+        grid-column: span 1;
+      }
+    }
+
     @media (max-width: 600px) {
       .login-btn {
         width: 100%;
@@ -127,45 +140,47 @@
   </header>
 
   <main>
-    <section id="overview" class="card">
-      <h2><i class="fas fa-chart-pie"></i>Ringkasan Capaian Utama</h2>
-      <iframe class="looker-embed" src="https://lookerstudio.google.com/embed/reporting/OVERVIEW_PLACEHOLDER" allowfullscreen></iframe>
-    </section>
+    <div class="dashboard-grid">
+      <section id="overview" class="card">
+        <h2><i class="fas fa-chart-pie"></i>Ringkasan Capaian Utama</h2>
+        <iframe class="looker-embed" src="https://lookerstudio.google.com/embed/reporting/OVERVIEW_PLACEHOLDER" allowfullscreen></iframe>
+      </section>
 
-    <section id="statistik" class="card">
-      <h2><i class="fas fa-chart-line"></i>Statistik Capaian Program HIV</h2>
-      <iframe class="looker-embed" src="https://lookerstudio.google.com/embed/reporting/STATISTIK_PLACEHOLDER" allowfullscreen></iframe>
-    </section>
+      <section id="statistik" class="card">
+        <h2><i class="fas fa-chart-line"></i>Statistik Capaian Program HIV</h2>
+        <iframe class="looker-embed" src="https://lookerstudio.google.com/embed/reporting/STATISTIK_PLACEHOLDER" allowfullscreen></iframe>
+      </section>
 
-    <section id="populasi" class="card">
-      <h2><i class="fas fa-users"></i>Segmentasi Populasi Kunci</h2>
-      <iframe class="looker-embed" src="https://lookerstudio.google.com/embed/reporting/POPULASI_PLACEHOLDER" allowfullscreen></iframe>
-    </section>
+      <section id="populasi" class="card">
+        <h2><i class="fas fa-users"></i>Segmentasi Populasi Kunci</h2>
+        <iframe class="looker-embed" src="https://lookerstudio.google.com/embed/reporting/POPULASI_PLACEHOLDER" allowfullscreen></iframe>
+      </section>
 
-    <section id="lokasi" class="card">
-      <h2><i class="fas fa-map-marked-alt"></i>Capaian Berdasarkan Lokasi</h2>
-      <iframe class="looker-embed" src="https://lookerstudio.google.com/embed/reporting/LOKASI_PLACEHOLDER" allowfullscreen></iframe>
-    </section>
+      <section id="lokasi" class="card">
+        <h2><i class="fas fa-map-marked-alt"></i>Capaian Berdasarkan Lokasi</h2>
+        <iframe class="looker-embed" src="https://lookerstudio.google.com/embed/reporting/LOKASI_PLACEHOLDER" allowfullscreen></iframe>
+      </section>
 
-    <section id="tren" class="card">
-      <h2><i class="fas fa-clock"></i>Tren Waktu</h2>
-      <iframe class="looker-embed" src="https://lookerstudio.google.com/embed/reporting/TREN_PLACEHOLDER" allowfullscreen></iframe>
-    </section>
+      <section id="tren" class="card">
+        <h2><i class="fas fa-clock"></i>Tren Waktu</h2>
+        <iframe class="looker-embed" src="https://lookerstudio.google.com/embed/reporting/TREN_PLACEHOLDER" allowfullscreen></iframe>
+      </section>
 
-    <section id="target" class="card">
-      <h2><i class="fas fa-bullseye"></i>Perbandingan dengan Target</h2>
-      <iframe class="looker-embed" src="https://lookerstudio.google.com/embed/reporting/TARGET_PLACEHOLDER" allowfullscreen></iframe>
-    </section>
+      <section id="target" class="card">
+        <h2><i class="fas fa-bullseye"></i>Perbandingan dengan Target</h2>
+        <iframe class="looker-embed" src="https://lookerstudio.google.com/embed/reporting/TARGET_PLACEHOLDER" allowfullscreen></iframe>
+      </section>
 
-    <section id="tantangan" class="card">
-      <h2><i class="fas fa-exclamation-triangle"></i>Tantangan & Temuan Khusus</h2>
-      <iframe class="looker-embed" src="https://lookerstudio.google.com/embed/reporting/TANTANGAN_PLACEHOLDER" allowfullscreen></iframe>
-    </section>
+      <section id="tantangan" class="card">
+        <h2><i class="fas fa-exclamation-triangle"></i>Tantangan & Temuan Khusus</h2>
+        <iframe class="looker-embed" src="https://lookerstudio.google.com/embed/reporting/TANTANGAN_PLACEHOLDER" allowfullscreen></iframe>
+      </section>
 
-    <section id="rekomendasi" class="card">
-      <h2><i class="fas fa-lightbulb"></i>Rekomendasi Tindak Lanjut</h2>
-      <iframe class="looker-embed" src="https://lookerstudio.google.com/embed/reporting/REKOMENDASI_PLACEHOLDER" allowfullscreen></iframe>
-    </section>
+      <section id="rekomendasi" class="card">
+        <h2><i class="fas fa-lightbulb"></i>Rekomendasi Tindak Lanjut</h2>
+        <iframe class="looker-embed" src="https://lookerstudio.google.com/embed/reporting/REKOMENDASI_PLACEHOLDER" allowfullscreen></iframe>
+      </section>
+    </div>
   </main>
 
   <footer>
@@ -173,12 +188,9 @@
   </footer>
 
   <script>
-    // Redirect ke halaman login ketika tombol diklik
     document.getElementById('loginBtn').addEventListener('click', function () {
       window.location.href = 'login.html';
     });
-
-    console.log("Dashboard loaded");
   </script>
 
 </body>
