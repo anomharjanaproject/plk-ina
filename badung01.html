@@ -154,6 +154,7 @@
       flex-direction: column;
       margin-bottom: 24px;
       transition: transform 0.3s ease;
+      position: relative;
     }
 
     .embed-card:hover {
@@ -185,6 +186,20 @@
     .edit-btn:hover {
       background: var(--primary-dark);
       transform: scale(1.05);
+    }
+
+    .fullscreen-btn {
+      background: transparent;
+      border: none;
+      color: var(--accent);
+      font-size: 1.1rem;
+      cursor: pointer;
+      padding: 6px;
+      transition: transform 0.2s;
+    }
+
+    .fullscreen-btn:hover {
+      transform: scale(1.2);
     }
 
     .embed-frame {
@@ -226,11 +241,21 @@
       padding: 14px 8px;
       font-size: .9rem;
     }
+
+    /* === Tambahan CSS agar scroll saat fullscreen === */
+    .embed-card.fullscreen-mode {
+      max-height: 100vh;
+      overflow: auto;
+    }
+
+    .embed-card.fullscreen-mode .form-iframe {
+      height: 90vh;
+      min-height: unset;
+    }
   </style>
 </head>
 <body>
 
-  <!-- ===== HEADER ===== -->
   <header>
     <div class="logos">
       <div class="logo-container">
@@ -255,53 +280,54 @@
     </div>
   </header>
 
-  <!-- ===== MAIN ===== -->
   <main>
 
-    <!-- Embed Looker Studio -->
     <section class="embed-card">
       <div class="card-header">
         <h2><i class="fas fa-chart-line"></i> Visualisasi Data Capaian Program</h2>
       </div>
       <iframe class="embed-frame" height="600" title="Visualisasi Data Capaian"
         src="https://lookerstudio.google.com/embed/reporting/db65eb65-5e58-4c8a-a9c6-e0d69f3b7da0/page/djCNF"
-        frameborder="0"
-        allowfullscreen
+        frameborder="0" allowfullscreen
         sandbox="allow-storage-access-by-user-activation allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox">
       </iframe>
     </section>
 
-    <!-- Dua kolom: Form dan Spreadsheet -->
     <div class="content-grid">
-
-      <!-- KIRI: Google Form -->
+      <!-- KIRI -->
       <section class="embed-card">
         <div class="card-header">
           <h2><i class="fas fa-edit"></i> Form Pengumpulan Data</h2>
+          <button class="fullscreen-btn" title="Tampilkan layar penuh" onclick="toggleFullscreen(this)">
+            <i class="fas fa-expand"></i>
+          </button>
         </div>
         <iframe class="embed-frame form-iframe" title="Formulir Pengumpulan Data"
           src="https://docs.google.com/forms/d/e/1FAIpQLSdZDJhAaBALx3R6MfDo_Z-itupM5u3nbrG2kycEbKJ8o2eTLw/viewform?embedded=true"
           frameborder="0" marginheight="0" marginwidth="0">Memuat…</iframe>
       </section>
 
-      <!-- KANAN: Spreadsheet -->
+      <!-- KANAN -->
       <section class="embed-card">
         <div class="card-header">
           <h2><i class="fas fa-table"></i> Rekap Capaian (Spreadsheet)</h2>
-          <button class="edit-btn" title="Edit Data di Spreadsheet"
-            onclick="window.open('https://docs.google.com/spreadsheets/d/1MadEotxgcDa2Q8WLSDJctdRVnK7vWbhIXSYGsv_4zTI/edit?usp=sharing','_blank')">
-            Edit Data Manual
-          </button>
+          <div style="display: flex; gap: 8px;">
+            <button class="edit-btn" title="Edit Data di Spreadsheet"
+              onclick="window.open('https://docs.google.com/spreadsheets/d/1MadEotxgcDa2Q8WLSDJctdRVnK7vWbhIXSYGsv_4zTI/edit?usp=sharing','_blank')">
+              Edit
+            </button>
+            <button class="fullscreen-btn" title="Tampilkan layar penuh" onclick="toggleFullscreen(this)">
+              <i class="fas fa-expand"></i>
+            </button>
+          </div>
         </div>
         <iframe class="embed-frame" title="Spreadsheet Capaian"
-          src="https://docs.google.com/spreadsheets/d/e/2PACX-1vTyjddzPu1h-Y59qZxjX9vSee0Ye_O8hcrRAQv1CzAyqmGk3ans7kasGu4QhEkINt34mljpvO6iv-hU/pubhtml?widget=true&amp;headers=false">
+          src="https://docs.google.com/spreadsheets/d/e/2PACX-1vTyjddzPu1h-Y59qZxjX9vSee0Ye_O8hcrRAQv1CzAyqmGk3ans7kasGu4QhEkINt34mljpvO6iv-hU/pubhtml;headers=false">
         </iframe>
       </section>
-
     </div>
   </main>
 
-  <!-- ===== FOOTER ===== -->
   <footer>
     <p>Disiapkan oleh PIKAT untuk Kementerian Kesehatan Republik Indonesia © 2025</p>
   </footer>
@@ -309,6 +335,26 @@
   <script>
     document.getElementById("infoBtn").addEventListener("click", () => {
       window.location.href = "media.html";
+    });
+
+    function toggleFullscreen(button) {
+      const card = button.closest(".embed-card");
+      if (!document.fullscreenElement) {
+        card.requestFullscreen().then(() => {
+          card.classList.add("fullscreen-mode");
+        }).catch(err => {
+          alert(`Gagal masuk fullscreen: ${err.message}`);
+        });
+      } else {
+        document.exitFullscreen();
+      }
+    }
+
+    document.addEventListener("fullscreenchange", () => {
+      const fullscreenCard = document.querySelector(".embed-card.fullscreen-mode");
+      if (fullscreenCard && !document.fullscreenElement) {
+        fullscreenCard.classList.remove("fullscreen-mode");
+      }
     });
   </script>
 
