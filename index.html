@@ -6,29 +6,27 @@
   <title>Dashboard Capaian Program Pos Layanan Komunitas – HIV/IMS</title>
 
   <!-- FontAwesome -->
-  <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
 
   <!-- Leaflet CSS -->
-  <link rel="stylesheet"
-        href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-        crossorigin=""/>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin=""/>
 
   <style>
+  /* --------  variabel warna  -------- */
   :root{
     --primary:#009688;--primary-dark:#00796b;
     --accent:#004d40;--light:#fff;--bg:#f5f5f5;
     --footer-dark:#263238;--info-btn:#00bcd4;--info-btn-dark:#0097a7
   }
-  /* RESET */
+  /* --------  RESET  -------- */
   *{box-sizing:border-box;margin:0;padding:0;font-family:Arial,Helvetica,sans-serif}
 
-  /* LAYOUT UTAMA */
+  /* --------  LAYOUT UTAMA  -------- */
   body{background:var(--bg);display:flex;flex-direction:column;min-height:100vh}
   main{flex:1;max-width:1200px;width:100%;margin:0 auto;padding:20px}
   footer{background:var(--footer-dark);color:#fff;text-align:center;padding:14px 8px;font-size:.9rem}
 
-  /* HEADER */
+  /* --------  HEADER  -------- */
   header{background:var(--light);color:var(--accent);border-bottom:1px solid #e0e0e0;
          padding:24px 16px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:20px}
   .logo{max-width:280px;width:100%}
@@ -47,25 +45,25 @@
   .info-btn:hover{background:var(--info-btn-dark);transform:scale(1.05)}
   @media(max-width:600px){.login-btn,.info-btn{width:100%}}
 
-  /* GRID DASHBOARD */
+  /* --------  GRID DASHBOARD  -------- */
   .dashboard-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:24px;padding-top:20px}
   .full-card{grid-column:1/-1}
   @media(max-width:768px){.dashboard-grid{grid-template-columns:1fr;gap:16px}}
 
-  /* CARD */
+  /* --------  CARD  -------- */
   .card{background:#fff;border-radius:12px;box-shadow:0 4px 10px rgba(0,0,0,.07);padding:20px;display:flex;flex-direction:column}
   .card h2{font-size:1.2rem;color:var(--accent);margin-bottom:12px;display:flex;align-items:center;gap:8px}
 
-  /* IFRAME LOOKER */
+  /* --------  IFRAME LOOKER  -------- */
   .looker-embed{border:none;border-radius:8px;width:100%;height:300px}
   @media(max-width:768px){.looker-embed{height:400px}}
   .card.full-card .looker-embed{height:80vh;min-height:500px;max-height:1000px}
 
-  /* MAP */
+  /* --------  MAP  -------- */
   #map{width:100%;height:400px;border-radius:8px}
   @media(max-width:768px){#map{height:420px}}
 
-  /* POPUP LOGIN */
+  /* --------  POPUP LOGIN  -------- */
   .popup-overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);display:none;align-items:center;justify-content:center;z-index:999}
   .popup-box{background:#fff;padding:40px 30px;border-radius:14px;width:100%;max-width:420px;position:relative;box-shadow:0 10px 25px rgba(0,0,0,.15);animation:slideUp .4s}
   .popup-box h2{text-align:center;margin-bottom:24px;color:var(--accent);font-size:1.5rem}
@@ -162,14 +160,13 @@
 <!-- LEAFLET JS -->
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin></script>
 <script>
-/* === PETA DENGAN POPUP DETAIL === */
+/* =========  PETA + POPUP  ========= */
 document.addEventListener('DOMContentLoaded',()=>{
   const map=L.map('map',{scrollWheelZoom:false}).setView([-2.5,117],5);
   L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png',{
     maxZoom:17,attribution:'© OpenTopoMap, © OpenStreetMap contributors'
   }).addTo(map);
 
-  /* Data + kontak (dummy contoh) */
   const locations=[
     {kab:'Kab. Badung',lat:-8.7083,lng:115.2167,pos:'Pos Komunitas Badung',tel:'0812-1111-2222'},
     {kab:'Kab. Bogor',lat:-6.595,lng:106.8167,pos:'Pos Komunitas Bogor',tel:'0812-1111-3333'},
@@ -195,29 +192,92 @@ document.addEventListener('DOMContentLoaded',()=>{
     {kab:'Kota Tangerang',lat:-6.1783,lng:106.63,pos:'Pos Komunitas Tangerang',tel:'0812-1111-7733'},
     {kab:'Kota Yogyakarta',lat:-7.7972,lng:110.3688,pos:'Pos Komunitas Yogyakarta',tel:'0812-1111-7744'}
   ];
-
   locations.forEach(l=>{
     L.marker([l.lat,l.lng])
       .addTo(map)
       .bindTooltip(l.kab,{direction:'top'})
       .bindPopup(`<strong>${l.kab}</strong><br>Pos: ${l.pos}<br>Kontak: <a href="tel:${l.tel.replace(/[^0-9]/g,'')}" style="text-decoration:none;color:#00796b">${l.tel}</a>`);
   });
-
   setTimeout(()=>map.invalidateSize(),400);
 });
 
-/* ==== LOGIN ==== */
+/* =========  LOGIN / REDIRECT  ========= */
+const credentialList=[
+  {role:'Dinas Kesehatan Kabupaten/Kota',username:'dinkes_badung',password:'Dinkes@Badung8492',          link:'badung.html'},
+  {role:'Petugas Pos Layanan Komunitas',  username:'pos_badung',   password:'Pos@Badung3175',             link:'badung01.html'},
+  {role:'Dinas Kesehatan Kabupaten/Kota',username:'dinkes_bogor',  password:'Dinkes@Bogor2951',           link:'bogor.html'},
+  {role:'Petugas Pos Layanan Komunitas',  username:'pos_bogor',    password:'Pos@Bogor7608',              link:'bogor01.html'},
+  {role:'Dinas Kesehatan Kabupaten/Kota',username:'dinkes_pati',   password:'Dinkes@Pati6043',            link:'pati.html'},
+  {role:'Petugas Pos Layanan Komunitas',  username:'pos_pati',     password:'Pos@Pati1219',               link:'pati01.html'},
+  {role:'Dinas Kesehatan Kabupaten/Kota',username:'dinkes_sidoarjo',password:'Dinkes@Sidoarjo8104',       link:'sidoarjo.html'},
+  {role:'Petugas Pos Layanan Komunitas',  username:'pos_sidoarjo', password:'Pos@Sidoarjo6820',           link:'sidoarjo01.html'},
+  {role:'Dinas Kesehatan Kabupaten/Kota',username:'dinkes_balikpapan',password:'Dinkes@Balikpapan7623',   link:'balikpapan.html'},
+  {role:'Petugas Pos Layanan Komunitas',  username:'pos_balikpapan',password:'Pos@Balikpapan2094',        link:'balikpapan01.html'},
+  {role:'Dinas Kesehatan Kabupaten/Kota',username:'dinkes_bandung',password:'Dinkes@Bandung1387',         link:'bandung.html'},
+  {role:'Petugas Pos Layanan Komunitas',  username:'pos_bandung',  password:'Pos@Bandung8446',            link:'bandung01.html'},
+  {role:'Dinas Kesehatan Kabupaten/Kota',username:'dinkes_batam',  password:'Dinkes@Batam5482',           link:'batam.html'},
+  {role:'Petugas Pos Layanan Komunitas',  username:'pos_batam',    password:'Pos@Batam9315',              link:'batam01.html'},
+  {role:'Dinas Kesehatan Kabupaten/Kota',username:'dinkes_bekasi', password:'Dinkes@Bekasi7790',          link:'bekasi.html'},
+  {role:'Petugas Pos Layanan Komunitas',  username:'pos_bekasi',   password:'Pos@Bekasi4411',             link:'bekasi01.html'},
+  {role:'Dinas Kesehatan Kabupaten/Kota',username:'dinkes_kota_bogor',password:'Dinkes@KotaBogor2330',    link:'kota_bogor.html'},
+  {role:'Petugas Pos Layanan Komunitas',  username:'pos_kota_bogor',password:'Pos@KotaBogor6749',         link:'kota_bogor01.html'},
+  {role:'Dinas Kesehatan Kabupaten/Kota',username:'dinkes_depok',  password:'Dinkes@Depok4021',           link:'depok.html'},
+  {role:'Petugas Pos Layanan Komunitas',  username:'pos_depok',    password:'Pos@Depok5896',              link:'depok01.html'},
+  {role:'Dinas Kesehatan Kabupaten/Kota',username:'dinkes_jakarta_barat',password:'Dinkes@JakartaBarat6318',link:'jakarta_barat.html'},
+  {role:'Petugas Pos Layanan Komunitas',  username:'pos_jakarta_barat',password:'Pos@JakartaBarat7903',   link:'jakarta_barat01.html'},
+  {role:'Dinas Kesehatan Kabupaten/Kota',username:'dinkes_jakarta_pusat',password:'Dinkes@JakartaPusat2735',link:'jakarta_pusat.html'},
+  {role:'Petugas Pos Layanan Komunitas',  username:'pos_jakarta_pusat',password:'Pos@JakartaPusat1552',   link:'jakarta_pusat01.html'},
+  {role:'Dinas Kesehatan Kabupaten/Kota',username:'dinkes_jakarta_timur',password:'Dinkes@JakartaTimur4539',link:'jakarta_timur.html'},
+  {role:'Petugas Pos Layanan Komunitas',  username:'pos_jakarta_timur',password:'Pos@JakartaTimur6890',   link:'jakarta_timur01.html'},
+  {role:'Dinas Kesehatan Kabupaten/Kota',username:'dinkes_jayapura',password:'Dinkes@Jayapura5034',       link:'jayapura.html'},
+  {role:'Petugas Pos Layanan Komunitas',  username:'pos_jayapura', password:'Pos@Jayapura7942',           link:'jayapura01.html'},
+  {role:'Dinas Kesehatan Kabupaten/Kota',username:'dinkes_makassar',password:'Dinkes@Makassar1826',       link:'makassar.html'},
+  {role:'Petugas Pos Layanan Komunitas',  username:'pos_makassar', password:'Pos@Makassar3461',           link:'makassar01.html'},
+  {role:'Dinas Kesehatan Kabupaten/Kota',username:'dinkes_malang', password:'Dinkes@Malang2345',          link:'malang.html'},
+  {role:'Petugas Pos Layanan Komunitas',  username:'pos_malang',   password:'Pos@Malang9182',             link:'malang01.html'},
+  {role:'Dinas Kesehatan Kabupaten/Kota',username:'dinkes_manado', password:'Dinkes@Manado8712',          link:'manado.html'},
+  {role:'Petugas Pos Layanan Komunitas',  username:'pos_manado',   password:'Pos@Manado0247',             link:'manado01.html'},
+  {role:'Dinas Kesehatan Kabupaten/Kota',username:'dinkes_medan',  password:'Dinkes@Medan3502',           link:'medan.html'},
+  {role:'Petugas Pos Layanan Komunitas',  username:'pos_medan',    password:'Pos@Medan7863',              link:'medan01.html'},
+  {role:'Dinas Kesehatan Kabupaten/Kota',username:'dinkes_samarinda',password:'Dinkes@Samarinda9341',     link:'samarinda.html'},
+  {role:'Petugas Pos Layanan Komunitas',  username:'pos_samarinda',password:'Pos@Samarinda6607',          link:'samarinda01.html'},
+  {role:'Dinas Kesehatan Kabupaten/Kota',username:'dinkes_semarang',password:'Dinkes@Semarang1882',       link:'semarang.html'},
+  {role:'Petugas Pos Layanan Komunitas',  username:'pos_semarang', password:'Pos@Semarang5420',           link:'semarang01.html'},
+  {role:'Dinas Kesehatan Kabupaten/Kota',username:'dinkes_surabaya',password:'Dinkes@Surabaya5733',       link:'surabaya.html'},
+  {role:'Petugas Pos Layanan Komunitas',  username:'pos_surabaya', password:'Pos@Surabaya3754',           link:'surabaya01.html'},
+  {role:'Dinas Kesehatan Kabupaten/Kota',username:'dinkes_tangerang',password:'Dinkes@Tangerang6401',     link:'tangerang.html'},
+  {role:'Petugas Pos Layanan Komunitas',  username:'pos_tangerang',password:'Pos@Tangerang9860',          link:'tangerang01.html'},
+  {role:'Dinas Kesehatan Kabupaten/Kota',username:'dinkes_yogyakarta',password:'Dinkes@Yogyakarta1174',   link:'yogyakarta.html'},
+  {role:'Petugas Pos Layanan Komunitas',  username:'pos_yogyakarta',password:'Pos@Yogyakarta8085',        link:'yogyakarta01.html'}
+];
+
+/* ---------- toggle password ---------- */
 document.querySelector('.toggle-password').onclick=e=>{
   const p=document.getElementById('password');
   const open=p.type==='text';
   p.type=open?'password':'text';
   e.currentTarget.innerHTML=open?'<i class="fas fa-eye"></i>':'<i class="fas fa-eye-slash"></i>';
 };
+
+/* ---------- tampilkan popup ---------- */
 document.getElementById('loginBtn').onclick=()=>document.getElementById('loginPopup').style.display='flex';
+
+/* ---------- proses login ---------- */
 document.getElementById('loginForm').onsubmit=e=>{
   e.preventDefault();
-  document.getElementById('error').textContent='Kredensial salah. Cek kembali.';
+  const role=document.getElementById('role').value.trim();
+  const user=document.getElementById('username').value.trim();
+  const pass=document.getElementById('password').value.trim();
+  const err =document.getElementById('error');
+
+  const found=credentialList.find(c=>c.role===role&&c.username===user&&c.password===pass);
+  if(found){
+    window.location.href = found.link;   // buka di tab yang sama
+  }else{
+    err.textContent='Role, username, atau password tidak sesuai.';
+  }
 };
+
 document.getElementById('infoBtn').onclick=()=>location.href='media.html';
 </script>
 </body>
