@@ -6,10 +6,13 @@
   <title>Dashboard Capaian Program Pos Layanan Komunitas – HIV/IMS</title>
 
   <!-- FontAwesome -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
 
   <!-- Leaflet CSS -->
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin=""/>
+  <link rel="stylesheet"
+        href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        crossorigin=""/>
 
   <style>
   :root{
@@ -54,27 +57,20 @@
   .card h2{font-size:1.2rem;color:var(--accent);margin-bottom:12px;display:flex;align-items:center;gap:8px}
 
   /* IFRAME LOOKER */
-  /* standar kartu biasa */
   .looker-embed{border:none;border-radius:8px;width:100%;height:300px}
   @media(max-width:768px){.looker-embed{height:400px}}
-
-  /* khusus kartu full-width “Ringkasan” agar tidak terpotong */
-  .card.full-card .looker-embed{
-    height:80vh;          /* tinggi proporsional layar */
-    min-height:500px;     /* minimal cukup besar */
-    max-height:1000px;    /* batasi agar tidak terlalu panjang */
-  }
+  .card.full-card .looker-embed{height:80vh;min-height:500px;max-height:1000px}
 
   /* MAP */
   #map{width:100%;height:400px;border-radius:8px}
   @media(max-width:768px){#map{height:420px}}
 
-  /* POPUP LOGIN (sama seperti versi elegan) */
+  /* POPUP LOGIN */
   .popup-overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);display:none;align-items:center;justify-content:center;z-index:999}
   .popup-box{background:#fff;padding:40px 30px;border-radius:14px;width:100%;max-width:420px;position:relative;box-shadow:0 10px 25px rgba(0,0,0,.15);animation:slideUp .4s}
   .popup-box h2{text-align:center;margin-bottom:24px;color:var(--accent);font-size:1.5rem}
   label{display:block;margin:14px 0 6px;font-weight:600;font-size:.95rem}
-  select,input{width:100%;padding:12px 14px;margin-top:4px;border-radius:8px;border:1px solid #ccc;font-size:1rem;transition:border-color .2s}
+  select,input{width:100%;padding:12px 14px;margin-top:4px;border-radius:8px;border:1px solid #ccc;font-size:1rem}
   select:focus,input:focus{border-color:var(--primary);outline:none}
   .password-wrapper{position:relative}
   .password-wrapper input{padding-right:44px}
@@ -112,7 +108,7 @@
       <div id="map"></div>
     </section>
 
-    <!-- RINGKASAN (iframe tinggi-fleksibel) -->
+    <!-- RINGKASAN -->
     <section class="card full-card">
       <h2><i class="fas fa-chart-pie"></i> Ringkasan Capaian Utama</h2>
       <iframe class="looker-embed"
@@ -120,7 +116,7 @@
               allowfullscreen></iframe>
     </section>
 
-    <!-- Kartu lain -->
+    <!-- Kartu lainnya -->
     <section class="card">
       <h2><i class="fas fa-exclamation-triangle"></i> Tantangan &amp; Temuan Khusus</h2>
       <iframe class="looker-embed" src="https://lookerstudio.google.com/embed/reporting/ID_TANTANGAN" allowfullscreen></iframe>
@@ -166,28 +162,47 @@
 <!-- LEAFLET JS -->
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin></script>
 <script>
-/* ==== PETA ==== */
+/* === PETA DENGAN POPUP DETAIL === */
 document.addEventListener('DOMContentLoaded',()=>{
   const map=L.map('map',{scrollWheelZoom:false}).setView([-2.5,117],5);
   L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png',{
     maxZoom:17,attribution:'© OpenTopoMap, © OpenStreetMap contributors'
   }).addTo(map);
 
+  /* Data + kontak (dummy contoh) */
   const locations=[
-    {n:'Kab. Badung',lat:-8.7083,lng:115.2167},{n:'Kab. Bogor',lat:-6.595,lng:106.8167},
-    {n:'Kab. Pati',lat:-6.747,lng:111.0455},{n:'Kab. Sidoarjo',lat:-7.4478,lng:112.7181},
-    {n:'Kota Balikpapan',lat:-1.2654,lng:116.8312},{n:'Kota Bandung',lat:-6.9147,lng:107.6098},
-    {n:'Kota Batam',lat:1.0456,lng:104.0305},{n:'Kota Bekasi',lat:-6.2383,lng:106.9756},
-    {n:'Kota Bogor',lat:-6.5971,lng:106.806},{n:'Kota Depok',lat:-6.4025,lng:106.7942},
-    {n:'Kota Jakarta Barat',lat:-6.1683,lng:106.758},{n:'Kota Jakarta Pusat',lat:-6.1862,lng:106.8342},
-    {n:'Kota Jakarta Timur',lat:-6.225,lng:106.9003},{n:'Kota Jayapura',lat:-2.5337,lng:140.7181},
-    {n:'Kota Makassar',lat:-5.1477,lng:119.4327},{n:'Kota Malang',lat:-7.9819,lng:112.6265},
-    {n:'Kota Manado',lat:1.4748,lng:124.8421},{n:'Kota Medan',lat:3.5952,lng:98.6722},
-    {n:'Kota Samarinda',lat:-0.5022,lng:117.1537},{n:'Kota Semarang',lat:-7.0051,lng:110.4381},
-    {n:'Kota Surabaya',lat:-7.2575,lng:112.7521},{n:'Kota Tangerang',lat:-6.1783,lng:106.63},
-    {n:'Kota Yogyakarta',lat:-7.7972,lng:110.3688}
+    {kab:'Kab. Badung',lat:-8.7083,lng:115.2167,pos:'Pos Komunitas Badung',tel:'0812-1111-2222'},
+    {kab:'Kab. Bogor',lat:-6.595,lng:106.8167,pos:'Pos Komunitas Bogor',tel:'0812-1111-3333'},
+    {kab:'Kab. Pati',lat:-6.747,lng:111.0455,pos:'Pos Komunitas Pati',tel:'0812-1111-4444'},
+    {kab:'Kab. Sidoarjo',lat:-7.4478,lng:112.7181,pos:'Pos Komunitas Sidoarjo',tel:'0812-1111-5555'},
+    {kab:'Kota Balikpapan',lat:-1.2654,lng:116.8312,pos:'Pos Komunitas Balikpapan',tel:'0812-1111-5566'},
+    {kab:'Kota Bandung',lat:-6.9147,lng:107.6098,pos:'Pos Komunitas Bandung',tel:'0812-1111-5577'},
+    {kab:'Kota Batam',lat:1.0456,lng:104.0305,pos:'Pos Komunitas Batam',tel:'0812-1111-5588'},
+    {kab:'Kota Bekasi',lat:-6.2383,lng:106.9756,pos:'Pos Komunitas Bekasi',tel:'0812-1111-5599'},
+    {kab:'Kota Bogor',lat:-6.5971,lng:106.806,pos:'Pos Komunitas Kota Bogor',tel:'0812-1111-6600'},
+    {kab:'Kota Depok',lat:-6.4025,lng:106.7942,pos:'Pos Komunitas Depok',tel:'0812-1111-6611'},
+    {kab:'Kota Jakarta Barat',lat:-6.1683,lng:106.758,pos:'Pos Komunitas Jakbar',tel:'0812-1111-6622'},
+    {kab:'Kota Jakarta Pusat',lat:-6.1862,lng:106.8342,pos:'Pos Komunitas Jakpus',tel:'0812-1111-6633'},
+    {kab:'Kota Jakarta Timur',lat:-6.225,lng:106.9003,pos:'Pos Komunitas Jaktim',tel:'0812-1111-6644'},
+    {kab:'Kota Jayapura',lat:-2.5337,lng:140.7181,pos:'Pos Komunitas Jayapura',tel:'0812-1111-6655'},
+    {kab:'Kota Makassar',lat:-5.1477,lng:119.4327,pos:'Pos Komunitas Makassar',tel:'0812-1111-6666'},
+    {kab:'Kota Malang',lat:-7.9819,lng:112.6265,pos:'Pos Komunitas Malang',tel:'0812-1111-6677'},
+    {kab:'Kota Manado',lat:1.4748,lng:124.8421,pos:'Pos Komunitas Manado',tel:'0812-1111-6688'},
+    {kab:'Kota Medan',lat:3.5952,lng:98.6722,pos:'Pos Komunitas Medan',tel:'0812-1111-6699'},
+    {kab:'Kota Samarinda',lat:-0.5022,lng:117.1537,pos:'Pos Komunitas Samarinda',tel:'0812-1111-7700'},
+    {kab:'Kota Semarang',lat:-7.0051,lng:110.4381,pos:'Pos Komunitas Semarang',tel:'0812-1111-7711'},
+    {kab:'Kota Surabaya',lat:-7.2575,lng:112.7521,pos:'Pos Komunitas Surabaya',tel:'0812-1111-7722'},
+    {kab:'Kota Tangerang',lat:-6.1783,lng:106.63,pos:'Pos Komunitas Tangerang',tel:'0812-1111-7733'},
+    {kab:'Kota Yogyakarta',lat:-7.7972,lng:110.3688,pos:'Pos Komunitas Yogyakarta',tel:'0812-1111-7744'}
   ];
-  locations.forEach(l=>L.marker([l.lat,l.lng]).addTo(map).bindTooltip(l.n,{direction:'top'}));
+
+  locations.forEach(l=>{
+    L.marker([l.lat,l.lng])
+      .addTo(map)
+      .bindTooltip(l.kab,{direction:'top'})
+      .bindPopup(`<strong>${l.kab}</strong><br>Pos: ${l.pos}<br>Kontak: <a href="tel:${l.tel.replace(/[^0-9]/g,'')}" style="text-decoration:none;color:#00796b">${l.tel}</a>`);
+  });
+
   setTimeout(()=>map.invalidateSize(),400);
 });
 
@@ -199,8 +214,6 @@ document.querySelector('.toggle-password').onclick=e=>{
   e.currentTarget.innerHTML=open?'<i class="fas fa-eye"></i>':'<i class="fas fa-eye-slash"></i>';
 };
 document.getElementById('loginBtn').onclick=()=>document.getElementById('loginPopup').style.display='flex';
-
-/* Demo autentikasi sederhana */
 document.getElementById('loginForm').onsubmit=e=>{
   e.preventDefault();
   document.getElementById('error').textContent='(demo) kredensial salah / tidak ditemukan';
