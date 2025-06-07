@@ -5,349 +5,207 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Dashboard Capaian Program Pos Layanan Komunitas – HIV/IMS</title>
 
-  <!-- FontAwesome ikon -->
-  <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <!-- FontAwesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
 
-  <!-- Leaflet CSS (untuk peta) -->
-  <link rel="stylesheet"
-        href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-        crossorigin=""/>
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin=""/>
 
   <style>
-    :root{
-      --primary:#009688;--primary-dark:#00796b;
-      --accent:#004d40;--light:#fff;--bg:#f5f5f5;
-      --footer-dark:#263238;--info-btn:#00bcd4;--info-btn-dark:#0097a7
-    }
+  :root{
+    --primary:#009688;--primary-dark:#00796b;
+    --accent:#004d40;--light:#fff;--bg:#f5f5f5;
+    --footer-dark:#263238;--info-btn:#00bcd4;--info-btn-dark:#0097a7
+  }
+  /* RESET */
+  *{box-sizing:border-box;margin:0;padding:0;font-family:Arial,Helvetica,sans-serif}
 
-    /* --- RESET & FONTS --- */
-    *{box-sizing:border-box;margin:0;padding:0;font-family:Arial,Helvetica,sans-serif}
+  /* LAYOUT UTAMA */
+  body{background:var(--bg);display:flex;flex-direction:column;min-height:100vh}
+  main{flex:1;max-width:1200px;width:100%;margin:0 auto;padding:20px}
+  footer{background:var(--footer-dark);color:#fff;text-align:center;padding:14px 8px;font-size:.9rem}
 
-    /* --- LAYOUT UTAMA --- */
-    body{background:var(--bg);display:flex;flex-direction:column;min-height:100vh}
-    main{flex:1;max-width:1200px;width:100%;margin:0 auto;padding:20px}
-    footer{background:var(--footer-dark);color:#fff;text-align:center;padding:14px 8px;font-size:.9rem}
+  /* HEADER */
+  header{background:var(--light);color:var(--accent);border-bottom:1px solid #e0e0e0;
+         padding:24px 16px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:20px}
+  .logo{max-width:280px;width:100%}
+  .title-wrapper h1{font-size:1.8rem;line-height:1.3}
+  .title-wrapper h2{font-size:1.2rem;color:var(--primary-dark)}
+  .running-text{font-size:1rem;color:var(--accent);background:#e0f2f1;padding:10px;width:100%;
+                white-space:nowrap;overflow:hidden;box-shadow:inset 0 0 4px rgba(0,0,0,.1)}
+  .running-text span{display:inline-block;padding-left:100%;animation:marquee 15s linear infinite}
+  @keyframes marquee{0%{transform:translateX(0)}100%{transform:translateX(-100%)}}
+  .button-group{display:flex;gap:12px;flex-wrap:wrap;justify-content:center}
+  .login-btn,.info-btn{border:none;padding:10px 26px;border-radius:6px;font-weight:bold;font-size:16px;cursor:pointer;transition:.2s}
+  .login-btn{background:var(--primary);color:#fff;animation:pulse 2.5s ease-in-out infinite}
+  .login-btn:hover{background:var(--primary-dark);transform:scale(1.05)}
+  @keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.06)}}
+  .info-btn{background:var(--info-btn);color:#fff}
+  .info-btn:hover{background:var(--info-btn-dark);transform:scale(1.05)}
+  @media(max-width:600px){.login-btn,.info-btn{width:100%}}
 
-    /* --- HEADER --- */
-    header{
-      background:var(--light);color:var(--accent);border-bottom:1px solid #e0e0e0;
-      padding:24px 16px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:20px
-    }
-    .logo{max-width:280px;width:100%}
-    .title-wrapper h1{font-size:1.8rem;margin:4px 0;line-height:1.3}
-    .title-wrapper h2{font-size:1.2rem;color:var(--primary-dark)}
-    .running-text{
-      font-size:1rem;color:var(--accent);background:#e0f2f1;padding:10px;width:100%;
-      white-space:nowrap;overflow:hidden;box-shadow:inset 0 0 4px rgba(0,0,0,.1)
-    }
-    .running-text span{display:inline-block;padding-left:100%;animation:marquee 15s linear infinite}
-    @keyframes marquee{0%{transform:translateX(0)}100%{transform:translateX(-100%)}}
+  /* GRID DASHBOARD */
+  .dashboard-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:24px;padding-top:20px}
+  .full-card{grid-column:1/-1}
+  @media(max-width:768px){.dashboard-grid{grid-template-columns:1fr;gap:16px}}
 
-    .button-group{display:flex;gap:12px;flex-wrap:wrap;justify-content:center}
-    .login-btn,.info-btn{
-      border:none;padding:10px 26px;border-radius:6px;cursor:pointer;font-weight:bold;font-size:16px;
-      transition:.2s
-    }
-    .login-btn{background:var(--primary);color:#fff;animation:pulse 2.5s ease-in-out infinite}
-    .login-btn:hover{background:var(--primary-dark);transform:scale(1.05)}
-    @keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.06)}}
-    .info-btn{background:var(--info-btn);color:#fff}
-    .info-btn:hover{background:var(--info-btn-dark);transform:scale(1.05)}
-    @media(max-width:600px){.login-btn,.info-btn{width:100%}}
+  /* CARD */
+  .card{background:#fff;border-radius:12px;box-shadow:0 4px 10px rgba(0,0,0,.07);padding:20px;display:flex;flex-direction:column}
+  .card h2{font-size:1.2rem;color:var(--accent);margin-bottom:12px;display:flex;align-items:center;gap:8px}
 
-    /* --- GRID DASHBOARD --- */
-    .dashboard-grid{
-      display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));
-      gap:24px;padding-top:20px
-    }
-    .full-card{grid-column:1 / -1}
+  /* IFRAME LOOKER */
+  /* standar kartu biasa */
+  .looker-embed{border:none;border-radius:8px;width:100%;height:300px}
+  @media(max-width:768px){.looker-embed{height:400px}}
 
-    /* --- CARD UMUM --- */
-    .card{
-      background:#fff;border-radius:12px;box-shadow:0 4px 10px rgba(0,0,0,.07);
-      padding:20px;display:flex;flex-direction:column
-    }
-    .card h2{
-      font-size:1.2rem;color:var(--accent);margin-bottom:12px;
-      display:flex;align-items:center;gap:8px
-    }
-    .looker-embed{border:none;border-radius:8px;width:100%;height:300px}
-    @media(max-width:768px){.looker-embed{height:400px}}
+  /* khusus kartu full-width “Ringkasan” agar tidak terpotong */
+  .card.full-card .looker-embed{
+    height:80vh;          /* tinggi proporsional layar */
+    min-height:500px;     /* minimal cukup besar */
+    max-height:1000px;    /* batasi agar tidak terlalu panjang */
+  }
 
-    /* --- MAP STYLE --- */
-    #map{width:100%;height:400px;border-radius:8px}
-    @media(max-width:768px){#map{height:420px}}
+  /* MAP */
+  #map{width:100%;height:400px;border-radius:8px}
+  @media(max-width:768px){#map{height:420px}}
 
-    /* --- POP-UP LOGIN --- */
-    .popup-overlay {
-  position: fixed; inset: 0;
-  background: rgba(0, 0, 0, 0.5);
-  display: none; align-items: center; justify-content: center;
-  z-index: 999;
-  animation: fadeIn 0.3s ease-in-out;
-}
-.popup-box {
-  background: #fff;
-  padding: 40px 30px;
-  border-radius: 14px;
-  width: 100%;
-  max-width: 420px;
-  position: relative;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
-  animation: slideUp 0.4s ease;
-}
-.popup-box h2 {
-  text-align: center;
-  margin-bottom: 24px;
-  color: var(--accent);
-  font-size: 1.5rem;
-}
-label {
-  display: block;
-  margin: 14px 0 6px;
-  font-weight: 600;
-  font-size: 0.95rem;
-}
-select,
-input {
-  width: 100%;
-  padding: 12px 14px;
-  margin-top: 4px;
-  border-radius: 8px;
-  border: 1px solid #ccc;
-  font-size: 1rem;
-  transition: border-color 0.2s;
-}
-select:focus,
-input:focus {
-  border-color: var(--primary);
-  outline: none;
-}
-.password-wrapper {
-  position: relative;
-}
-.password-wrapper input {
-  padding-right: 44px;
-}
-.toggle-password {
-  position: absolute;
-  top: 50%; right: 12px;
-  transform: translateY(-50%);
-  cursor: pointer;
-  color: #888;
-  font-size: 1rem;
-}
-.popup-box button[type="submit"] {
-  margin-top: 22px;
-  background: var(--primary);
-  color: #fff;
-  border: none;
-  width: 100%;
-  padding: 12px;
-  border-radius: 8px;
-  font-weight: bold;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: background 0.25s, transform 0.15s;
-}
-.popup-box button[type="submit"]:hover {
-  background: var(--primary-dark);
-  transform: translateY(-1px);
-  box-shadow: 0 3px 10px rgba(0,0,0,0.1);
-}
-.close-btn {
-  position: absolute;
-  top: 14px; right: 14px;
-  background: none;
-  border: none;
-  font-size: 1.2rem;
-  color: #999;
-  cursor: pointer;
-  transition: color 0.2s;
-}
-.close-btn:hover { color: #444; }
-
-.error {
-  color: red;
-  margin-top: 12px;
-  text-align: center;
-  font-size: 0.95rem;
-}
-
-@keyframes slideUp {
-  from { transform: translateY(20px); opacity: 0; }
-  to   { transform: translateY(0); opacity: 1; }
-}
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to   { opacity: 1; }
-}
-
+  /* POPUP LOGIN (sama seperti versi elegan) */
+  .popup-overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);display:none;align-items:center;justify-content:center;z-index:999}
+  .popup-box{background:#fff;padding:40px 30px;border-radius:14px;width:100%;max-width:420px;position:relative;box-shadow:0 10px 25px rgba(0,0,0,.15);animation:slideUp .4s}
+  .popup-box h2{text-align:center;margin-bottom:24px;color:var(--accent);font-size:1.5rem}
+  label{display:block;margin:14px 0 6px;font-weight:600;font-size:.95rem}
+  select,input{width:100%;padding:12px 14px;margin-top:4px;border-radius:8px;border:1px solid #ccc;font-size:1rem;transition:border-color .2s}
+  select:focus,input:focus{border-color:var(--primary);outline:none}
+  .password-wrapper{position:relative}
+  .password-wrapper input{padding-right:44px}
+  .toggle-password{position:absolute;top:50%;right:12px;transform:translateY(-50%);cursor:pointer;color:#888}
+  .popup-box button[type="submit"]{margin-top:22px;background:var(--primary);color:#fff;border:none;width:100%;padding:12px;border-radius:8px;font-weight:bold;font-size:1rem;cursor:pointer;transition:background .25s,transform .15s}
+  .popup-box button[type="submit"]:hover{background:var(--primary-dark);transform:translateY(-1px);box-shadow:0 3px 10px rgba(0,0,0,.1)}
+  .close-btn{position:absolute;top:14px;right:14px;background:none;border:none;font-size:1.2rem;color:#999;cursor:pointer}
+  .close-btn:hover{color:#444}
+  .error{color:red;margin-top:12px;text-align:center;font-size:.95rem}
+  @keyframes slideUp{from{transform:translateY(20px);opacity:0}to{transform:translateY(0);opacity:1}}
   </style>
 </head>
 <body>
 
-  <!-- ===== HEADER ===== -->
-  <header>
-    <img src="https://res.cloudinary.com/djexglfns/image/upload/v1749135749/logo_kemenkes_c2ggdg.png" alt="Logo Kementerian Kesehatan" class="logo">
-    <div class="title-wrapper">
-      <h1>Dashboard Capaian Program Nasional</h1>
-      <h2>Pos Layanan Komunitas untuk HIV &amp; IMS</h2>
-    </div>
-    <div class="running-text"><span>Kesehatan adalah hak semua, dan pelayanan terbaik dimulai dari kedekatan dengan komunitas.</span></div>
-    <div class="button-group">
-      <button id="loginBtn" class="login-btn">Login</button>
-      <button id="infoBtn" class="info-btn">Media Informasi</button>
-    </div>
-  </header>
-
-  <!-- ===== MAIN ===== -->
-  <main>
-    <div class="dashboard-grid">
-
-      <!-- PETA (Full-width) -->
-      <section class="card full-card">
-        <h2><i class="fas fa-map-marked-alt"></i> Capaian Berdasarkan Lokasi</h2>
-        <div id="map"></div>
-      </section>
-
-      <!-- RINGKASAN -->
-      <section class="card full-card">
-        <h2><i class="fas fa-chart-pie"></i> Ringkasan Capaian Utama</h2>
-        <iframe class="looker-embed"
-                src="https://lookerstudio.google.com/embed/reporting/db65eb65-5e58-4c8a-a9c6-e0d69f3b7da0/page/djCNF"
-                allowfullscreen></iframe>
-      </section>
-
-      <!-- Kartu lainnya -->
-      <section class="card">
-        <h2><i class="fas fa-exclamation-triangle"></i> Tantangan &amp; Temuan Khusus</h2>
-        <iframe class="looker-embed" src="https://lookerstudio.google.com/embed/reporting/<ID_TANTANGAN>" allowfullscreen></iframe>
-      </section>
-
-      <section class="card">
-        <h2><i class="fas fa-lightbulb"></i> Rekomendasi Tindak Lanjut</h2>
-        <iframe class="looker-embed" src="https://lookerstudio.google.com/embed/reporting/<ID_REKOMENDASI>" allowfullscreen></iframe>
-      </section>
-
-    </div>
-  </main>
-
-  <!-- ===== FOOTER ===== -->
-  <footer>
-    Disiapkan oleh PIKAT untuk Kementerian Kesehatan Republik Indonesia © 2025
-  </footer>
-
-  <!-- ===== POP-UP LOGIN ===== -->
-  <div class="popup-overlay" id="loginPopup">
-    <div class="popup-box">
-      <button class="close-btn" onclick="document.getElementById('loginPopup').style.display='none'">
-        <i class="fas fa-times"></i>
-      </button>
-      <h2>Login Dashboard Program</h2>
-      <form id="loginForm">
-        <label for="role">Role:</label>
-        <select id="role" required>
-          <option value="">-- Pilih Role --</option>
-          <option value="Dinas Kesehatan Kabupaten/Kota">Dinas Kesehatan Kabupaten/Kota</option>
-          <option value="Petugas Pos Layanan Komunitas">Petugas Pos Layanan Komunitas</option>
-        </select>
-
-        <label for="username">Username:</label>
-        <input type="text" id="username" required>
-
-        <label for="password">Password:</label>
-        <div class="password-wrapper">
-          <input type="password" id="password" required>
-          <span class="toggle-password"><i class="fas fa-eye"></i></span>
-        </div>
-
-        <button type="submit">Masuk</button>
-        <p id="error" class="error"></p>
-      </form>
-    </div>
+<!-- HEADER -->
+<header>
+  <img src="https://res.cloudinary.com/djexglfns/image/upload/v1749135749/logo_kemenkes_c2ggdg.png" alt="Logo Kemenkes" class="logo">
+  <div class="title-wrapper">
+    <h1>Dashboard Capaian Program Nasional</h1>
+    <h2>Pos Layanan Komunitas untuk HIV &amp; IMS</h2>
   </div>
+  <div class="running-text"><span>Kesehatan adalah hak semua, dan pelayanan terbaik dimulai dari kedekatan dengan komunitas.</span></div>
+  <div class="button-group">
+    <button id="loginBtn" class="login-btn">Login</button>
+    <button id="infoBtn"  class="info-btn">Media Informasi</button>
+  </div>
+</header>
 
-  <!-- ===== LEAFLET JS ===== -->
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+<!-- MAIN -->
+<main>
+  <div class="dashboard-grid">
+    <!-- PETA -->
+    <section class="card full-card">
+      <h2><i class="fas fa-map-marked-alt"></i> Capaian Berdasarkan Lokasi</h2>
+      <div id="map"></div>
+    </section>
 
-  <script>
-    /* ---------- PETA LEAFLET (OpenTopoMap) ---------- */
-    document.addEventListener('DOMContentLoaded', () => {
-      const map = L.map('map', { scrollWheelZoom:false }).setView([-2.5, 117], 5);
+    <!-- RINGKASAN (iframe tinggi-fleksibel) -->
+    <section class="card full-card">
+      <h2><i class="fas fa-chart-pie"></i> Ringkasan Capaian Utama</h2>
+      <iframe class="looker-embed"
+              src="https://lookerstudio.google.com/embed/reporting/db65eb65-5e58-4c8a-a9c6-e0d69f3b7da0/page/djCNF"
+              allowfullscreen></iframe>
+    </section>
 
-      L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
-        maxZoom: 17,
-        attribution: '© OpenTopoMap, © OpenStreetMap contributors'
-      }).addTo(map);
+    <!-- Kartu lain -->
+    <section class="card">
+      <h2><i class="fas fa-exclamation-triangle"></i> Tantangan &amp; Temuan Khusus</h2>
+      <iframe class="looker-embed" src="https://lookerstudio.google.com/embed/reporting/ID_TANTANGAN" allowfullscreen></iframe>
+    </section>
+    <section class="card">
+      <h2><i class="fas fa-lightbulb"></i> Rekomendasi Tindak Lanjut</h2>
+      <iframe class="looker-embed" src="https://lookerstudio.google.com/embed/reporting/ID_REKOMENDASI" allowfullscreen></iframe>
+    </section>
+  </div>
+</main>
 
-      const locations = [
-        { name:'Kab. Badung',        lat:-8.7083, lng:115.2167 },
-        { name:'Kab. Bogor',         lat:-6.595,  lng:106.8167 },
-        { name:'Kab. Pati',          lat:-6.747,  lng:111.0455 },
-        { name:'Kab. Sidoarjo',      lat:-7.4478, lng:112.7181 },
-        { name:'Kota Balikpapan',    lat:-1.2654, lng:116.8312 },
-        { name:'Kota Bandung',       lat:-6.9147, lng:107.6098 },
-        { name:'Kota Batam',         lat: 1.0456, lng:104.0305 },
-        { name:'Kota Bekasi',        lat:-6.2383, lng:106.9756 },
-        { name:'Kota Bogor',         lat:-6.5971, lng:106.806 },
-        { name:'Kota Depok',         lat:-6.4025, lng:106.7942 },
-        { name:'Kota Jakarta Barat', lat:-6.1683, lng:106.758 },
-        { name:'Kota Jakarta Pusat', lat:-6.1862, lng:106.8342 },
-        { name:'Kota Jakarta Timur', lat:-6.225,  lng:106.9003 },
-        { name:'Kota Jayapura',      lat:-2.5337, lng:140.7181 },
-        { name:'Kota Makassar',      lat:-5.1477, lng:119.4327 },
-        { name:'Kota Malang',        lat:-7.9819, lng:112.6265 },
-        { name:'Kota Manado',        lat: 1.4748, lng:124.8421 },
-        { name:'Kota Medan',         lat: 3.5952, lng: 98.6722 },
-        { name:'Kota Samarinda',     lat:-0.5022, lng:117.1537 },
-        { name:'Kota Semarang',      lat:-7.0051, lng:110.4381 },
-        { name:'Kota Surabaya',      lat:-7.2575, lng:112.7521 },
-        { name:'Kota Tangerang',     lat:-6.1783, lng:106.63 },
-        { name:'Kota Yogyakarta',    lat:-7.7972, lng:110.3688 }
-      ];
+<!-- FOOTER -->
+<footer>Disiapkan oleh PIKAT untuk Kementerian Kesehatan Republik Indonesia © 2025</footer>
 
-      locations.forEach(loc=>{
-        L.marker([loc.lat,loc.lng])
-          .addTo(map)
-          .bindTooltip(loc.name,{direction:'top'});
-      });
+<!-- POP-UP LOGIN -->
+<div class="popup-overlay" id="loginPopup">
+  <div class="popup-box">
+    <button class="close-btn" onclick="document.getElementById('loginPopup').style.display='none'"><i class="fas fa-times"></i></button>
+    <h2>Login Dashboard Program</h2>
+    <form id="loginForm">
+      <label for="role">Role:</label>
+      <select id="role" required>
+        <option value="">-- Pilih Role --</option>
+        <option>Dinas Kesehatan Kabupaten/Kota</option>
+        <option>Petugas Pos Layanan Komunitas</option>
+      </select>
 
-      /* pastikan ukuran peta presisi setelah layout selesai */
-      setTimeout(()=>map.invalidateSize(),400);
-    });
+      <label for="username">Username:</label>
+      <input id="username" required>
 
-    /* ---------- LOGIN FORM ---------- */
-    document.querySelector('.toggle-password').addEventListener('click',e=>{
-      const pwd=document.getElementById('password');
-      const showing=pwd.type==='text';
-      pwd.type=showing?'password':'text';
-      e.currentTarget.innerHTML=showing?'<i class="fas fa-eye"></i>':'<i class="fas fa-eye-slash"></i>';
-    });
+      <label for="password">Password:</label>
+      <div class="password-wrapper">
+        <input type="password" id="password" required>
+        <span class="toggle-password"><i class="fas fa-eye"></i></span>
+      </div>
 
-    document.getElementById('loginBtn').onclick=()=>document.getElementById('loginPopup').style.display='flex';
+      <button type="submit">Masuk</button>
+      <p id="error" class="error"></p>
+    </form>
+  </div>
+</div>
 
-    document.getElementById('loginForm').addEventListener('submit',e=>{
-      e.preventDefault();
-      const role=document.getElementById('role').value.trim();
-      const user=document.getElementById('username').value.trim();
-      const pass=document.getElementById('password').value.trim();
-      const err =document.getElementById('error');
+<!-- LEAFLET JS -->
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin></script>
+<script>
+/* ==== PETA ==== */
+document.addEventListener('DOMContentLoaded',()=>{
+  const map=L.map('map',{scrollWheelZoom:false}).setView([-2.5,117],5);
+  L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png',{
+    maxZoom:17,attribution:'© OpenTopoMap, © OpenStreetMap contributors'
+  }).addTo(map);
 
-      const users=[
-        {role:'Dinas Kesehatan Kabupaten/Kota',username:'dinkes_badung',password:'Dinkes@Badung8492',link:'badung.html'},
-        {role:'Petugas Pos Layanan Komunitas', username:'pos_badung',   password:'Pos@Badung3175',   link:'badung01.html'},
-        {role:'Dinas Kesehatan Kabupaten/Kota',username:'dinkes_bogor', password:'Dinkes@Bogor2951',link:'bogor.html'},
-        {role:'Petugas Pos Layanan Komunitas', username:'pos_bogor',    password:'Pos@Bogor7608',    link:'bogor.html'}
-      ];
+  const locations=[
+    {n:'Kab. Badung',lat:-8.7083,lng:115.2167},{n:'Kab. Bogor',lat:-6.595,lng:106.8167},
+    {n:'Kab. Pati',lat:-6.747,lng:111.0455},{n:'Kab. Sidoarjo',lat:-7.4478,lng:112.7181},
+    {n:'Kota Balikpapan',lat:-1.2654,lng:116.8312},{n:'Kota Bandung',lat:-6.9147,lng:107.6098},
+    {n:'Kota Batam',lat:1.0456,lng:104.0305},{n:'Kota Bekasi',lat:-6.2383,lng:106.9756},
+    {n:'Kota Bogor',lat:-6.5971,lng:106.806},{n:'Kota Depok',lat:-6.4025,lng:106.7942},
+    {n:'Kota Jakarta Barat',lat:-6.1683,lng:106.758},{n:'Kota Jakarta Pusat',lat:-6.1862,lng:106.8342},
+    {n:'Kota Jakarta Timur',lat:-6.225,lng:106.9003},{n:'Kota Jayapura',lat:-2.5337,lng:140.7181},
+    {n:'Kota Makassar',lat:-5.1477,lng:119.4327},{n:'Kota Malang',lat:-7.9819,lng:112.6265},
+    {n:'Kota Manado',lat:1.4748,lng:124.8421},{n:'Kota Medan',lat:3.5952,lng:98.6722},
+    {n:'Kota Samarinda',lat:-0.5022,lng:117.1537},{n:'Kota Semarang',lat:-7.0051,lng:110.4381},
+    {n:'Kota Surabaya',lat:-7.2575,lng:112.7521},{n:'Kota Tangerang',lat:-6.1783,lng:106.63},
+    {n:'Kota Yogyakarta',lat:-7.7972,lng:110.3688}
+  ];
+  locations.forEach(l=>L.marker([l.lat,l.lng]).addTo(map).bindTooltip(l.n,{direction:'top'}));
+  setTimeout(()=>map.invalidateSize(),400);
+});
 
-      const found=users.find(u=>u.role===role&&u.username===user&&u.password===pass);
-      if(found){ window.location.href=found.link; }
-      else{ err.textContent='Login gagal. Silakan periksa kembali.'; }
-    });
+/* ==== LOGIN ==== */
+document.querySelector('.toggle-password').onclick=e=>{
+  const p=document.getElementById('password');
+  const open=p.type==='text';
+  p.type=open?'password':'text';
+  e.currentTarget.innerHTML=open?'<i class="fas fa-eye"></i>':'<i class="fas fa-eye-slash"></i>';
+};
+document.getElementById('loginBtn').onclick=()=>document.getElementById('loginPopup').style.display='flex';
 
-    document.getElementById('infoBtn').onclick=()=>location.href='media.html';
-  </script>
+/* Demo autentikasi sederhana */
+document.getElementById('loginForm').onsubmit=e=>{
+  e.preventDefault();
+  document.getElementById('error').textContent='(demo) kredensial salah / tidak ditemukan';
+};
+document.getElementById('infoBtn').onclick=()=>location.href='media.html';
+</script>
 </body>
 </html>
