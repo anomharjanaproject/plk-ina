@@ -79,6 +79,22 @@
   .close-btn:hover{color:#444}
   .error{color:red;margin-top:12px;text-align:center;font-size:.95rem}
   @keyframes slideUp{from{transform:translateY(20px);opacity:0}to{transform:translateY(0);opacity:1}}
+  
+  .button-survey {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 10px 16px;
+    background-color: #007bff;
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 6px;
+    transition: background-color 0.3s ease;
+  }
+  .button-survey:hover {
+    background-color: #0056b3;
+  }
+  
   </style>
 </head>
 <body>
@@ -127,7 +143,10 @@
 
 <section class="card">
   <h2><i class="fas fa-comments"></i> Survei Kepuasan Layanan</h2>
-  <iframe class="looker-embed" src="xxx" allowfullscreen></iframe>
+  <p>Silakan isi survei kepuasan layanan kami melalui tautan berikut:</p>
+  <a href="https://cphi-central.clappia.com/app/POC123002" target="_blank" class="button-survey">
+    <i class="fas fa-external-link-alt"></i> Buka Survei
+  </a>
 </section>
 
   </div>
