@@ -174,31 +174,32 @@ document.addEventListener('DOMContentLoaded',()=>{
     maxZoom:17,attribution:'© OpenTopoMap, © OpenStreetMap contributors'
   }).addTo(map);
 
-  const locations=[
-    {kab:'Kab. Badung',lat:-8.7083,lng:115.2167,pos:'Pos Komunitas Badung',tel:'0812-1111-2222'},
-    {kab:'Kab. Bogor',lat:-6.595,lng:106.8167,pos:'Pos Komunitas Bogor',tel:'0812-1111-3333'},
-    {kab:'Kab. Pati',lat:-6.747,lng:111.0455,pos:'Pos Komunitas Pati',tel:'0812-1111-4444'},
-    {kab:'Kab. Sidoarjo',lat:-7.4478,lng:112.7181,pos:'Pos Komunitas Sidoarjo',tel:'0812-1111-5555'},
-    {kab:'Kota Balikpapan',lat:-1.2654,lng:116.8312,pos:'Pos Komunitas Balikpapan',tel:'0812-1111-5566'},
-    {kab:'Kota Bandung',lat:-6.9147,lng:107.6098,pos:'Pos Komunitas Bandung',tel:'0812-1111-5577'},
-    {kab:'Kota Batam',lat:1.0456,lng:104.0305,pos:'Pos Komunitas Batam',tel:'0812-1111-5588'},
-    {kab:'Kota Bekasi',lat:-6.2383,lng:106.9756,pos:'Pos Komunitas Bekasi',tel:'0812-1111-5599'},
-    {kab:'Kota Bogor',lat:-6.5971,lng:106.806,pos:'Pos Komunitas Kota Bogor',tel:'0812-1111-6600'},
-    {kab:'Kota Depok',lat:-6.4025,lng:106.7942,pos:'Pos Komunitas Depok',tel:'0812-1111-6611'},
-    {kab:'Kota Jakarta Barat',lat:-6.1683,lng:106.758,pos:'Pos Komunitas Jakbar',tel:'0812-1111-6622'},
-    {kab:'Kota Jakarta Pusat',lat:-6.1862,lng:106.8342,pos:'Pos Komunitas Jakpus',tel:'0812-1111-6633'},
-    {kab:'Kota Jakarta Timur',lat:-6.225,lng:106.9003,pos:'Pos Komunitas Jaktim',tel:'0812-1111-6644'},
-    {kab:'Kota Jayapura',lat:-2.5337,lng:140.7181,pos:'Pos Komunitas Jayapura',tel:'0812-1111-6655'},
-    {kab:'Kota Makassar',lat:-5.1477,lng:119.4327,pos:'Pos Komunitas Makassar',tel:'0812-1111-6666'},
-    {kab:'Kota Malang',lat:-7.9819,lng:112.6265,pos:'Pos Komunitas Malang',tel:'0812-1111-6677'},
-    {kab:'Kota Manado',lat:1.4748,lng:124.8421,pos:'Pos Komunitas Manado',tel:'0812-1111-6688'},
-    {kab:'Kota Medan',lat:3.5952,lng:98.6722,pos:'Pos Komunitas Medan',tel:'0812-1111-6699'},
-    {kab:'Kota Samarinda',lat:-0.5022,lng:117.1537,pos:'Pos Komunitas Samarinda',tel:'0812-1111-7700'},
-    {kab:'Kota Semarang',lat:-7.0051,lng:110.4381,pos:'Pos Komunitas Semarang',tel:'0812-1111-7711'},
-    {kab:'Kota Surabaya',lat:-7.2575,lng:112.7521,pos:'Pos Komunitas Surabaya',tel:'0812-1111-7722'},
-    {kab:'Kota Tangerang',lat:-6.1783,lng:106.63,pos:'Pos Komunitas Tangerang',tel:'0812-1111-7733'},
-    {kab:'Kota Yogyakarta',lat:-7.7972,lng:110.3688,pos:'Pos Komunitas Yogyakarta',tel:'0812-1111-7744'}
-  ];
+ const locations = [
+  {kab:'Kab. Badung',lat:-8.7083,lng:115.2167,pos:'Pos Komunitas Badung (Yayasan Gaya Dewata)',tel:'08174747273'},
+  {kab:'Kab. Bogor',lat:-6.595,lng:106.8167,pos:'Pos Komunitas Bogor (Pesona Bumi Pasundan)',tel:'08996921859'},
+  {kab:'Kab. Pati',lat:-6.747,lng:111.0455,pos:'Pos Komunitas Pati (Fatayat NU Jawa Tengah)',tel:'082327250425'},
+  {kab:'Kab. Sidoarjo',lat:-7.4478,lng:112.7181,pos:'Pos Komunitas Sidoarjo (PKBI JAWA TIMUR)',tel:'-'},
+  {kab:'Kota Balikpapan',lat:-1.2654,lng:116.8312,pos:'Pos Komunitas Balikpapan (PPTI BALIKPAPAN)',tel:'081223598444'},
+  {kab:'Kota Bandung',lat:-6.9147,lng:107.6098,pos:'Pos Komunitas Bandung (YAYASAN SRIKANDI PASUNDAN)',tel:'082130002190'},
+  {kab:'Kota Batam',lat:1.0456,lng:104.0305,pos:'Pos Komunitas Batam (YAYASAN KANTI SEHATI)',tel:'-'},
+  {kab:'Kota Bekasi',lat:-6.2383,lng:106.9756,pos:'Pos Komunitas Bekasi (PKBI Jawa Barat – YLKIK)',tel:'085717230200'},
+  {kab:'Kota Bogor',lat:-6.5971,lng:106.806,pos:'Pos Komunitas Kota Bogor (Pesona Bumi Pasundan)',tel:'08996921859'},
+  {kab:'Kota Depok',lat:-6.4025,lng:106.7942,pos:'Pos Komunitas Depok (PKBI Jawa Barat – YLKIK)',tel:'085717230200'},
+  {kab:'Kota Jakarta Barat',lat:-6.1683,lng:106.758,pos:'Pos Komunitas Jakbar (YAYASAN PESONA JAKARTA)',tel:'081291197155'},
+  {kab:'Kota Jakarta Pusat',lat:-6.1862,lng:106.8342,pos:'Pos Komunitas Jakpus (YAYASAN PESONA JAKARTA)',tel:'081291197155'},
+  {kab:'Kota Jakarta Timur',lat:-6.225,lng:106.9003,pos:'Pos Komunitas Jaktim (YAYASAN PESONA JAKARTA)',tel:'081291197155'},
+  {kab:'Kota Jayapura',lat:-2.5337,lng:140.7181,pos:'Pos Komunitas Jayapura (YAYASAN PELANGI MALUKU)',tel:'-'},
+  {kab:'Kota Makassar',lat:-5.1477,lng:119.4327,pos:'Pos Komunitas Makassar (YAYASAN GAYA CELEBES)',tel:'081343544131'},
+  {kab:'Kota Malang',lat:-7.9819,lng:112.6265,pos:'Pos Komunitas Malang (FATAYAT NU JAWA TIMUR)',tel:'081333310911'},
+  {kab:'Kota Manado',lat:1.4748,lng:124.8421,pos:'Pos Komunitas Manado (PKBI SULAWESI UTARA)',tel:'082189776161'},
+  {kab:'Kota Medan',lat:3.5952,lng:98.6722,pos:'Pos Komunitas Medan (YAYASAN GALATEA)',tel:'08126511276'},
+  {kab:'Kota Samarinda',lat:-0.5022,lng:117.1537,pos:'Pos Komunitas Samarinda (PKBI KALIMANTAN TIMUR)',tel:'081346318799'},
+  {kab:'Kota Semarang',lat:-7.0051,lng:110.4381,pos:'Pos Komunitas Semarang (PKBI Kota Semarang)',tel:'085641557491'},
+  {kab:'Kota Surabaya',lat:-7.2575,lng:112.7521,pos:'Pos Komunitas Surabaya (PKBI JAWA TIMUR)',tel:'081357210113'},
+  {kab:'Kota Tangerang',lat:-6.1783,lng:106.63,pos:'Pos Komunitas Tangerang (WAHANA CITA INDONESIA)',tel:'081519608074'},
+  {kab:'Kota Yogyakarta',lat:-7.7972,lng:110.3688,pos:'Pos Komunitas Yogyakarta (YAYASAN VESTA INDONESIA)',tel:'087738698383'}
+];
+
   locations.forEach(l=>{
     L.marker([l.lat,l.lng])
       .addTo(map)
