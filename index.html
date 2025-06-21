@@ -5,10 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Dashboard Capaian Program Pos Layanan Komunitas – HIV/IMS</title>
 
-  <!-- FontAwesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
 
-  <!-- Leaflet CSS -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin=""/>
 
   <style>
@@ -94,12 +92,25 @@
   .button-survey:hover {
     background-color: #0056b3;
   }
+
+  /* Gaya untuk link dashboard di popup peta (bukan tombol) */
+  .dashboard-link {
+    display: block; /* Memastikan link berada di baris baru */
+    margin-top: 8px; /* Jarak dari elemen di atasnya */
+    color: var(--primary); /* Warna teks, bisa disesuaikan */
+    text-decoration: underline; /* Menambahkan garis bawah seperti link biasa */
+    text-align: left; /* Teks rata kiri, bukan tengah */
+    font-weight: bold; /* Tetap bold agar menonjol */
+    transition: color 0.2s ease; /* Transisi warna saat hover */
+  }
+  .dashboard-link:hover {
+    color: var(--primary-dark); /* Warna saat di-hover */
+  }
   
   </style>
 </head>
 <body>
 
-<!-- HEADER -->
 <header>
   <img src="https://res.cloudinary.com/djexglfns/image/upload/v1749135749/logo_kemenkes_c2ggdg.png" alt="Logo Kemenkes" class="logo">
   <div class="title-wrapper">
@@ -113,16 +124,13 @@
   </div>
 </header>
 
-<!-- MAIN -->
 <main>
   <div class="dashboard-grid">
-    <!-- PETA -->
     <section class="card full-card">
       <h2><i class="fas fa-map-marked-alt"></i> Capaian Berdasarkan Lokasi</h2>
       <div id="map"></div>
     </section>
 
-    <!-- RINGKASAN -->
     <section class="card full-card">
       <h2><i class="fas fa-chart-pie"></i> Ringkasan Capaian Utama</h2>
       <iframe class="looker-embed"
@@ -130,8 +138,7 @@
               allowfullscreen></iframe>
     </section>
 
-    <!-- Kartu lainnya -->
-<section class="card">
+    <section class="card">
   <h2><i class="fas fa-exclamation-triangle"></i> Tantangan &amp; Temuan Khusus</h2>
   <iframe class="looker-embed" src="xxx" allowfullscreen></iframe>
 </section>
@@ -152,10 +159,8 @@
   </div>
 </main>
 
-<!-- FOOTER -->
 <footer>Disiapkan oleh PIKAT untuk Kementerian Kesehatan Republik Indonesia © 2025</footer>
 
-<!-- POP-UP LOGIN -->
 <div class="popup-overlay" id="loginPopup">
   <div class="popup-box">
     <button class="close-btn" onclick="document.getElementById('loginPopup').style.display='none'"><i class="fas fa-times"></i></button>
@@ -183,7 +188,6 @@
   </div>
 </div>
 
-<!-- LEAFLET JS -->
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin></script>
 <script>
 /* =========  PETA + POPUP  ========= */
@@ -194,36 +198,42 @@ document.addEventListener('DOMContentLoaded',()=>{
   }).addTo(map);
 
  const locations = [
-  {kab:'Kab. Badung',lat:-8.7083,lng:115.2167,pos:'Pos Komunitas Badung (Yayasan Gaya Dewata)',tel:'08174747273'},
-  {kab:'Kab. Bogor',lat:-6.595,lng:106.8167,pos:'Pos Komunitas Bogor (Pesona Bumi Pasundan)',tel:'08996921859'},
-  {kab:'Kab. Pati',lat:-6.747,lng:111.0455,pos:'Pos Komunitas Pati (Fatayat NU Jawa Tengah)',tel:'082327250425'},
-  {kab:'Kab. Sidoarjo',lat:-7.4478,lng:112.7181,pos:'Pos Komunitas Sidoarjo (PKBI JAWA TIMUR)',tel:'-'},
-  {kab:'Kota Balikpapan',lat:-1.2654,lng:116.8312,pos:'Pos Komunitas Balikpapan (PPTI BALIKPAPAN)',tel:'081223598444'},
-  {kab:'Kota Bandung',lat:-6.9147,lng:107.6098,pos:'Pos Komunitas Bandung (YAYASAN SRIKANDI PASUNDAN)',tel:'082130002190'},
-  {kab:'Kota Batam',lat:1.0456,lng:104.0305,pos:'Pos Komunitas Batam (YAYASAN KANTI SEHATI)',tel:'-'},
-  {kab:'Kota Bekasi',lat:-6.2383,lng:106.9756,pos:'Pos Komunitas Bekasi (PKBI Jawa Barat – YLKIK)',tel:'085717230200'},
-  {kab:'Kota Bogor',lat:-6.5971,lng:106.806,pos:'Pos Komunitas Kota Bogor (Pesona Bumi Pasundan)',tel:'08996921859'},
-  {kab:'Kota Depok',lat:-6.4025,lng:106.7942,pos:'Pos Komunitas Depok (PKBI Jawa Barat – YLKIK)',tel:'085717230200'},
-  {kab:'Kota Jakarta Barat',lat:-6.1683,lng:106.758,pos:'Pos Komunitas Jakbar (YAYASAN PESONA JAKARTA)',tel:'081291197155'},
-  {kab:'Kota Jakarta Pusat',lat:-6.1862,lng:106.8342,pos:'Pos Komunitas Jakpus (YAYASAN PESONA JAKARTA)',tel:'081291197155'},
-  {kab:'Kota Jakarta Timur',lat:-6.225,lng:106.9003,pos:'Pos Komunitas Jaktim (YAYASAN PESONA JAKARTA)',tel:'081291197155'},
-  {kab:'Kota Jayapura',lat:-2.5337,lng:140.7181,pos:'Pos Komunitas Jayapura (YAYASAN PELANGI MALUKU)',tel:'-'},
-  {kab:'Kota Makassar',lat:-5.1477,lng:119.4327,pos:'Pos Komunitas Makassar (YAYASAN GAYA CELEBES)',tel:'081343544131'},
-  {kab:'Kota Malang',lat:-7.9819,lng:112.6265,pos:'Pos Komunitas Malang (FATAYAT NU JAWA TIMUR)',tel:'081333310911'},
-  {kab:'Kota Manado',lat:1.4748,lng:124.8421,pos:'Pos Komunitas Manado (PKBI SULAWESI UTARA)',tel:'082189776161'},
-  {kab:'Kota Medan',lat:3.5952,lng:98.6722,pos:'Pos Komunitas Medan (YAYASAN GALATEA)',tel:'08126511276'},
-  {kab:'Kota Samarinda',lat:-0.5022,lng:117.1537,pos:'Pos Komunitas Samarinda (PKBI KALIMANTAN TIMUR)',tel:'081346318799'},
-  {kab:'Kota Semarang',lat:-7.0051,lng:110.4381,pos:'Pos Komunitas Semarang (PKBI Kota Semarang)',tel:'085641557491'},
-  {kab:'Kota Surabaya',lat:-7.2575,lng:112.7521,pos:'Pos Komunitas Surabaya (PKBI JAWA TIMUR)',tel:'081357210113'},
-  {kab:'Kota Tangerang',lat:-6.1783,lng:106.63,pos:'Pos Komunitas Tangerang (WAHANA CITA INDONESIA)',tel:'081519608074'},
-  {kab:'Kota Yogyakarta',lat:-7.7972,lng:110.3688,pos:'Pos Komunitas Yogyakarta (YAYASAN VESTA INDONESIA)',tel:'087738698383'}
+  {kab:'Kab. Badung',lat:-8.7083,lng:115.2167,pos:'Pos Komunitas Badung (Yayasan Gaya Dewata)',tel:'08174747273', dashboardLink: 'https://lookerstudio.google.com/embed/reporting/db65eb65-5e58-4c8a-a9c6-e0d69f3b7da0/page/djCNF'},
+  {kab:'Kab. Bogor',lat:-6.595,lng:106.8167,pos:'Pos Komunitas Bogor (Pesona Bumi Pasundan)',tel:'08996921859', dashboardLink: 'https://lookerstudio.google.com/embed/reporting/db65eb65-5e58-4c8a-a9c6-e0d69f3b7da0/page/djCNF'},
+  {kab:'Kab. Pati',lat:-6.747,lng:111.0455,pos:'Pos Komunitas Pati (Fatayat NU Jawa Tengah)',tel:'082327250425', dashboardLink: 'https://lookerstudio.google.com/embed/reporting/db65eb65-5e58-4c8a-a9c6-e0d69f3b7da0/page/djCNF'},
+  {kab:'Kab. Sidoarjo',lat:-7.4478,lng:112.7181,pos:'Pos Komunitas Sidoarjo (PKBI JAWA TIMUR)',tel:'-', dashboardLink: 'https://lookerstudio.google.com/embed/reporting/db65eb65-5e58-4c8a-a9c6-e0d69f3b7da0/page/djCNF'},
+  {kab:'Kota Balikpapan',lat:-1.2654,lng:116.8312,pos:'Pos Komunitas Balikpapan (PPTI BALIKPAPAN)',tel:'081223598444', dashboardLink: 'https://lookerstudio.google.com/embed/reporting/db65eb65-5e58-4c8a-a9c6-e0d69f3b7da0/page/djCNF'},
+  {kab:'Kota Bandung',lat:-6.9147,lng:107.6098,pos:'Pos Komunitas Bandung (YAYASAN SRIKANDI PASUNDAN)',tel:'082130002190', dashboardLink: 'https://lookerstudio.google.com/embed/reporting/db65eb65-5e58-4c8a-a9c6-e0d69f3b7da0/page/djCNF'},
+  {kab:'Kota Batam',lat:1.0456,lng:104.0305,pos:'Pos Komunitas Batam (YAYASAN KANTI SEHATI)',tel:'-', dashboardLink: 'https://lookerstudio.google.com/embed/reporting/db65eb65-5e58-4c8a-a9c6-e0d69f3b7da0/page/djCNF'},
+  {kab:'Kota Bekasi',lat:-6.2383,lng:106.9756,pos:'Pos Komunitas Bekasi (PKBI Jawa Barat – YLKIK)',tel:'085717230200', dashboardLink: 'https://lookerstudio.google.com/embed/reporting/db65eb65-5e58-4c8a-a9c6-e0d69f3b7da0/page/djCNF'},
+  {kab:'Kota Bogor',lat:-6.5971,lng:106.806,pos:'Pos Komunitas Kota Bogor (Pesona Bumi Pasundan)',tel:'08996921859', dashboardLink: 'https://lookerstudio.google.com/embed/reporting/db65eb65-5e58-4c8a-a9c6-e0d69f3b7da0/page/djCNF'},
+  {kab:'Kota Depok',lat:-6.4025,lng:106.7942,pos:'Pos Komunitas Depok (PKBI Jawa Barat – YLKIK)',tel:'085717230200', dashboardLink: 'https://lookerstudio.google.com/embed/reporting/db65eb65-5e58-4c8a-a9c6-e0d69f3b7da0/page/djCNF'},
+  {kab:'Kota Jakarta Barat',lat:-6.1683,lng:106.758,pos:'Pos Komunitas Jakbar (YAYASAN PESONA JAKARTA)',tel:'081291197155', dashboardLink: 'https://lookerstudio.google.com/embed/reporting/db65eb65-5e58-4c8a-a9c6-e0d69f3b7da0/page/djCNF'},
+  {kab:'Kota Jakarta Pusat',lat:-6.1862,lng:106.8342,pos:'Pos Komunitas Jakpus (YAYASAN PESONA JAKARTA)',tel:'081291197155', dashboardLink: 'https://lookerstudio.google.com/embed/reporting/db65eb65-5e58-4c8a-a9c6-e0d69f3b7da0/page/djCNF'},
+  {kab:'Kota Jakarta Timur',lat:-6.225,lng:106.9003,pos:'Pos Komunitas Jaktim (YAYASAN PESONA JAKARTA)',tel:'081291197155', dashboardLink: 'https://lookerstudio.google.com/embed/reporting/db65eb65-5e58-4c8a-a9c6-e0d69f3b7da0/page/djCNF'},
+  {kab:'Kota Jayapura',lat:-2.5337,lng:140.7181,pos:'Pos Komunitas Jayapura (YAYASAN PELANGI MALUKU)',tel:'-', dashboardLink: 'https://lookerstudio.google.com/embed/reporting/db65eb65-5e58-4c8a-a9c6-e0d69f3b7da0/page/djCNF'},
+  {kab:'Kota Makassar',lat:-5.1477,lng:119.4327,pos:'Pos Komunitas Makassar (YAYASAN GAYA CELEBES)',tel:'081343544131', dashboardLink: 'https://lookerstudio.google.com/embed/reporting/db65eb65-5e58-4c8a-a9c6-e0d69f3b7da0/page/djCNF'},
+  {kab:'Kota Malang',lat:-7.9819,lng:112.6265,pos:'Pos Komunitas Malang (FATAYAT NU JAWA TIMUR)',tel:'081333310911', dashboardLink: 'https://lookerstudio.google.com/embed/reporting/db65eb65-5e58-4c8a-a9c6-e0d69f3b7da0/page/djCNF'},
+  {kab:'Kota Manado',lat:1.4748,lng:124.8421,pos:'Pos Komunitas Manado (PKBI SULAWESI UTARA)',tel:'082189776161', dashboardLink: 'https://lookerstudio.google.com/embed/reporting/db65eb65-5e58-4c8a-a9c6-e0d69f3b7da0/page/djCNF'},
+  {kab:'Kota Medan',lat:3.5952,lng:98.6722,pos:'Pos Komunitas Medan (YAYASAN GALATEA)',tel:'08126511276', dashboardLink: 'https://lookerstudio.google.com/embed/reporting/db65eb65-5e58-4c8a-a9c6-e0d69f3b7da0/page/djCNF'},
+  {kab:'Kota Samarinda',lat:-0.5022,lng:117.1537,pos:'Pos Komunitas Samarinda (PKBI KALIMANTAN TIMUR)',tel:'081346318799', dashboardLink: 'https://lookerstudio.google.com/embed/reporting/db65eb65-5e58-4c8a-a9c6-e0d69f3b7da0/page/djCNF'},
+  {kab:'Kota Semarang',lat:-7.0051,lng:110.4381,pos:'Pos Komunitas Semarang (PKBI Kota Semarang)',tel:'085641557491', dashboardLink: 'https://lookerstudio.google.com/embed/reporting/db65eb65-5e58-4c8a-a9c6-e0d69f3b7da0/page/djCNF'},
+  {kab:'Kota Surabaya',lat:-7.2575,lng:112.7521,pos:'Pos Komunitas Surabaya (PKBI JAWA TIMUR)',tel:'081357210113', dashboardLink: 'https://lookerstudio.google.com/embed/reporting/db65eb65-5e58-4c8a-a9c6-e0d69f3b7da0/page/djCNF'},
+  {kab:'Kota Tangerang',lat:-6.1783,lng:106.63,pos:'Pos Komunitas Tangerang (WAHANA CITA INDONESIA)',tel:'081519608074', dashboardLink: 'https://lookerstudio.google.com/embed/reporting/db65eb65-5e58-4c8a-a9c6-e0d69f3b7da0/page/djCNF'},
+  {kab:'Kota Yogyakarta',lat:-7.7972,lng:110.3688,pos:'Pos Komunitas Yogyakarta (YAYASAN VESTA INDONESIA)',tel:'087738698383', dashboardLink: 'https://lookerstudio.google.com/embed/reporting/db65eb65-5e58-4c8a-a9c6-e0d69f3b7da0/page/djCNF'}
 ];
 
   locations.forEach(l=>{
+    const popupContent = `
+      <strong>${l.kab}</strong><br>
+      Pos: ${l.pos}<br>
+      Kontak: <a href="tel:${l.tel.replace(/[^0-9]/g,'')}" style="text-decoration:none;color:#00796b">${l.tel}</a>
+      ${l.dashboardLink ? `<a href="${l.dashboardLink}" target="_blank" class="dashboard-link">Lihat Dashboard</a>` : ''}
+    `;
     L.marker([l.lat,l.lng])
       .addTo(map)
       .bindTooltip(l.kab,{direction:'top'})
-      .bindPopup(`<strong>${l.kab}</strong><br>Pos: ${l.pos}<br>Kontak: <a href="tel:${l.tel.replace(/[^0-9]/g,'')}" style="text-decoration:none;color:#00796b">${l.tel}</a>`);
+      .bindPopup(popupContent);
   });
   setTimeout(()=>map.invalidateSize(),400);
 });
