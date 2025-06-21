@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Dashboard Capaian Program Pos Layanan Komunitas – HIV/IMS</title>
+
+  <!-- Font Awesome 6.5 -->
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+        integrity="sha512-Vo3Pp+qFW1dYFsZZRJqj5drRR4AG+7Z/FUHTNCe4jFH0Z3dbm6xYFt02cmmn15B3J5cNEhC/xwyBvyh8WeKDAQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer">
+
+  <style>
+    :root{
+      --primary:#009688;--primary-dark:#00796b;--accent:#004d40;--light:#fff;
+      --bg:#f5f5f5;--footer-dark:#263238;--info-btn:#00bcd4;--info-btn-dark:#0097a7
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+
+    body{
+      font-family:Arial,Helvetica,sans-serif;background:var(--bg);
+      display:flex;flex-direction:column;min-height:100vh
+    }
+
+    /* ---------- HEADER ---------- */
+    header{
+      background:var(--light);color:var(--accent);border-bottom:1px solid #e0e0e0;
+      padding:24px 16px;text-align:center;display:flex;flex-direction:column;
+      gap:18px;align-items:center
+    }
+    .logos{
+      display:flex;gap:20px;align-items:center;justify-content:center;flex-wrap:wrap
+    }
+    .logo-container{
+      width:140px;height:80px;display:flex;align-items:center;justify-content:center;
+      background:#fff;border-radius:8px;box-shadow:0 2px 6px rgba(0,0,0,.1)
+    }
+    .logo-container img{max-height:100%;max-width:100%;object-fit:contain}
+
+    .title-wrapper h1{
+      font-size:1.5rem;margin:4px 0;line-height:1.3
+    }
+    .title-wrapper h2{
+      font-size:1.3rem;font-weight:normal;margin:0;line-height:1.25
+    }
+
+    .running-text{
+      font-size:1rem;color:var(--accent);background:#e0f2f1;padding:10px;width:100%;
+      white-space:nowrap;overflow:hidden;box-shadow:inset 0 0 4px rgba(0,0,0,.1)
+    }
+    .running-text span{
+      display:inline-block;min-width:200%;padding-left:100%;
+      animation:marquee 15s linear infinite
+    }
+    @keyframes marquee{0%{transform:translateX(0)}100%{transform:translateX(-100%)}}
+
+    .button-group{display:flex;gap:12px;flex-wrap:wrap;justify-content:center}
+    .info-btn{
+      padding:10px 26px;border:none;border-radius:6px;cursor:pointer;font:bold 14px Arial;
+      background:var(--info-btn);color:var(--light);transition:background .3s,transform .2s
+    }
+    .info-btn:hover{background:var(--info-btn-dark);transform:scale(1.05)}
+    @media(max-width:600px){.info-btn{width:100%}}
+
+    /* ---------- MAIN ---------- */
+    main{flex:1;width:100%;max-width:1200px;margin:0 auto;padding:20px}
+
+    .embed-card{
+      background:var(--light);border-radius:12px;box-shadow:0 4px 10px rgba(0,0,0,.07);
+      padding:20px;display:flex;flex-direction:column;margin-bottom:24px;
+      transition:transform .3s ease
+    }
+    .embed-card:hover{transform:translateY(-4px)}
+
+    .card-header{
+      display:flex;justify-content:space-between;align-items:center;margin-bottom:12px
+    }
+    .card-header h2{
+      font-size:1.2rem;color:var(--accent);display:flex;align-items:center;gap:8px;margin:0
+    }
+
+    .embed-frame{
+      border:none;border-radius:8px;width:100%;flex:1 1 auto;min-height:500px
+    }
+
+    /* ---------- FOOTER ---------- */
+    footer{
+      background:var(--footer-dark);color:var(--light);text-align:center;
+      padding:14px 8px;font-size:.9rem
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===== HEADER ===== -->
+  <header>
+    <div class="logos">
+      <div class="logo-container">
+        <img src="https://res.cloudinary.com/djexglfns/image/upload/v1749135749/logo_kemenkes_c2ggdg.png" alt="Logo Kementerian Kesehatan">
+      </div>
+      <div class="logo-container">
+        <img src="https://res.cloudinary.com/djexglfns/image/upload/v1749145030/Lambang_Kabupaten_Badung_tjf6gx.png" alt="Logo Kabupaten Badung">
+      </div>
+    </div>
+
+    <div class="title-wrapper">
+      <h1>Dashboard Capaian Kabupaten Badung</h1>
+      <h2>Pos Layanan Komunitas untuk HIV &amp; IMS</h2>
+    </div>
+
+    <div class="running-text">
+      <span>Kesehatan adalah hak semua, dan pelayanan terbaik dimulai dari kedekatan dengan komunitas.</span>
+    </div>
+
+    <div class="button-group">
+      <button id="infoBtn" class="info-btn" title="Buka halaman Media Informasi">Media Informasi</button>
+    </div>
+  </header>
+
+  <!-- ===== MAIN ===== -->
+  <main>
+
+    <!-- Embed: Looker Studio -->
+    <section class="embed-card">
+      <div class="card-header">
+        <h2><i class="fas fa-chart-line"></i> Visualisasi Data Capaian Program</h2>
+      </div>
+      <iframe class="embed-frame" title="Visualisasi Data Capaian"
+        src="https://lookerstudio.google.com/embed/reporting/db65eb65-5e58-4c8a-a9c6-e0d69f3b7da0/page/djCNF"
+        allowfullscreen
+        sandbox="allow-storage-access-by-user-activation allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox">
+      </iframe>
+    </section>
+
+  </main>
+
+  <!-- ===== FOOTER ===== -->
+  <footer>
+    Disiapkan oleh PIKAT untuk Kementerian Kesehatan Republik Indonesia © 2025
+  </footer>
+
+  <script>
+    // Navigasi ke halaman informasi
+    document.getElementById('infoBtn')
+            .addEventListener('click', () => window.location.href = 'media.html');
+  </script>
+
+</body>
+</html>
