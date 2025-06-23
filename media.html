@@ -1,1 +1,155 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Media Informasi Pos Layanan Komunitas – HIV/IMS</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <style>
+    :root {
+      --primary: #009688;
+      --primary-dark: #00796b;
+      --accent: #004d40;
+      --light: #fff;
+      --bg: #f5f5f5;
+      --footer-dark: #263238;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    body {
+      background: var(--bg);
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    header {
+      background: var(--light);
+      color: var(--accent);
+      padding: 24px 16px;
+      text-align: center;
+      border-bottom: 1px solid #e0e0e0;
+    }
+
+    .logo {
+      max-width: 240px;
+      margin-bottom: 10px;
+    }
+
+    h1 {
+      font-size: 1.8rem;
+      margin-bottom: 8px;
+    }
+
+    h2.subtitle {
+      font-size: 1.1rem;
+      color: var(--primary-dark);
+      margin-bottom: 12px;
+    }
+
+    main {
+      flex: 1;
+      max-width: 1000px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    .dashboard-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 24px;
+      margin-top: 20px;
+    }
+
+    .card {
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,.07);
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .card h3 {
+      font-size: 1.2rem;
+      color: var(--accent);
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .card p {
+      font-size: 0.95rem;
+      margin-bottom: 12px;
+    }
+
+    .card a {
+      align-self: flex-start;
+      padding: 10px 16px;
+      background-color: var(--primary);
+      color: #fff;
+      text-decoration: none;
+      font-weight: bold;
+      border-radius: 6px;
+      transition: background-color 0.3s ease;
+    }
+
+    .card a:hover {
+      background-color: var(--primary-dark);
+    }
+
+    footer {
+      background: var(--footer-dark);
+      color: #fff;
+      text-align: center;
+      padding: 14px 8px;
+      font-size: .9rem;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <img src="https://res.cloudinary.com/djexglfns/image/upload/v1749135749/logo_kemenkes_c2ggdg.png" alt="Logo Kemenkes" class="logo">
+  <h1>Media Informasi Pos Layanan Komunitas</h1>
+  <h2 class="subtitle">untuk Pencegahan & Pengendalian HIV dan IMS</h2>
+</header>
+
+<main>
+  <div class="dashboard-grid">
+
+    <section class="card">
+      <h3><i class="fas fa-book"></i> Pedoman Pos Layanan Komunitas</h3>
+      <p>Akses pedoman teknis pelaksanaan Pos Layanan Komunitas untuk mendukung layanan HIV dan IMS yang berkualitas.</p>
+      <a href="pedoman.html" target="_blank"><i class="fas fa-file-alt"></i> Lihat Pedoman</a>
+    </section>
+
+    <section class="card">
+      <h3><i class="fas fa-laptop"></i> Modul e-Learning</h3>
+      <p>Pelajari materi edukasi dan pelatihan terkait layanan komunitas secara daring dan mandiri.</p>
+      <a href="modul.html" target="_blank"><i class="fas fa-play-circle"></i> Mulai Belajar</a>
+    </section>
+
+    <section class="card">
+      <h3><i class="fas fa-bullhorn"></i> Pengumuman</h3>
+      <p>Simak pengumuman terbaru seputar kegiatan, pelatihan, dan pembaruan sistem Pos Layanan Komunitas.</p>
+      <a href="pengumuman.html" target="_blank"><i class="fas fa-bell"></i> Lihat Pengumuman</a>
+    </section>
+
+  </div>
+</main>
+
+<footer>Disiapkan oleh PIKAT untuk Kementerian Kesehatan Republik Indonesia © 2025</footer>
+
+</body>
+</html>
 
