@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>BAB I: Pengantar Pos Layanan Komunitas (PoC) – E-Learning</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <style>
+    :root {
+      --primary: #009688;
+      --primary-dark: #00796b;
+      --accent: #004d40;
+      --light: #fff;
+      --bg: #f5f5f5;
+      --footer-dark: #263238;
+    }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+    body {
+      background: var(--bg);
+      color: #333;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+    header {
+      background: var(--light);
+      padding: 24px;
+      text-align: center;
+      border-bottom: 1px solid #ccc;
+    }
+    header img.logo {
+      max-width: 200px;
+      margin-bottom: 10px;
+    }
+    header h1 {
+      font-size: 1.8rem;
+      color: var(--accent);
+      margin-bottom: 15px;
+    }
+    header ul {
+        list-style-type: none;
+        padding: 0;
+        margin-top: 15px;
+        display: inline-block; /* Untuk memusatkan list */
+        text-align: left;
+    }
+    header ul li {
+        margin-bottom: 8px;
+        font-size: 1rem;
+        color: #555;
+    }
+    header ul li i {
+        margin-right: 8px;
+        color: var(--primary);
+    }
+    main {
+      flex: 1;
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 30px 16px;
+    }
+    section.slide {
+      margin-bottom: 40px;
+      background: white;
+      padding: 24px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    }
+    section.slide h2 {
+      font-size: 1.6rem;
+      border-bottom: 2px solid var(--primary);
+      padding-bottom: 10px;
+      margin-bottom: 25px;
+      text-align: center;
+      color: var(--primary);
+    }
+    section.slide h3 {
+      font-size: 1.2rem;
+      margin-bottom: 12px;
+      color: var(--accent);
+    }
+    section.slide p {
+      font-size: 1rem;
+      margin-bottom: 16px;
+      line-height: 1.6;
+    }
+    ul {
+      list-style-type: none;
+      padding-left: 0;
+    }
+    ul li {
+      margin-bottom: 8px;
+    }
+    .media-box, .interactive-box, .quiz-box {
+      margin-top: 20px;
+      padding: 15px;
+      background: #e0f2f1;
+      border-left: 5px solid var(--primary);
+      border-radius: 12px; /* Lebih bulat dari sebelumnya */
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      margin-bottom: 25px;
+    }
+    .media-box h4, .interactive-box h4, .quiz-box h4 {
+      background-color: var(--primary); /* Warna latar belakang untuk judul box */
+      color: var(--light);
+      padding: 10px 15px;
+      border-radius: 8px 8px 0 0; /* Sudut membulat di atas */
+      margin: -15px -15px 15px -15px; /* Menutupi padding box */
+      display: flex;
+      align-items: center;
+      font-size: 1.1rem;
+    }
+    .media-box h4 i, .interactive-box h4 i, .quiz-box h4 i {
+      margin-right: 10px;
+      color: var(--light); /* Warna ikon di dalam judul box */
+      font-size: 1.3em;
+    }
+    .pop-up-info {
+        background-color: #f0f8ff;
+        border-left: 4px solid var(--primary);
+        padding: 12px;
+        margin-top: 15px;
+        border-radius: 8px;
+        font-size: 0.95em;
+        display: none; /* Hidden by default, will be shown via JS/Storyline triggers */
+        box-shadow: 0 2px 5px rgba(0,0,0,0.08);
+    }
+    .target-icon {
+        cursor: pointer;
+        color: var(--primary-dark); /* Default color for clickable icons */
+        font-size: 1.2em;
+        margin-right: 5px;
+    }
+    .quiz-question {
+        background-color: #fff;
+        border: 1px solid #ddd;
+        padding: 15px;
+        border-radius: 8px;
+        margin-bottom: 15px;
+    }
+    .quiz-question p {
+        font-weight: bold;
+        margin-bottom: 10px;
+    }
+    .quiz-options label {
+        display: flex; /* Untuk ikon dan teks sejajar */
+        align-items: center;
+        margin-bottom: 10px;
+        padding: 8px 12px;
+        border: 1px solid #eee;
+        border-radius: 6px;
+        transition: background-color 0.3s ease;
+        cursor: pointer;
+    }
+    .quiz-options label:hover {
+        background-color: #f0f0f0;
+    }
+    .quiz-options input[type="radio"], .quiz-options input[type="checkbox"] {
+        margin-right: 10px;
+        transform: scale(1.2); /* Memperbesar checkbox/radio */
+    }
+    .quiz-feedback {
+        margin-top: 10px;
+        padding: 10px;
+        border-radius: 8px;
+        font-weight: bold;
+        text-align: center;
+        display: none; /* Hidden by default */
+    }
+    .quiz-feedback.correct {
+        background-color: #e6ffe6; /* Light green */
+        color: #006400; /* Dark green */
+    }
+    .quiz-feedback.incorrect {
+        background-color: #ffe6e6; /* Light red */
+        color: #8B0000; /* Dark red */
+    }
+    .button-check {
+        background-color: var(--primary-dark);
+        color: var(--light);
+        border: none;
+        padding: 10px 20px;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 1em;
+        margin-top: 10px;
+        transition: background-color 0.3s ease;
+    }
+    .button-check:hover {
+        background-color: var(--accent);
+    }
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
+    table th, table td {
+        padding: 12px;
+        border: 1px solid #ddd;
+        text-align: left;
+    }
+    table th {
+        background-color: var(--primary);
+        color: var(--light);
+    }
+    table tr:nth-child(even) {
+        background-color: #f9f9f9;
+    }
+    table tr:hover {
+        background-color: #f0f0f0;
+    }
+    footer {
+      background: var(--footer-dark);
+      color: #fff;
+      text-align: center;
+      padding: 16px;
+      font-size: .9rem;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <img src="https://res.cloudinary.com/djexglfns/image/upload/v1749135749/logo_kemenkes_c2ggdg.png" alt="Logo Kemenkes" class="logo">
+    <h1>E-Learning Pos Layanan Komunitas – BAB I: Pengantar PoC</h1>
+    <p>Selamat datang! Setelah menyelesaikan bab ini, Anda diharapkan dapat:</p>
+    <ul>
+      <li><i class="fas fa-check-circle"></i> Menjelaskan latar belakang urgensi Pos Layanan Komunitas (PoC) dalam penanggulangan HIV dan IMS di Indonesia.</li>
+      <li><i class="fas fa-check-circle"></i> Mengidentifikasi tujuan utama dan pentingnya keberadaan PoC sebagai solusi inovatif.</li>
+      <li><i class="fas fa-check-circle"></i> Membandingkan karakteristik PoC dengan model layanan berbasis komunitas lainnya.</li>
+    </ul>
+  </header>
+
+  <main>
+    <section class="slide">
+      <h2>1.1 Mengapa PoC Penting? Tantangan dalam Penanggulangan HIV di Indonesia</h2>
+      <p><strong>Narasi Pembuka:</strong> Indonesia, dengan keberagaman dan semangat gotong royongnya, menghadapi tantangan besar dalam upaya penanggulangan HIV dan IMS. Di balik setiap angka, ada kisah manusia, ada harapan untuk hidup sehat dan bebas stigma.</p>
+
+      <div class="media-box">
+        <h4><i class="fas fa-chart-line"></i> Kilas Balik & Data Visual: Kasus HIV sejak 1987</h4>
+        <p><strong>Narasi:</strong> Sejak kasus pertama HIV/AIDS ditemukan di Indonesia pada tahun 1987, kita telah melihat perjalanan panjang. Data menunjukkan bahwa infeksi HIV masih terus menjadi perhatian serius. Ini bukan hanya statistik, ini adalah realitas yang membutuhkan perhatian dan tindakan kita bersama.</p>
+        <p><em>[**IDE ARTICULATE STORYLINE:** Tempatkan **grafik interaktif** atau **animasi tren peningkatan kasus HIV/AIDS** dari tahun 1987 hingga data terbaru di sini. Pengguna dapat mengklik titik data untuk menampilkan **"fun facts" atau "info singkat"** tentang upaya penanggulangan di tahun tersebut melalui **layers/pop-up**.]</em></p>
+      </div>
+
+      <div class="media-box">
+        <h4><i class="fas fa-bullseye"></i> Visi & Misi Nasional: Target Indonesia Bebas AIDS 2030</h4>
+        <p><strong>Narasi:</strong> Untuk mencapai visi 2030, kita punya peta jalan global yang dikenal sebagai strategi 95-95-95. Ini adalah target ambisius tapi sangat penting:</p>
+        <p><em>[**IDE ARTICULATE STORYLINE:** Tampilkan **Infografis menarik** yang menampilkan 3 target ini. Setiap ikon di bawah ini dapat menjadi **hotspot/klik-reveal** yang memunculkan pop-up penjelasan.]</em></p>
+        <ul>
+          <li><strong onclick="togglePopup('newCase')" style="cursor: pointer;"><i class="fas fa-times-circle target-icon"></i> NOL Kasus Infeksi Baru</strong>
+            <div id="newCase" class="pop-up-info">Ini berarti kita ingin menghentikan penularan HIV baru sepenuhnya, memastikan tidak ada lagi orang yang terinfeksi.</div>
+          </li>
+          <li><strong onclick="togglePopup('noDeath')" style="cursor: pointer;"><i class="fas fa-heartbeat target-icon"></i> NOL Kematian Terkait AIDS</strong>
+            <div id="noDeath" class="pop-up-info">Tujuannya adalah memastikan setiap ODHIV mendapatkan akses pengobatan ARV yang memadai agar bisa hidup sehat dan produktif, tanpa komplikasi serius.</div>
+          </li>
+          <li><strong onclick="togglePopup('noStigma')" style="cursor: pointer;"><i class="fas fa-handshake target-icon"></i> NOL Stigma & Diskriminasi</strong>
+            <div id="noStigma" class="pop-up-info">Ini tentang membangun masyarakat yang menerima dan mendukung ODHIV, menghilangkan prasangka buruk dan perlakuan tidak adil yang seringkali lebih menyakitkan daripada penyakitnya sendiri.</div>
+          </li>
+        </ul>
+
+        <h4 style="margin-top: 25px;"><i class="fas fa-chart-pie"></i> Strategi 95-95-95</h4>
+        <p><em>[**IDE ARTICULATE STORYLINE:** Tampilkan **tiga lingkaran dengan angka "95%"** di dalamnya. Setiap lingkaran bisa menjadi **clickable hotspot**.]</em></p>
+        <ul>
+          <li><strong onclick="togglePopup('first95')" style="cursor: pointer;"><i class="fas fa-vial target-icon"></i> 95% pertama:</strong> "95% Orang dengan HIV (ODHIV) mengetahui status HIV mereka."
+            <div id="first95" class="pop-up-info">Meningkatkan kesadaran dan akses pada tes HIV adalah kunci.</div>
+          </li>
+          <li><strong onclick="togglePopup('second95')" style="cursor: pointer;"><i class="fas fa-pills target-icon"></i> 95% kedua:</strong> "95% ODHIV yang mengetahui statusnya mendapatkan pengobatan Antiretroviral (ARV)."
+            <div id="second95" class="pop-up-info">Memastikan setiap ODHIV memiliki akses terhadap terapi yang menyelamatkan jiwa.</div>
+          </li>
+          <li><strong onclick="togglePopup('third95')" style="cursor: pointer;"><i class="fas fa-chart-area target-icon"></i> 95% ketiga:</strong> "95% ODHIV yang menerima pengobatan ARV mencapai supresi virus (jumlah virus tidak terdeteksi)."
+            <div id="third95" class="pop-up-info">Supresi virus tidak hanya membuat ODHIV sehat, tapi juga mencegah penularan lebih lanjut.</div>
+          </li>
+        </ul>
+        <script>
+            function togglePopup(id) {
+                var popup = document.getElementById(id);
+                if (popup.style.display === "block") {
+                    popup.style.display = "none";
+                } else {
+                    // Close all other popups before opening a new one
+                    document.querySelectorAll('.pop-up-info').forEach(p => p.style.display = 'none');
+                    popup.style.display = "block";
+                }
+            }
+        </script>
+      </div>
+
+      <div class="interactive-box">
+        <h4><i class="fas fa-exclamation-triangle"></i> Skenario Masalah: Mengapa Target Sulit Dicapai?</h4>
+        <p><strong>Narasi:</strong> Sayangnya, target ambisius ini tak mudah dicapai. Ada rintangan yang seringkali tak terlihat, namun dampaknya sangat nyata bagi mereka yang hidup dengan HIV atau berisiko tinggi.</p>
+        <p><em>[**IDE ARTICULATE STORYLINE:** Tempatkan **ilustrasi atau skenario video animasi singkat** untuk setiap poin di bawah ini. Misalnya, animasi seseorang yang ragu masuk klinik karena pandangan orang lain.]</em></p>
+        <ul>
+          <li><i class="fas fa-user-slash" style="color: var(--accent);"></i> <strong>Skenario A (Stigma):</strong> Seorang individu ingin tes HIV tetapi ragu karena takut dihakimi di fasilitas kesehatan terdekat. Orang-orang berbisik saat ia mendekati klinik.</li>
+          <li><i class="fas fa-walking" style="color: var(--accent);"></i> <strong>Skenario B (Akses Sulit):</strong> Seorang ODHIV harus menempuh perjalanan jauh dan menghabiskan banyak biaya hanya untuk mengambil ARV bulanan karena fasyankes terdekat tidak menyediakan layanan PDP.</li>
+          <li><i class="fas fa-chart-line-down" style="color: var(--accent);"></i> <strong>Skenario C (LTFU - Loss to Follow-Up):</strong> Sebuah grafik menunjukkan penurunan jumlah pasien yang rutin minum ARV setelah beberapa bulan, dengan narasi "Banyak yang memulai, tapi tak banyak yang bertahan."</li>
+        </ul>
+        <div class="quiz-box">
+            <h4><i class="fas fa-lightbulb"></i> Pertanyaan Refleksi Interaktif</h4>
+            <div class="quiz-question">
+                <p>Dari skenario tadi, apa tantangan terbesar yang Anda lihat dalam penjangkauan dan retensi ODHIV di komunitas Anda?</p>
+                <div class="quiz-options">
+                    <label><input type="radio" name="challenge" value="stigma"> Stigma dan diskriminasi</label>
+                    <label><input type="radio" name="challenge" value="access"> Akses layanan yang sulit/mahal</label>
+                    <label><input type="radio" name="challenge" value="ltfu"> Tingginya angka putus pengobatan (LTFU)</label>
+                    <label><input type="radio" name="challenge" value="all"> Semua jawaban di atas</label>
+                </div>
+                <button class="button-check" onclick="checkReflectionQuiz()">Kirim Jawaban</button>
+                <div id="reflection-feedback" class="quiz-feedback"></div>
+            </div>
+            <script>
+                function checkReflectionQuiz() {
+                    const selected = document.querySelector('input[name="challenge"]:checked');
+                    const feedbackDiv = document.getElementById('reflection-feedback');
+                    if (selected) {
+                        if (selected.value === 'all') {
+                            feedbackDiv.textContent = "Tepat sekali! Stigma, akses sulit, dan LTFU adalah tantangan besar yang saling terkait dan perlu diatasi secara komprehensif.";
+                            feedbackDiv.className = "quiz-feedback correct";
+                        } else {
+                            feedbackDiv.textContent = "Itu salah satu tantangan penting, namun ada faktor lain yang juga berkontribusi. Pertimbangkan semua aspek yang mungkin mempengaruhi penjangkauan dan retensi ODHIV.";
+                            feedbackDiv.className = "quiz-feedback incorrect";
+                        }
+                        feedbackDiv.style.display = "block";
+                    } else {
+                        feedbackDiv.textContent = "Silakan pilih salah satu jawaban untuk melanjutkan.";
+                        feedbackDiv.className = "quiz-feedback incorrect";
+                        feedbackDiv.style.display = "block";
+                    }
+                }
+            </script>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide">
+      <h2>1.2 Solusi Inovatif: Merangkul Kolaborasi dan Fleksibilitas</h2>
+      <p><strong>Narasi:</strong> Untuk mengatasi tantangan ini, Indonesia tidak tinggal diam. Kita mengadopsi pendekatan inovatif yang mengedepankan kolaborasi dan fleksibilitas layanan. Mari kenali dua konsep utamanya: **Public-Private-Community Partnership (PPCP)** dan **Differentiated Service Delivery (DSD)**.</p>
+
+      <div class="media-box">
+        <h4><i class="fas fa-people-arrows"></i> Memahami PPCP: Kekuatan Kolaborasi</h4>
+        <p><strong>Narasi:</strong> PPCP adalah strategi kerja sama lintas sektor. Bayangkan seperti tiga kekuatan besar yang bersatu padu untuk satu tujuan: melawan HIV dan IMS. Ini menciptakan sinergi yang luar biasa!</p>
+        <p><em>[**IDE ARTICULATE STORYLINE:** Tampilkan **Infografis "payung" besar** dengan tiga pilar visual: Pemerintah, Swasta, dan Komunitas. Masing-masing pilar bisa menjadi **clickable area** yang memunculkan contoh nyata kolaborasi.]</em></p>
+        <ul>
+          <li><i class="fas fa-building" style="color: var(--accent);"></i> <strong>Pemerintah:</strong> Menyediakan regulasi, kebijakan, dan dukungan sumber daya.</li>
+          <li><i class="fas fa-handshake-alt" style="color: var(--accent);"></i> <strong>Swasta:</strong> Berperan dalam inovasi, pendanaan, dan perluasan layanan.</li>
+          <li><i class="fas fa-users" style="color: var(--accent);"></i> <strong>Komunitas:</strong> Jantung dari PPCP, sebagai penjangkau, pendamping, dan penyedia layanan yang memahami kebutuhan akar rumput.</li>
+        </ul>
+      </div>
+
+      <div class="interactive-box">
+        <h4><i class="fas fa-cogs"></i> Memahami DSD: Layanan yang Memahami Anda</h4>
+        <p><strong>Narasi:</strong> Differentiated Service Delivery (DSD) berarti menyediakan layanan kesehatan HIV yang disesuaikan dengan kebutuhan individu. Bukan satu ukuran untuk semua, melainkan layanan yang **'pas' untuk setiap orang**, mempertimbangkan konteks dan preferensi.</p>
+        <p><em>[**IDE ARTICULATE STORYLINE:** Tampilkan **ilustrasi individu yang berbeda-beda** dengan kebutuhan layanan yang unik, lalu ikon roda gigi yang bisa diatur/disesuaikan, menunjukkan fleksibilitas DSD.]</em></p>
+
+        <h4 style="margin-top: 25px;"><i class="fas fa-arrows-alt"></i> Aktivitas Drag-and-Drop: Contoh Implementasi DSD</h4>
+        <p><strong>Instruksi:</strong> Seret dan lepaskan contoh implementasi DSD ke kategori keunggulan utamanya. Ini akan membantu Anda memahami bagaimana DSD memberikan dampak nyata!</p>
+        <div style="border: 2px dashed var(--primary); padding: 30px; text-align: center; background-color: #f7fcfa; border-radius: 10px;">
+          <em>[**IDE ARTICULATE STORYLINE:** Tempatkan **aktivitas Drag-and-Drop** di sini. Buat kartu-kartu yang bisa diseret (misalnya, "Penambahan fasyankes PDP", "Jam operasional di luar jam kerja", "Klub kepatuhan", "Pengantaran ARV") dan kotak target (misalnya, "Memperluas Akses", "Meningkatkan Kepatuhan", "Mengurangi Beban Fasyankes"). Berikan umpan balik langsung setelah pencocokan.]</em>
+        </div>
+
+        <p style="margin-top: 25px;"><strong>Narasi Video:</strong> DSD bukan hanya konsep di atas kertas, tapi wujud nyata pelayanan yang memudahkan hidup ODHIV dan orang berisiko. Melalui DSD, kita memastikan tidak ada yang tertinggal dalam mengakses layanan penting.</p>
+        <p><em>[**IDE ARTICULATE STORYLINE:** Sematkan **video animasi singkat (1-2 menit)** yang menunjukkan implementasi DSD dalam skenario kehidupan nyata: ODHIV memilih jadwal pengambilan ARV yang fleksibel, relawan mengantarkan ARV, ODHIV bertemu di "klub kepatuhan", dll.]</em></p>
+      </div>
+    </section>
+
+    <section class="slide">
+      <h2>1.3 Mengenal Lebih Dekat: Pos Layanan Komunitas (PoC)</h2>
+
+      <div class="media-box">
+        <h4><i class="fas fa-hand-holding-medical"></i> PoC: Perpanjangan Tangan Komunitas</h4>
+        <p><strong>Narasi:</strong> Dari konsep PPCP dan DSD, lahirlah **Pos Layanan Komunitas (Point of Care - PoC)**. Bayangkan PoC sebagai **'jembatan' yang dinamis** yang menghubungkan layanan kesehatan formal dengan denyut nadi komunitas. Ini adalah perpanjangan tangan layanan Perawatan, Dukungan, dan Pengobatan (PDP) yang fleksibel dan adaptif.</p>
+        <p><em>[**IDE ARTICULATE STORYLINE:** Tampilkan **animasi visual** yang menunjukkan "tangan" dari fasilitas kesehatan formal menjangkau ke "tangan" komunitas, dan di tengahnya ada ikon PoC yang fleksibel dan adaptif.]</em></p>
+        <p><strong>Poin Penting PoC:</strong></p>
+        <ul>
+          <li><i class="fas fa-check-circle" style="color: var(--primary);"></i> Bukan klinik permanen, tapi wadah fleksibel dan bergerak.</li>
+          <li><i class="fas fa-check-circle" style="color: var(--primary);"></i> Berlokasi di tengah komunitas, dekat dengan kelompok sasaran.</li>
+          <li><i class="fas fa-check-circle" style="color: var(--primary);"></i> Fokus pada kelompok kunci dan rentan, memastikan akses yang merata.</li>
+        </ul>
+      </div>
+
+      <div class="interactive-box">
+        <h4><i class="fas fa-balance-scale"></i> PoC vs. CBC: Mana Bedanya?</h4>
+        <p><strong>Narasi:</strong> Meskipun keduanya berbasis komunitas, PoC dan Community-based Clinic (CBC) memiliki karakteristik dan peran yang berbeda. Memahami perbedaannya sangat penting untuk mengoptimalkan peran masing-masing dalam strategi penanggulangan HIV.</p>
+        <p><em>[**IDE ARTICULATE STORYLINE:** Gunakan **tabel interaktif, slider, atau tabbed interaction** yang membandingkan PoC dan CBC. Setiap baris bisa muncul secara animasi atau diklik untuk detail.]</em></p>
+        <table>
+          <thead>
+            <tr>
+              <th>Fitur</th>
+              <th>Pos Layanan Komunitas (PoC)</th>
+              <th>Community-based Clinic (CBC)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Legalitas & Izin</strong></td>
+              <td>Perpanjangan tangan Fasyankes pengampu, tidak perlu izin klinik mandiri.</td>
+              <td>Memerlukan izin operasional sebagai klinik tetap (sesuai Permenkes No. 9 Tahun 2014).</td>
+            </tr>
+            <tr>
+              <td><strong>Tenaga Medis</strong></td>
+              <td>Fleksibel, dibantu komunitas & nakes pengampu (visitasi/telemedicine).</td>
+              <td>Wajib memiliki tenaga medis berlisensi tetap di lokasi.</td>
+            </tr>
+            <tr>
+              <td><strong>Fleksibilitas Lokasi</strong></td>
+              <td>Sangat fleksibel: klinik keliling, tenda layanan, pusat komunitas, area publik (pasar, stasiun).</td>
+              <td>Lokasi tetap di bangunan fisik yang spesifik.</td>
+            </tr>
+            <tr>
+              <td><strong>Tujuan Utama</strong></td>
+              <td>Memperluas jangkauan dan akses ke komunitas akar rumput, mengurangi hambatan.</td>
+              <td>Menyediakan layanan klinis yang komprehensif secara rutin di lokasi tetap.</td>
+            </tr>
+            <tr>
+              <td><strong>Jenis Layanan</strong></td>
+              <td>FOKUS pada skrining, rujukan, dukungan, dan beberapa layanan lanjutan dengan pendampingan nakes.</td>
+              <td>Menyediakan layanan PDP lengkap termasuk diagnosis, pengobatan, hingga konseling mendalam.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="media-box">
+        <h4><i class="fas fa-hand-holding-heart"></i> Manfaat Nyata PoC: Mengubah Hidup</h4>
+        <p><strong>Narasi:</strong> Lalu, apa manfaat konkret keberadaan PoC bagi upaya penanggulangan HIV dan IMS? Dampaknya sangat signifikan dan mengubah hidup!</p>
+        <p><em>[**IDE ARTICULATE STORYLINE:** Tampilkan **infografis atau bullet points yang muncul satu per satu** dengan ikon dan animasi menarik.]</em></p>
+        <ul>
+          <li><i class="fas fa-road" style="color: var(--primary);"></i> <strong>Akses Mudah, Ramah Komunitas:</strong> "PoC mendekatkan layanan ke masyarakat, bahkan di pelosok atau tempat yang sulit dijangkau, dengan suasana yang akrab dan non-diskriminatif."</li>
+          <li><i class="fas fa-shield-alt" style="color: var(--primary);"></i> <strong>Mengurangi Stigma dan Diskriminasi:</strong> "Dengan berada di komunitas dan dioperasikan oleh mereka yang memahami, PoC menciptakan ruang aman yang bebas dari penilaian dan prasangka buruk."</li>
+          <li><i class="fas fa-search-plus" style="color: var(--primary);"></i> <strong>Meningkatkan Deteksi Dini dan Kepatuhan Pengobatan:</strong> "Semakin mudah akses, semakin banyak yang mau tes. Semakin nyaman berinteraksi, semakin tinggi kepatuhan pada pengobatan ARV."</li>
+          <li><i class="fas fa-lightbulb" style="color: var(--primary);"></i> <strong>Pemberdayaan Komunitas:</strong> "PoC memberi peran aktif pada komunitas, menjadikan mereka bagian dari solusi, bukan sekadar penerima layanan, membangun kemandirian."</li>
+          <li><i class="fas fa-cog" style="color: var(--primary);"></i> <strong>Peluang Layanan Holistik dan Terintegrasi:</strong> "Tidak hanya HIV, PoC juga bisa menjadi pintu masuk untuk skrining IMS, TBC, hingga dukungan kesehatan mental, secara terpadu."</li>
+          <li><i class="fas fa-undo-alt" style="color: var(--primary);"></i> <strong>Mengurangi Angka ODHIV yang Hilang (LTFU):</strong> "Pendampingan komunitas dan akses yang mudah membantu ODHIV tetap di jalur pengobatan, mengurangi angka Loss to Follow-Up yang sering menjadi masalah."</li>
+        </ul>
+        <p style="margin-top: 25px;"><em>[**IDE ARTICULATE STORYLINE:** Jika memungkinkan, sertakan **video testimoni singkat (30-60 detik)** dari seorang anggota komunitas yang merasakan manfaat PoC atau seorang petugas kesehatan yang melihat dampak positifnya. Ini akan sangat memperkuat pesan.]</em></p>
+      </div>
+    </section>
+
+    <section class="slide">
+      <h2>1.4 Uji Pemahaman</h2>
+      <div class="quiz-box">
+        <h4><i class="fas fa-question-circle"></i> Kuis Singkat: Apakah Anda Sudah Paham PoC?</h4>
+        <p>Yuk, uji pemahaman Anda setelah mempelajari materi Bab I!</p>
+        <div class="quiz-question">
+            <p>1. Manakah dari pernyataan berikut yang paling tepat menggambarkan PoC?</p>
+            <div class="quiz-options">
+                <label><input type="radio" name="q1" value="a"> Klinik permanen dengan izin mandiri yang melayani PDP lengkap.</label>
+                <label><input type="radio" name="q1" value="b"> Perpanjangan tangan fasyankes pengampu, tidak memerlukan izin klinik mandiri dan fokus pada skrining serta rujukan.</label>
+                <label><input type="radio" name="q1" value="c"> Hanya untuk orang tanpa HIV yang memerlukan skrining IMS.</label>
+                <label><input type="radio" name="q1" value="d"> Organisasi komunitas yang hanya memberikan dukungan psikososial tanpa layanan medis.</label>
+            </div>
+            <button class="button-check" onclick="checkQuiz(1)">Periksa Jawaban</button>
+            <div id="feedback1" class="quiz-feedback"></div>
+        </div>
+
+        <div class="quiz-question">
+            <p>2. Benar atau Salah: Salah satu manfaat utama keberadaan PoC di komunitas adalah untuk meningkatkan stigma terkait HIV.</p>
+            <div class="quiz-options">
+                <label><input type="radio" name="q2" value="true"> Benar</label>
+                <label><input type="radio" name="q2" value="false"> Salah</label>
+            </div>
+            <button class="button-check" onclick="checkQuiz(2)">Periksa Jawaban</button>
+            <div id="feedback2" class="quiz-feedback"></div>
+        </div>
+
+        <div class="quiz-question">
+            <p>3. Pilih semua yang benar: PoC berperan penting dalam (pilih lebih dari satu jawaban):</p>
+            <div class="quiz-options">
+                <label><input type="checkbox" name="q3" value="a"> Meningkatkan deteksi dini HIV di populasi kunci.</label>
+                <label><input type="checkbox" name="q3" value="b"> Memerlukan pembangunan gedung permanen baru.</label>
+                <label><input type="checkbox" name="q3" value="c"> Pemberdayaan komunitas dan relawan dalam penanggulangan HIV.</label>
+                <label><input type="checkbox" name="q3" value="d"> Mengurangi angka putus pengobatan (Loss to Follow-Up) bagi ODHIV.</label>
+            </div>
+            <button class="button-check" onclick="checkQuiz(3)">Periksa Jawaban</button>
+            <div id="feedback3" class="quiz-feedback"></div>
+        </div>
+
+        <script>
+            function checkQuiz(questionNumber) {
+                let feedbackDiv;
+                let isCorrect = false;
+
+                if (questionNumber === 1) {
+                    const selected = document.querySelector('input[name="q1"]:checked');
+                    feedbackDiv = document.getElementById('feedback1');
+                    if (selected && selected.value === 'b') {
+                        isCorrect = true;
+                    }
+                } else if (questionNumber === 2) {
+                    const selected = document.querySelector('input[name="q2"]:checked');
+                    feedbackDiv = document.getElementById('feedback2');
+                    if (selected && selected.value === 'false') { // Manfaat utama PoC adalah MENGURANGI stigma
+                        isCorrect = true;
+                    }
+                } else if (questionNumber === 3) {
+                    const selectedOptions = document.querySelectorAll('input[name="q3"]:checked');
+                    feedbackDiv = document.getElementById('feedback3');
+                    const correctAnswers = ['a', 'c', 'd'];
+                    const selectedValues = Array.from(selectedOptions).map(input => input.value);
+
+                    isCorrect = correctAnswers.every(val => selectedValues.includes(val)) && selectedValues.length === correctAnswers.length;
+                }
+
+                if (isCorrect) {
+                    feedbackDiv.textContent = "Tepat sekali! Anda memahami poin kuncinya. Lanjutkan ke materi selanjutnya!";
+                    feedbackDiv.className = "quiz-feedback correct";
+                } else {
+                    feedbackDiv.textContent = "Belum tepat. Coba tinjau kembali materi tentang definisi, perbedaan, dan manfaat PoC.";
+                    feedbackDiv.className = "quiz-feedback incorrect";
+                }
+                feedbackDiv.style.display = "block";
+            }
+        </script>
+      </div>
+    </section>
+
+    <section class="slide" style="text-align: center;">
+      <h2>Selamat! Anda Telah Menyelesaikan Bab I</h2>
+      <p style="font-size: 1.1em; line-height: 1.8;"><strong>Narasi Penutup:</strong> Selamat! Anda telah menyelesaikan Bab I. Anda kini memahami betapa vitalnya peran Pos Layanan Komunitas sebagai pilar baru dalam upaya kita mencapai **Indonesia Bebas AIDS 2030**. Pemahaman ini adalah langkah awal yang sangat penting!</p>
+      <p style="font-size: 1.1em; line-height: 1.8;">Mari lanjutkan perjalanan kita ke Bab berikutnya untuk menggali lebih dalam bagaimana PoC diimplementasikan secara praktis, peran Anda di dalamnya, dan dampak positif yang bisa kita ciptakan bersama!</p>
+      <div style="margin-top: 30px;">
+        <i class="fas fa-hand-holding-heart fa-5x" style="color: var(--primary);"></i>
+        <i class="fas fa-arrow-right fa-3x" style="color: var(--accent); margin: 0 20px;"></i>
+        <i class="fas fa-book-reader fa-5x" style="color: var(--primary-dark);"></i>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    Disiapkan oleh PIKAT untuk Kementerian Kesehatan Republik Indonesia © 2025
+  </footer>
+</body>
+</html>
