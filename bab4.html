@@ -156,6 +156,13 @@
             cursor: pointer;
             transition: background-color 0.3s ease;
             font-weight: bold; /* Make flowchart items bold by default */
+            display: flex; /* Mengatur display flex */
+            align-items: center; /* Menyelaraskan item secara vertikal */
+            gap: 10px; /* Jarak antara ikon dan teks */
+        }
+        .flowchart-item i {
+            font-size: 1.2em; /* Ukuran ikon di flowchart */
+            color: var(--primary-dark);
         }
         .flowchart-item:hover {
             background-color: #e0f0f0;
@@ -242,6 +249,10 @@
         }
         table td.clickable-instrument:hover {
             text-decoration: underline;
+        }
+        table td.clickable-instrument i {
+            margin-right: 8px; /* Jarak antara ikon dan teks instrumen */
+            color: var(--primary-dark);
         }
         .quiz-question {
             background-color: #fff;
@@ -390,23 +401,23 @@
                 <p>Mari kita lihat gambaran besar proses pencatatan, pelaporan, pemantauan, dan evaluasi di PoC. Ini adalah kolaborasi tim!</p>
                 <div class="flowchart-container">
                     <div class="flowchart-item" onclick="showFlowchartDetail('step1')">
-                        <strong>Klien datang & mengisi buku register</strong>
+                        <i class="fas fa-user-plus"></i><strong>Klien datang & mengisi buku register</strong>
                     </div>
                     <i class="fas fa-arrow-down arrow"></i>
                     <div class="flowchart-item" onclick="showFlowchartDetail('step2')">
-                        <strong>Petugas PoC memvalidasi data awal & mencatat layanan</strong>
+                        <i class="fas fa-clipboard-check"></i><strong>Petugas PoC memvalidasi data awal & mencatat layanan</strong>
                     </div>
                     <i class="fas fa-arrow-down arrow"></i>
                     <div class="flowchart-item" onclick="showFlowchartDetail('step3')">
-                        <strong>Pelaporan Bulanan PoC ke Fasyankes Pengampu</strong>
+                        <i class="fas fa-file-export"></i><strong>Pelaporan Bulanan PoC ke Fasyankes Pengampu</strong>
                     </div>
                     <i class="fas fa-arrow-down arrow"></i>
                     <div class="flowchart-item" onclick="showFlowchartDetail('step4')">
-                        <strong>Validasi Data Bulanan (PoC & Fasyankes Pengampu)</strong>
+                        <i class="fas fa-clipboard-list"></i><strong>Validasi Data Bulanan (PoC & Fasyankes Pengampu)</strong>
                     </div>
                     <i class="fas fa-arrow-down arrow"></i>
                     <div class="flowchart-item" onclick="showFlowchartDetail('step5')">
-                        <strong>Nakes Fasyankes Pengampu menginput data ke SIHA/PrEP Nasional</strong>
+                        <i class="fas fa-cloud-upload-alt"></i><strong>Nakes Fasyankes Pengampu menginput data ke SIHA/PrEP Nasional</strong>
                     </div>
                 </div>
                 <div id="flowchart-details" class="pop-up-content">
@@ -656,19 +667,19 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td class="clickable-instrument" onclick="showInstrumentDetail('regKunjungan')">Daftar Hadir Pos Layanan Komunitas</td>
+                            <td class="clickable-instrument" onclick="showInstrumentDetail('regKunjungan')"><i class="fas fa-book"></i> Daftar Hadir Pos Layanan Komunitas</td>
                             <td>Mencatat kehadiran dan tujuan kunjungan klien di PoC.</td>
                         </tr>
                         <tr>
-                            <td class="clickable-instrument" onclick="showInstrumentDetail('skriningHIV')">Formulir Skrining HIV</td>
+                            <td class="clickable-instrument" onclick="showInstrumentDetail('skriningHIV')"><i class="fas fa-syringe"></i> Formulir Skrining HIV</td>
                             <td>Mencatat hasil skrining risiko dan tes HIV klien.</td>
                         </tr>
                         <tr>
-                            <td class="clickable-instrument" onclick="showInstrumentDetail('prepForm')">Formulir PrEP</td>
+                            <td class="clickable-instrument" onclick="showInstrumentDetail('prepForm')"><i class="fas fa-pills"></i> Formulir PrEP</td>
                             <td>Digunakan untuk pencatatan layanan Pre-Exposure Prophylaxis.</td>
                         </tr>
                         <tr>
-                            <td class="clickable-instrument" onclick="showInstrumentDetail('regKonseling')">Form Register Layanan Konseling</td>
+                            <td class="clickable-instrument" onclick="showInstrumentDetail('regKonseling')"><i class="fas fa-comments"></i> Form Register Layanan Konseling</td>
                             <td>Digunakan untuk mendokumentasikan setiap sesi konseling.</td>
                         </tr>
                     </tbody>
