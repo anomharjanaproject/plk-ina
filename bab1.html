@@ -1,1013 +1,991 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>BAB I: Pengantar Pos Layanan Komunitas (PoC) – E-Learning</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
-  <style>
-    :root {
-      --primary: #009688;
-      --primary-dark: #00796b;
-      --accent: #004d40;
-      --light: #fff;
-      --bg: #f5f5f5;
-      --footer-dark: #263238;
-      --info-box-bg: #e0f2f1; /* Light teal for information boxes */
-      --popup-bg: #f0f8ff; /* Light blue for pop-ups */
-      --drag-drop-border: #00796b; /* Darker primary for drag/drop area */
-    }
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: Arial, Helvetica, sans-serif;
-    }
-    body {
-      background: var(--bg);
-      color: #333;
-      display: flex;
-      flex-direction: column;
-      min-height: 100vh;
-    }
-    header {
-      background: var(--light);
-      padding: 24px;
-      text-align: center;
-      border-bottom: 1px solid #ccc;
-    }
-    header img.logo {
-      max-width: 200px;
-      margin-bottom: 10px;
-    }
-    header h1 {
-      font-size: 1.8rem;
-      color: var(--accent);
-      margin-bottom: 15px;
-    }
-    header p {
-      font-size: 1.1rem;
-      margin-bottom: 10px;
-    }
-    header ul {
-        list-style-type: none;
-        padding: 0;
-        margin-top: 15px;
-        display: inline-block; /* Untuk memusatkan list */
-        text-align: left;
-    }
-    header ul li {
-        margin-bottom: 8px;
-        font-size: 1rem;
-        color: #555;
-    }
-    header ul li i {
-        margin-right: 8px;
-        color: var(--primary);
-    }
-    main {
-      flex: 1;
-      max-width: 960px;
-      margin: 0 auto;
-      padding: 30px 16px;
-    }
-    section.slide {
-      margin-bottom: 40px;
-      background: white;
-      padding: 24px;
-      border-radius: 12px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-    }
-    section.slide h2 {
-      font-size: 1.6rem;
-      border-bottom: 2px solid var(--primary);
-      padding-bottom: 10px;
-      margin-bottom: 25px;
-      text-align: center;
-      color: var(--primary);
-    }
-    section.slide h3 {
-      font-size: 1.3rem;
-      margin-bottom: 15px;
-      color: var(--primary-dark);
-    }
-    section.slide p {
-      font-size: 1rem;
-      margin-bottom: 16px;
-      line-height: 1.6;
-    }
-    ul {
-      list-style-type: none;
-      padding-left: 0;
-    }
-    ul li {
-      margin-bottom: 8px;
-    }
-    .media-box, .interactive-box, .quiz-box {
-      margin-top: 20px;
-      padding: 15px;
-      background: var(--info-box-bg);
-      border-left: 5px solid var(--primary);
-      border-radius: 12px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-      margin-bottom: 25px;
-    }
-    .media-box h4, .interactive-box h4, .quiz-box h4 {
-      background-color: var(--primary);
-      color: var(--light);
-      padding: 10px 15px;
-      border-radius: 8px 8px 0 0;
-      margin: -15px -15px 15px -15px;
-      display: flex;
-      align-items: center;
-      font-size: 1.1rem;
-    }
-    .media-box h4 i, .interactive-box h4 i, .quiz-box h4 i {
-      margin-right: 10px;
-      color: var(--light);
-      font-size: 1.3em;
-    }
-    .pop-up-info {
-        background-color: var(--popup-bg);
-        border-left: 4px solid var(--primary);
-        padding: 12px;
-        margin-top: 15px;
-        border-radius: 8px;
-        font-size: 0.95em;
-        display: none; /* Hidden by default */
-        box-shadow: 0 2px 5px rgba(0,0,0,0.08);
-    }
-    .target-icon {
-        cursor: pointer;
-        color: var(--primary-dark);
-        font-size: 1.2em;
-        margin-right: 5px;
-    }
-    .quiz-question {
-        background-color: #fff;
-        border: 1px solid #ddd;
-        padding: 15px;
-        border-radius: 8px;
-        margin-bottom: 15px;
-    }
-    .quiz-question p {
-        font-weight: bold;
-        margin-bottom: 10px;
-    }
-    .quiz-options label {
-        display: flex;
-        align-items: center;
-        margin-bottom: 10px;
-        padding: 8px 12px;
-        border: 1px solid #eee;
-        border-radius: 6px;
-        transition: background-color 0.3s ease;
-        cursor: pointer;
-    }
-    .quiz-options label:hover {
-        background-color: #f0f0f0;
-    }
-    .quiz-options input[type="radio"], .quiz-options input[type="checkbox"] {
-        margin-right: 10px;
-        transform: scale(1.2);
-    }
-    .quiz-feedback {
-        margin-top: 10px;
-        padding: 10px;
-        border-radius: 8px;
-        font-weight: bold;
-        text-align: center;
-        display: none;
-    }
-    .quiz-feedback.correct {
-        background-color: #e6ffe6;
-        color: #006400;
-    }
-    .quiz-feedback.incorrect {
-        background-color: #ffe6e6;
-        color: #8B0000;
-    }
-    .button-check {
-        background-color: var(--primary-dark);
-        color: var(--light);
-        border: none;
-        padding: 10px 20px;
-        border-radius: 8px;
-        cursor: pointer;
-        font-size: 1em;
-        margin-top: 10px;
-        transition: background-color 0.3s ease;
-    }
-    .button-check:hover {
-        background-color: var(--accent);
-    }
-    table {
-        width: 100%;
-        border-collapse: collapse;
-        margin-top: 20px;
-    }
-    table th, table td {
-        padding: 12px;
-        border: 1px solid #ddd;
-        text-align: left;
-    }
-    table th {
-        background-color: var(--primary);
-        color: var(--light);
-    }
-    table tr:nth-child(even) {
-        background-color: #f9f9f9;
-    }
-    table tr:hover {
-        background-color: #f0f0f0;
-    }
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>BAB I: Pengantar Pos Layanan Komunitas (PoC) – E-Learning</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+    <style>
+        :root {
+            --primary: #009688;
+            --primary-dark: #00796b;
+            --accent: #004d40;
+            --light: #fff;
+            --bg: #f5f5f5;
+            --footer-dark: #263238;
+            --info-box-bg: #e0f2f1; /* Light teal for information boxes */
+            --popup-bg: #f0f8ff; /* Light blue for pop-ups */
+            --drag-drop-border: #00796b; /* Darker primary for drag/drop area */
+            /* New color for better contrast on light backgrounds */
+            --dark-text: #333; /* A dark gray for general text */
+        }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        body {
+            background: var(--bg);
+            color: var(--dark-text); /* Use dark-text for general body text */
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        header {
+            background: var(--light);
+            padding: 24px;
+            text-align: center;
+            border-bottom: 1px solid #ccc;
+        }
+        header img.logo {
+            max-width: 200px;
+            margin-bottom: 10px;
+        }
+        header h1 {
+            font-size: 1.8rem;
+            color: var(--accent);
+            margin-bottom: 15px;
+        }
+        header p {
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+        }
+        header ul {
+            list-style-type: none;
+            padding: 0;
+            margin-top: 15px;
+            display: inline-block; /* Untuk memusatkan list */
+            text-align: left;
+        }
+        header ul li {
+            margin-bottom: 8px;
+            font-size: 1rem;
+            color: var(--dark-text); /* Ensure good contrast for list items */
+        }
+        header ul li i {
+            margin-right: 8px;
+            color: var(--primary);
+        }
+        main {
+            flex: 1;
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 30px 16px;
+        }
+        section.slide {
+            margin-bottom: 40px;
+            background: white;
+            padding: 24px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+        section.slide h2 {
+            font-size: 1.6rem;
+            border-bottom: 2px solid var(--primary);
+            padding-bottom: 10px;
+            margin-bottom: 25px;
+            text-align: center;
+            color: var(--primary);
+        }
+        section.slide h3 {
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            color: var(--primary-dark);
+        }
+        section.slide p {
+            font-size: 1rem;
+            margin-bottom: 16px;
+            line-height: 1.6;
+            color: var(--dark-text); /* Ensure good contrast for paragraph text */
+        }
+        ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        ul li {
+            margin-bottom: 8px;
+        }
+        .media-box, .interactive-box, .quiz-box {
+            margin-top: 20px;
+            padding: 15px;
+            background: var(--info-box-bg);
+            border-left: 5px solid var(--primary);
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            margin-bottom: 25px;
+        }
+        .media-box h4, .interactive-box h4, .quiz-box h4 {
+            background-color: var(--primary);
+            color: var(--light);
+            padding: 10px 15px;
+            border-radius: 8px 8px 0 0;
+            margin: -15px -15px 15px -15px;
+            display: flex;
+            align-items: center;
+            font-size: 1.1rem;
+        }
+        .media-box h4 i, .interactive-box h4 i, .quiz-box h4 i {
+            margin-right: 10px;
+            color: var(--light);
+            font-size: 1.3em;
+        }
+        .pop-up-info {
+            background-color: var(--popup-bg);
+            border-left: 4px solid var(--primary);
+            padding: 12px;
+            margin-top: 15px;
+            border-radius: 8px;
+            font-size: 0.95em;
+            display: none; /* Hidden by default */
+            box-shadow: 0 2px 5px rgba(0,0,0,0.08);
+            font-weight: bold;
+            color: var(--accent); /* Changed to accent for better contrast on light blue background */
+        }
+        .target-icon {
+            cursor: pointer;
+            color: var(--primary-dark);
+            font-size: 1.2em;
+            margin-right: 5px;
+        }
+        .quiz-question {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+        .quiz-question p {
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: var(--dark-text); /* Ensure good contrast for quiz question text */
+        }
+        .quiz-options label {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            padding: 8px 12px;
+            border: 1px solid #eee;
+            border-radius: 6px;
+            transition: background-color 0.3s ease;
+            cursor: pointer;
+            color: var(--accent); /* Changed to accent for better contrast on light background */
+        }
+        .quiz-options label:hover {
+            background-color: #f0f0f0;
+        }
+        .quiz-options input[type="radio"], .quiz-options input[type="checkbox"] {
+            margin-right: 10px;
+            transform: scale(1.2);
+        }
+        .quiz-feedback {
+            margin-top: 10px;
+            padding: 10px;
+            border-radius: 8px;
+            font-weight: bold;
+            text-align: center;
+            display: none;
+        }
+        .quiz-feedback.correct {
+            background-color: #e6ffe6;
+            color: #006400;
+        }
+        .quiz-feedback.incorrect {
+            background-color: #ffe6e6;
+            color: #8B0000;
+        }
+        .button-check {
+            background-color: var(--primary-dark);
+            color: var(--light);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1em;
+            margin-top: 10px;
+            transition: background-color 0.3s ease;
+        }
+        .button-check:hover {
+            background-color: var(--accent);
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        table th, table td {
+            padding: 12px;
+            border: 1px solid #ddd;
+            text-align: left;
+            color: var(--dark-text); /* Set default text color for table cells */
+        }
+        table th {
+            background-color: var(--primary);
+            color: var(--light);
+            font-weight: bold;
+        }
+        table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        table tr:hover {
+            background-color: #f0f0f0;
+        }
 
-    /* Styles for interactive charts/graphs/animations */
-    .chart-container {
-        position: relative;
-        width: 100%;
-        height: 300px;
-        background-color: #f8f8f8;
-        border: 1px solid #ddd;
-        border-radius: 8px;
-        margin-bottom: 20px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        overflow: hidden;
-    }
+        /* Styles for interactive charts/graphs/animations */
+        .chart-container {
+            position: relative;
+            width: 100%;
+            height: 300px;
+            background-color: #f8f8f8;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
 
-    /* Dummy Bar Chart for HIV Cases */
-    .bar-chart {
-        width: 90%;
-        height: 80%;
-        display: flex;
-        align-items: flex-end;
-        justify-content: space-around;
-        padding: 10px;
-        border-bottom: 2px solid #333;
-        border-left: 2px solid #333;
-    }
-    .bar {
-        width: 15%;
-        background-color: var(--primary);
-        margin: 0 2%;
-        position: relative;
-        cursor: pointer;
-        transition: background-color 0.3s ease, transform 0.3s ease;
-        display: flex;
-        align-items: flex-end;
-        justify-content: center;
-        color: var(--light);
-        font-weight: bold;
-        font-size: 0.8em;
-    }
-    .bar:hover {
-        background-color: var(--primary-dark);
-        transform: translateY(-5px);
-    }
-    .bar-label {
-        position: absolute;
-        bottom: -20px;
-        font-size: 0.7em;
-        color: #555;
-    }
-    .bar-value {
-        margin-bottom: 5px;
-    }
-    .bar-popup {
-        position: absolute;
-        background-color: rgba(0, 0, 0, 0.8);
-        color: white;
-        padding: 8px;
-        border-radius: 5px;
-        font-size: 0.8em;
-        white-space: nowrap;
-        bottom: calc(100% + 5px);
-        left: 50%;
-        transform: translateX(-50%);
-        display: none;
-        z-index: 10;
-    }
-    .bar:hover .bar-popup {
-        display: block;
-    }
+        /* Dummy Bar Chart for HIV Cases */
+        .bar-chart {
+            width: 90%;
+            height: 80%;
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-around;
+            padding: 10px;
+            border-bottom: 2px solid var(--dark-text); /* Changed border color for better contrast */
+            border-left: 2px solid var(--dark-text); /* Changed border color for better contrast */
+        }
+        .bar {
+            width: 15%;
+            background-color: var(--primary);
+            margin: 0 2%;
+            position: relative;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            display: flex;
+            flex-direction: column; /* Changed to column to stack value and label */
+            align-items: center;
+            justify-content: flex-end;
+            color: var(--light);
+            font-weight: bold;
+            font-size: 0.8em;
+        }
+        .bar:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-5px);
+        }
+        .bar-label {
+            position: absolute;
+            bottom: -20px;
+            font-size: 0.7em;
+            color: var(--dark-text); /* Changed for better contrast */
+            white-space: nowrap;
+        }
+        .bar-value {
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: var(--light); /* Ensure bar values are light on dark primary background */
+        }
+        .bar-popup {
+            position: absolute;
+            background-color: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 8px;
+            border-radius: 5px;
+            font-size: 0.8em;
+            white-space: nowrap;
+            bottom: calc(100% + 5px);
+            left: 50%;
+            transform: translateX(-50%);
+            display: none;
+            z-index: 10;
+            font-weight: bold;
+        }
+        .bar:hover .bar-popup {
+            display: block;
+        }
 
-    /* 95-95-95 Infographic */
-    .target-95-container {
-        display: flex;
-        justify-content: space-around;
-        align-items: center;
-        gap: 20px;
-        margin-top: 30px;
-        flex-wrap: wrap;
-    }
-    .target-95-item {
-        background-color: var(--primary-dark);
-        color: var(--light);
-        border-radius: 50%;
-        width: 120px;
-        height: 120px;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        font-size: 1.8em;
-        font-weight: bold;
-        position: relative;
-        cursor: pointer;
-        transition: transform 0.3s ease, background-color 0.3s ease;
-        box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-    }
-    .target-95-item:hover {
-        transform: scale(1.05);
-        background-color: var(--accent);
-    }
-    .target-95-item span {
-        font-size: 0.5em;
-        text-align: center;
-        line-height: 1.2;
-        padding: 0 10px;
-    }
-    .target-95-popup {
-        position: absolute;
-        background-color: rgba(0, 0, 0, 0.8);
-        color: white;
-        padding: 10px;
-        border-radius: 8px;
-        font-size: 0.75em;
-        white-space: normal;
-        text-align: center;
-        width: 200px;
-        top: 100%;
-        left: 50%;
-        transform: translateX(-50%);
-        display: none;
-        z-index: 10;
-    }
-    .target-95-item:hover .target-95-popup {
-        display: block;
-    }
+        /* 95-95-95 Infographic */
+        .target-95-container {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            gap: 20px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+        .target-95-item {
+            background-color: var(--primary-dark);
+            color: var(--light);
+            border-radius: 50%;
+            width: 120px;
+            height: 120px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.8em;
+            font-weight: bold;
+            position: relative;
+            cursor: pointer;
+            transition: transform 0.3s ease, background-color 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        .target-95-item:hover {
+            transform: scale(1.05);
+            background-color: var(--accent);
+        }
+        .target-95-item span {
+            font-size: 0.5em;
+            text-align: center;
+            line-height: 1.2;
+            padding: 0 10px;
+            font-weight: bold;
+            color: var(--light); /* Ensure text in 95-95-95 item is light on dark background */
+        }
+        .target-95-popup {
+            position: absolute;
+            background-color: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 10px;
+            border-radius: 8px;
+            font-size: 0.75em;
+            white-space: normal;
+            text-align: center;
+            width: 200px;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            display: none;
+            z-index: 10;
+            font-weight: bold;
+        }
+        .target-95-item:hover .target-95-popup {
+            display: block;
+        }
 
-    /* DSD Drag and Drop */
-    .drag-drop-container {
-        display: flex;
-        flex-direction: column;
-        gap: 20px;
-        margin-top: 20px;
-    }
-    .drag-items-area {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 10px;
-        justify-content: center;
-        padding: 15px;
-        border: 2px dashed var(--primary-dark);
-        border-radius: 8px;
-        background-color: #f7fcfa;
-        min-height: 100px;
-    }
-    .draggable-dsd {
-        background-color: var(--primary);
-        color: var(--light);
-        padding: 10px 15px;
-        border-radius: 5px;
-        cursor: grab;
-        font-size: 0.9em;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-        transition: background-color 0.3s ease;
-    }
-    .draggable-dsd:hover {
-        background-color: var(--primary-dark);
-    }
-    .drop-targets-area {
-        display: flex;
-        justify-content: space-around;
-        gap: 20px;
-        flex-wrap: wrap;
-    }
-    .drop-target {
-        flex: 1;
-        min-width: 200px;
-        border: 2px solid var(--accent);
-        border-radius: 8px;
-        padding: 15px;
-        background-color: #e0f2f1;
-        min-height: 150px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 10px;
-    }
-    .drop-target h5 {
-        color: var(--accent);
-        margin-bottom: 10px;
-        text-align: center;
-    }
-    .drop-target.hovered {
-        background-color: #c8e6c9; /* Light green on hover */
-    }
-    .drop-target.correct-drop {
-        border-color: green;
-        background-color: #dcedc8; /* Lighter green */
-    }
-    .drop-target.incorrect-drop {
-        border-color: red;
-        background-color: #ffcdd2; /* Lighter red */
-    }
-    .drop-feedback {
-        margin-top: 10px;
-        padding: 8px;
-        border-radius: 5px;
-        font-size: 0.8em;
-        text-align: center;
-        display: none;
-    }
-    .drop-feedback.correct {
-        background-color: #e6ffe6;
-        color: #006400;
-    }
-    .drop-feedback.incorrect {
-        background-color: #ffe6e6;
-        color: #8B0000;
-    }
+        /* DSD Drag and Drop */
+        .drag-drop-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .drag-items-area {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            padding: 15px;
+            border: 2px dashed var(--primary-dark);
+            border-radius: 8px;
+            background-color: #f7fcfa;
+            min-height: 100px;
+        }
+        .draggable-dsd {
+            background-color: var(--primary);
+            color: var(--light);
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: grab;
+            font-size: 0.9em;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            transition: background-color 0.3s ease;
+            font-weight: bold;
+        }
+        .draggable-dsd:hover {
+            background-color: var(--primary-dark);
+        }
+        .drop-targets-area {
+            display: flex;
+            justify-content: space-around;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        .drop-target {
+            flex: 1;
+            min-width: 200px;
+            border: 2px solid var(--accent);
+            border-radius: 8px;
+            padding: 15px;
+            background-color: #e0f2f1;
+            min-height: 150px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+        .drop-target h5 {
+            color: var(--accent);
+            margin-bottom: 10px;
+            text-align: center;
+            font-weight: bold;
+        }
+        .drop-target.hovered {
+            background-color: #c8e6c9; /* Light green on hover */
+        }
+        .drop-target.correct-drop {
+            border-color: green;
+            background-color: #dcedc8; /* Lighter green */
+        }
+        .drop-target.incorrect-drop {
+            border-color: red;
+            background-color: #ffcdd2; /* Lighter red */
+        }
+        .drop-feedback {
+            margin-top: 10px;
+            padding: 8px;
+            border-radius: 5px;
+            font-size: 0.8em;
+            text-align: center;
+            display: none;
+            font-weight: bold;
+        }
+        .drop-feedback.correct {
+            background-color: #e6ffe6;
+            color: #006400;
+        }
+        .drop-feedback.incorrect {
+            background-color: #ffe6e6;
+            color: #8B0000;
+        }
 
-    /* Video Player */
-    .video-container {
-        position: relative;
-        padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
-        height: 0;
-        overflow: hidden;
-        margin-top: 20px;
-        border-radius: 8px;
-        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-    }
-    .video-container iframe {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        border: 0;
-    }
+        /* Video Player */
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+            height: 0;
+            overflow: hidden;
+            margin-top: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
 
-    /* Comparison Table (PoC vs CBC) */
-    .comparison-table table tr td {
-        position: relative;
-    }
-    .comparison-table .cell-popup {
-        position: absolute;
-        background-color: rgba(0, 0, 0, 0.8);
-        color: white;
-        padding: 8px;
-        border-radius: 5px;
-        font-size: 0.75em;
-        white-space: nowrap;
-        display: none;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        z-index: 10;
-    }
-    .comparison-table table td:hover .cell-popup {
-        display: block;
-    }
+        /* Comparison Table (PoC vs CBC) */
+        .comparison-table table tr td {
+            position: relative;
+        }
+        .comparison-table .cell-popup {
+            position: absolute;
+            background-color: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 8px;
+            border-radius: 5px;
+            font-size: 0.75em;
+            white-space: nowrap;
+            display: none;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 10;
+            font-weight: bold;
+        }
+        .comparison-table table td:hover .cell-popup {
+            display: block;
+        }
 
-    /* Testimonial Video */
-    .testimonial-video {
-        margin-top: 25px;
-        text-align: center;
-    }
-    .testimonial-video iframe {
-        width: 100%;
-        max-width: 560px;
-        height: 315px;
-        border-radius: 8px;
-        box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-    }
+        /* Testimonial Video */
+        .testimonial-video {
+            margin-top: 25px;
+            text-align: center;
+        }
+        .testimonial-video iframe {
+            width: 100%;
+            max-width: 560px;
+            height: 315px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+        }
 
-    footer {
-      background: var(--footer-dark);
-      color: #fff;
-      text-align: center;
-      padding: 16px;
-      font-size: .9rem;
-    }
-  </style>
+        footer {
+            background: var(--footer-dark);
+            color: #fff;
+            text-align: center;
+            padding: 16px;
+            font-size: .9rem;
+        }
+
+        /* Ensure all text within strong tags is bold */
+        strong {
+            font-weight: bold !important;
+        }
+        /* Ensure all text within b tags is bold */
+        b {
+            font-weight: bold !important;
+        }
+        /* Ensure any paragraph containing a narrative starts with a bold "Narasi:" */
+        p.narration strong {
+            font-weight: bold;
+        }
+    </style>
 </head>
 <body>
-  <header>
-    <img src="https://res.cloudinary.com/djexglfns/image/upload/v1749135749/logo_kemenkes_c2ggdg.png" alt="Logo Kemenkes" class="logo">
-    <h1>E-Learning Pos Layanan Komunitas – BAB I: Pengantar PoC</h1>
-    <p>Selamat datang! Setelah menyelesaikan bab ini, Anda diharapkan dapat:</p>
-    <ul>
-      <li><i class="fas fa-check-circle"></i> Menjelaskan **latar belakang urgensi** Pos Layanan Komunitas (PoC) dalam penanggulangan HIV dan IMS di Indonesia.</li>
-      <li><i class="fas fa-check-circle"></i> Mengidentifikasi **tujuan utama dan pentingnya** keberadaan PoC sebagai solusi inovatif.</li>
-      <li><i class="fas fa-check-circle"></i> Membandingkan **karakteristik PoC** dengan model layanan berbasis komunitas lainnya.</li>
-    </ul>
-  </header>
-
-  <main>
-    <section class="slide">
-      <h2>1.1 Mengapa PoC Penting? Tantangan dalam Penanggulangan HIV di Indonesia</h2>
-      <p>**Narasi Pembuka:** Indonesia, dengan keberagaman dan semangat gotong royongnya, menghadapi tantangan besar dalam upaya penanggulangan HIV dan IMS. Di balik setiap angka, ada kisah manusia, ada harapan untuk hidup sehat dan bebas stigma.</p>
-
-      <div class="media-box">
-        <h4><i class="fas fa-chart-line"></i> Kilas Balik & Data Visual: Kasus HIV sejak 1987</h4>
-        <p>**Narasi:** Sejak kasus pertama HIV/AIDS ditemukan di Indonesia pada tahun 1987, kita telah melihat perjalanan panjang. Data menunjukkan bahwa infeksi HIV masih terus menjadi perhatian serius. Ini bukan hanya statistik, ini adalah realitas yang membutuhkan perhatian dan tindakan kita bersama.</p>
-        <div class="chart-container">
-            <div class="bar-chart">
-                <div class="bar" style="height: 10%;" data-year="1987" data-fact="Kasus HIV pertama di Indonesia dilaporkan.">
-                    <span class="bar-value">1987</span>
-                    <div class="bar-popup">**1987:** Kasus HIV pertama di Indonesia dilaporkan.</div>
-                </div>
-                <div class="bar" style="height: 20%;" data-year="1995" data-fact="Pemerintah mulai aktif dalam program penanggulangan HIV.">
-                    <span class="bar-value">1995</span>
-                    <div class="bar-popup">**1995:** Pemerintah mulai aktif dalam program penanggulangan HIV.</div>
-                </div>
-                <div class="bar" style="height: 40%;" data-year="2005" data-fact="ARV mulai tersedia lebih luas, namun akses masih terbatas.">
-                    <span class="bar-value">2005</span>
-                    <div class="bar-popup">**2005:** ARV mulai tersedia lebih luas, namun akses masih terbatas.</div>
-                </div>
-                <div class="bar" style="height: 60%;" data-year="2015" data-fact="Inisiatif global 90-90-90 diluncurkan, mendorong deteksi dan pengobatan.">
-                    <span class="bar-value">2015</span>
-                    <div class="bar-popup">**2015:** Inisiatif global 90-90-90 diluncurkan, mendorong deteksi dan pengobatan.</div>
-                </div>
-                <div class="bar" style="height: 80%;" data-year="2024" data-fact="Jumlah kasus terus bertambah, PoC menjadi strategi kunci penjangkauan.">
-                    <span class="bar-value">2024</span>
-                    <div class="bar-popup">**2024:** Jumlah kasus terus bertambah, PoC menjadi strategi kunci penjangkauan.</div>
-                </div>
-            </div>
-        </div>
-      </div>
-
-      <div class="media-box">
-        <h4><i class="fas fa-bullseye"></i> Visi & Misi Nasional: Target Indonesia Bebas AIDS 2030</h4>
-        <p>**Narasi:** Untuk mencapai visi 2030, kita punya peta jalan global yang dikenal sebagai **strategi 95-95-95**. Ini adalah target ambisius tapi sangat penting:</p>
+    <header>
+        <img src="https://res.cloudinary.com/djexglfns/image/upload/v1749135749/logo_kemenkes_c2ggdg.png" alt="Logo Kemenkes" class="logo">
+        <h1>E-Learning Pos Layanan Komunitas – BAB I: Pengantar PoC</h1>
+        <p>Selamat datang! Setelah menyelesaikan bab ini, Anda diharapkan dapat:</p>
         <ul>
-          <li><strong onclick="togglePopup('newCase')" style="cursor: pointer;"><i class="fas fa-times-circle target-icon"></i> NOL Kasus Infeksi Baru</strong>
-            <div id="newCase" class="pop-up-info">Ini berarti kita ingin menghentikan penularan HIV baru sepenuhnya, memastikan tidak ada lagi orang yang terinfeksi.</div>
-          </li>
-          <li><strong onclick="togglePopup('noDeath')" style="cursor: pointer;"><i class="fas fa-heartbeat target-icon"></i> NOL Kematian Terkait AIDS</strong>
-            <div id="noDeath" class="pop-up-info">Tujuannya adalah memastikan setiap ODHIV mendapatkan akses pengobatan ARV yang memadai agar bisa hidup sehat dan produktif, tanpa komplikasi serius.</div>
-          </li>
-          <li><strong onclick="togglePopup('noStigma')" style="cursor: pointer;"><i class="fas fa-handshake target-icon"></i> NOL Stigma & Diskriminasi</strong>
-            <div id="noStigma" class="pop-up-info">Ini tentang membangun masyarakat yang menerima dan mendukung ODHIV, menghilangkan prasangka buruk dan perlakuan tidak adil yang seringkali lebih menyakitkan daripada penyakitnya sendiri.</div>
-          </li>
+            <li><i class="fas fa-check-circle"></i> Menjelaskan <strong>latar belakang urgensi</strong> Pos Layanan Komunitas (PoC) dalam penanggulangan HIV dan IMS di Indonesia.</li>
+            <li><i class="fas fa-check-circle"></i> Mengidentifikasi <strong>tujuan utama dan pentingnya</strong> keberadaan PoC sebagai solusi inovatif.</li>
+            <li><i class="fas fa-check-circle"></i> Membandingkan <strong>karakteristik PoC</strong> dengan model layanan berbasis komunitas lainnya.</li>
         </ul>
+    </header>
 
-        <h4 style="margin-top: 25px;"><i class="fas fa-chart-pie"></i> Strategi 95-95-95</h4>
-        <div class="target-95-container">
-            <div class="target-95-item">
-                95%
-                <span>Mengetahui Status</span>
-                <div class="target-95-popup">Meningkatkan kesadaran dan akses pada tes HIV adalah kunci.</div>
-            </div>
-            <div class="target-95-item">
-                95%
-                <span>Mendapatkan ARV</span>
-                <div class="target-95-popup">Memastikan setiap ODHIV memiliki akses terhadap terapi yang menyelamatkan jiwa.</div>
-            </div>
-            <div class="target-95-item">
-                95%
-                <span>Mencapai Supresi Virus</span>
-                <div class="target-95-popup">Supresi virus tidak hanya membuat ODHIV sehat, tapi juga mencegah penularan lebih lanjut.</div>
-            </div>
-        </div>
-        <script>
-            function togglePopup(id) {
-                var popup = document.getElementById(id);
-                if (popup.style.display === "block") {
-                    popup.style.display = "none";
-                } else {
-                    // Close all other popups before opening a new one
-                    document.querySelectorAll('.pop-up-info').forEach(p => p.style.display = 'none');
-                    popup.style.display = "block";
-                }
-            }
-        </script>
-      </div>
+    <main>
+        <section class="slide">
+            <h2>1.1 Mengapa PoC Penting? Tantangan dalam Penanggulangan HIV di Indonesia</h2>
+            <p class="narration"><strong>Narasi Pembuka:</strong> Indonesia, dengan keberagaman dan semangat gotong royongnya, menghadapi tantangan besar dalam upaya penanggulangan HIV dan IMS. Di balik setiap angka, ada kisah manusia, ada harapan untuk hidup sehat dan bebas stigma.</p>
 
-      <div class="interactive-box">
-        <h4><i class="fas fa-exclamation-triangle"></i> Skenario Masalah: Mengapa Target Sulit Dicapai?</h4>
-        <p>**Narasi:** Sayangnya, target ambisius ini tak mudah dicapai. Ada rintangan yang seringkali tak terlihat, namun dampaknya sangat nyata bagi mereka yang hidup dengan HIV atau berisiko tinggi.</p>
-        <ul>
-          <li><i class="fas fa-user-slash" style="color: var(--accent);"></i> **Skenario A (Stigma):** Seorang individu ingin tes HIV tetapi ragu karena takut dihakimi di fasilitas kesehatan terdekat. Orang-orang berbisik saat ia mendekati klinik.</li>
-          <li><i class="fas fa-walking" style="color: var(--accent);"></i> **Skenario B (Akses Sulit):** Seorang ODHIV harus menempuh perjalanan jauh dan menghabiskan banyak biaya hanya untuk mengambil ARV bulanan karena fasyankes terdekat tidak menyediakan layanan PDP.</li>
-          <li><i class="fas fa-chart-line-down" style="color: var(--accent);"></i> **Skenario C (LTFU - Loss to Follow-Up):** Sebuah grafik menunjukkan penurunan jumlah pasien yang rutin minum ARV setelah beberapa bulan, dengan narasi "Banyak yang memulai, tapi tak banyak yang bertahan."</li>
-        </ul>
-        <div class="quiz-box">
-            <h4><i class="fas fa-lightbulb"></i> Pertanyaan Refleksi Interaktif</h4>
-            <div class="quiz-question">
-                <p>Dari skenario tadi, apa **tantangan terbesar** yang Anda lihat dalam penjangkauan dan retensi ODHIV di komunitas Anda?</p>
-                <div class="quiz-options">
-                    <label><input type="radio" name="challenge" value="stigma"> Stigma dan diskriminasi</label>
-                    <label><input type="radio" name="challenge" value="access"> Akses layanan yang sulit/mahal</label>
-                    <label><input type="radio" name="challenge" value="ltfu"> Tingginya angka putus pengobatan (LTFU)</label>
-                    <label><input type="radio" name="challenge" value="all"> Semua jawaban di atas</label>
+            <div class="media-box">
+                <h4><i class="fas fa-chart-line"></i> Kilas Balik & Data Visual: Kasus HIV sejak 1987</h4>
+                <p class="narration"><strong>Narasi:</strong> Sejak kasus pertama HIV/AIDS ditemukan di Indonesia pada tahun 1987, kita telah melihat perjalanan panjang. Data menunjukkan bahwa infeksi HIV masih terus menjadi perhatian serius. Ini bukan hanya statistik, ini adalah realitas yang membutuhkan perhatian dan tindakan kita bersama.</p>
+                <div class="chart-container">
+                    <div class="bar-chart">
+                        <div class="bar" style="height: 10%;" data-year="1987" data-fact="Kasus HIV pertama di Indonesia dilaporkan.">
+                            <span class="bar-value">1987</span>
+                            <div class="bar-popup"><strong>1987:</strong> Kasus HIV pertama di Indonesia dilaporkan.</div>
+                        </div>
+                        <div class="bar" style="height: 20%;" data-year="1995" data-fact="Pemerintah mulai aktif dalam program penanggulangan HIV.">
+                            <span class="bar-value">1995</span>
+                            <div class="bar-popup"><strong>1995:</strong> Pemerintah mulai aktif dalam program penanggulangan HIV.</div>
+                        </div>
+                        <div class="bar" style="height: 40%;" data-year="2005" data-fact="ARV mulai tersedia lebih luas, namun akses masih terbatas.">
+                            <span class="bar-value">2005</span>
+                            <div class="bar-popup"><strong>2005:</strong> ARV mulai tersedia lebih luas, namun akses masih terbatas.</div>
+                        </div>
+                        <div class="bar" style="height: 60%;" data-year="2015" data-fact="Inisiatif global 90-90-90 diluncurkan, mendorong deteksi dan pengobatan.">
+                            <span class="bar-value">2015</span>
+                            <div class="bar-popup"><strong>2015:</strong> Inisiatif global 90-90-90 diluncurkan, mendorong deteksi dan pengobatan.</div>
+                        </div>
+                        <div class="bar" style="height: 80%;" data-year="2024" data-fact="Jumlah kasus terus bertambah, PoC menjadi strategi kunci penjangkauan.">
+                            <span class="bar-value">2024</span>
+                            <div class="bar-popup"><strong>2024:</strong> Jumlah kasus terus bertambah, PoC menjadi strategi kunci penjangkauan.</div>
+                        </div>
+                    </div>
                 </div>
-                <button class="button-check" onclick="checkReflectionQuiz()">Kirim Jawaban</button>
-                <div id="reflection-feedback" class="quiz-feedback"></div>
             </div>
-            <script>
-                function checkReflectionQuiz() {
-                    const selected = document.querySelector('input[name="challenge"]:checked');
-                    const feedbackDiv = document.getElementById('reflection-feedback');
-                    if (selected) {
-                        if (selected.value === 'all') {
-                            feedbackDiv.textContent = "Tepat sekali! Stigma, akses sulit, dan LTFU adalah tantangan besar yang saling terkait dan perlu diatasi secara komprehensif.";
-                            feedbackDiv.className = "quiz-feedback correct";
+
+            <div class="media-box">
+                <h4><i class="fas fa-bullseye"></i> Visi & Misi Nasional: Target Indonesia Bebas AIDS 2030</h4>
+                <p class="narration"><strong>Narasi:</strong> Untuk mencapai visi 2030, kita punya peta jalan global yang dikenal sebagai <strong>strategi 95-95-95</strong>. Ini adalah target ambisius tapi sangat penting:</p>
+                <ul>
+                    <li><strong onclick="togglePopup('newCase')" style="cursor: pointer;"><i class="fas fa-times-circle target-icon"></i> NOL Kasus Infeksi Baru</strong>
+                        <div id="newCase" class="pop-up-info">Ini berarti kita ingin menghentikan penularan HIV baru sepenuhnya, memastikan tidak ada lagi orang yang terinfeksi.</div>
+                    </li>
+                    <li><strong onclick="togglePopup('noDeath')" style="cursor: pointer;"><i class="fas fa-heartbeat target-icon"></i> NOL Kematian Terkait AIDS</strong>
+                        <div id="noDeath" class="pop-up-info">Tujuannya adalah memastikan setiap ODHIV mendapatkan akses pengobatan ARV yang memadai agar bisa hidup sehat dan produktif, tanpa komplikasi serius.</div>
+                    </li>
+                    <li><strong onclick="togglePopup('noStigma')" style="cursor: pointer;"><i class="fas fa-handshake target-icon"></i> NOL Stigma & Diskriminasi</strong>
+                        <div id="noStigma" class="pop-up-info">Ini tentang membangun masyarakat yang menerima dan mendukung ODHIV, menghilangkan prasangka buruk dan perlakuan tidak adil yang seringkali lebih menyakitkan daripada penyakitnya sendiri.</div>
+                    </li>
+                </ul>
+
+                <h4 style="margin-top: 25px;"><i class="fas fa-chart-pie"></i> Strategi 95-95-95</h4>
+                <div class="target-95-container">
+                    <div class="target-95-item">
+                        95%
+                        <span>Mengetahui Status</span>
+                        <div class="target-95-popup">Meningkatkan kesadaran dan akses pada tes HIV adalah kunci.</div>
+                    </div>
+                    <div class="target-95-item">
+                        95%
+                        <span>Mendapatkan ARV</span>
+                        <div class="target-95-popup">Memastikan setiap ODHIV memiliki akses terhadap terapi yang menyelamatkan jiwa.</div>
+                    </div>
+                    <div class="target-95-item">
+                        95%
+                        <span>Mencapai Supresi Virus</span>
+                        <div class="target-95-popup">Supresi virus tidak hanya membuat ODHIV sehat, tapi juga mencegah penularan lebih lanjut.</div>
+                    </div>
+                </div>
+                <script>
+                    function togglePopup(id) {
+                        var popup = document.getElementById(id);
+                        if (popup.style.display === "block") {
+                            popup.style.display = "none";
                         } else {
-                            feedbackDiv.textContent = "Itu salah satu tantangan penting, namun ada faktor lain yang juga berkontribusi. Pertimbangkan semua aspek yang mungkin mempengaruhi penjangkauan dan retensi ODHIV.";
-                            feedbackDiv.className = "quiz-feedback incorrect";
+                            // Close all other popups before opening a new one
+                            document.querySelectorAll('.pop-up-info').forEach(p => p.style.display = 'none');
+                            popup.style.display = "block";
                         }
-                        feedbackDiv.style.display = "block";
-                    } else {
-                        feedbackDiv.textContent = "Silakan pilih salah satu jawaban untuk melanjutkan.";
-                        feedbackDiv.className = "quiz-feedback incorrect";
-                        feedbackDiv.style.display = "block";
                     }
-                }
-            </script>
-        </div>
-      </div>
-    </section>
-
-    <section class="slide">
-      <h2>1.2 Solusi Inovatif: Merangkul Kolaborasi dan Fleksibilitas</h2>
-      <p>**Narasi:** Untuk mengatasi tantangan ini, Indonesia tidak tinggal diam. Kita mengadopsi pendekatan inovatif yang mengedepankan **kolaborasi** dan **fleksibilitas layanan**. Mari kenali dua konsep utamanya: **Public-Private-Community Partnership (PPCP)** dan **Differentiated Service Delivery (DSD)**.</p>
-
-      <div class="media-box">
-        <h4><i class="fas fa-people-arrows"></i> Memahami PPCP: Kekuatan Kolaborasi</h4>
-        <p>**Narasi:** PPCP adalah strategi kerja sama lintas sektor. Bayangkan seperti tiga kekuatan besar yang bersatu padu untuk satu tujuan: melawan HIV dan IMS. Ini menciptakan **sinergi yang luar biasa!**</p>
-        <div style="display: flex; justify-content: space-around; gap: 15px; margin-top: 20px; flex-wrap: wrap;">
-            <div class="target-95-item" style="background-color: #3f51b5; width: 150px; height: 150px;" onclick="showPPCPDetail('gov')">
-                <i class="fas fa-building fa-2x"></i>
-                <span>Pemerintah</span>
-                <div id="gov" class="pop-up-info" style="top: 160%; width: 250px;">**Pemerintah:** Menyediakan regulasi, kebijakan, dan dukungan sumber daya. Contoh: Kemenkes, Dinas Kesehatan.</div>
+                </script>
             </div>
-            <div class="target-95-item" style="background-color: #ff9800; width: 150px; height: 150px;" onclick="showPPCPDetail('private')">
-                <i class="fas fa-handshake-alt fa-2x"></i>
-                <span>Swasta</span>
-                <div id="private" class="pop-up-info" style="top: 160%; width: 250px;">**Swasta:** Berperan dalam inovasi, pendanaan, dan perluasan layanan. Contoh: Perusahaan farmasi, klinik swasta.</div>
-            </div>
-            <div class="target-95-item" style="background-color: #4caf50; width: 150px; height: 150px;" onclick="showPPCPDetail('community')">
-                <i class="fas fa-users fa-2x"></i>
-                <span>Komunitas</span>
-                <div id="community" class="pop-up-info" style="top: 160%; width: 250px;">**Komunitas:** Jantung dari PPCP, sebagai penjangkau, pendamping, dan penyedia layanan yang memahami kebutuhan akar rumput. Contoh: LSM, kelompok dukungan.</div>
-            </div>
-        </div>
-        <script>
-            function showPPCPDetail(id) {
-                var popup = document.getElementById(id);
-                if (popup.style.display === "block") {
-                    popup.style.display = "none";
-                } else {
-                    document.querySelectorAll('.pop-up-info').forEach(p => p.style.display = 'none');
-                    popup.style.display = "block";
-                }
-            }
-        </script>
-      </div>
 
-      <div class="interactive-box">
-        <h4><i class="fas fa-cogs"></i> Memahami DSD: Layanan yang Memahami Anda</h4>
-        <p>**Narasi:** Differentiated Service Delivery (DSD) berarti menyediakan layanan kesehatan HIV yang disesuaikan dengan kebutuhan individu. Bukan satu ukuran untuk semua, melainkan layanan yang **'pas' untuk setiap orang**, mempertimbangkan konteks dan preferensi.</p>
-
-        <h4 style="margin-top: 25px;"><i class="fas fa-arrows-alt"></i> Aktivitas Drag-and-Drop: Contoh Implementasi DSD</h4>
-        <p>**Instruksi:** Seret dan lepaskan contoh implementasi DSD ke kategori keunggulan utamanya. Ini akan membantu Anda memahami bagaimana DSD memberikan dampak nyata!</p>
-
-        <div class="drag-drop-container">
-            <div class="drag-items-area" id="dragItemsArea">
-                <div class="draggable-dsd" draggable="true" id="drag1" data-category="access">Penambahan fasyankes PDP baru</div>
-                <div class="draggable-dsd" draggable="true" id="drag2" data-category="access">Jam operasional layanan di luar jam kerja</div>
-                <div class="draggable-dsd" draggable="true" id="drag3" data-category="compliance">Pembentukan klub kepatuhan ARV berbasis komunitas</div>
-                <div class="draggable-dsd" draggable="true" id="drag4" data-category="burden">Pengambilan ARV untuk beberapa bulan sekaligus</div>
-                <div class="draggable-dsd" draggable="true" id="drag5" data-category="access">Layanan tes HIV bergerak (mobile clinic)</div>
-                <div class="draggable-dsd" draggable="true" id="drag6" data-category="compliance">Sistem pengingat minum obat via SMS/WhatsApp</div>
-                <div class="draggable-dsd" draggable="true" id="drag7" data-category="burden">Pengantaran ARV oleh relawan ke rumah klien</div>
-            </div>
-            <div class="drop-targets-area">
-                <div class="drop-target" id="targetAccess" data-target-category="access">
-                    <h5>Memperluas Akses Layanan</h5>
-                    <div class="drop-feedback" id="feedbackAccess"></div>
-                </div>
-                <div class="drop-target" id="targetCompliance" data-target-category="compliance">
-                    <h5>Meningkatkan Kepatuhan Pengobatan</h5>
-                    <div class="drop-feedback" id="feedbackCompliance"></div>
-                </div>
-                <div class="drop-target" id="targetBurden" data-target-category="burden">
-                    <h5>Mengurangi Beban Fasyankes & Klien</h5>
-                    <div class="drop-feedback" id="feedbackBurden"></div>
+            <div class="interactive-box">
+                <h4><i class="fas fa-exclamation-triangle"></i> Skenario Masalah: Mengapa Target Sulit Dicapai?</h4>
+                <p class="narration"><strong>Narasi:</strong> Sayangnya, target ambisius ini tak mudah dicapai. Ada rintangan yang seringkali tak terlihat, namun dampaknya sangat nyata bagi mereka yang hidup dengan HIV atau berisiko tinggi.</p>
+                <ul>
+                    <li><i class="fas fa-user-slash" style="color: var(--accent);"></i> <strong>Skenario A (Stigma):</strong> Seorang individu ingin tes HIV tetapi ragu karena takut dihakimi di fasilitas kesehatan terdekat. Orang-orang berbisik saat ia mendekati klinik.</li>
+                    <li><i class="fas fa-walking" style="color: var(--accent);"></i> <strong>Skenario B (Akses Sulit):</strong> Seorang ODHIV harus menempuh perjalanan jauh dan menghabiskan banyak biaya hanya untuk mengambil ARV bulanan karena fasyankes terdekat tidak menyediakan layanan PDP.</li>
+                    <li><i class="fas fa-chart-line-down" style="color: var(--accent);"></i> <strong>Skenario C (LTFU - Loss to Follow-Up):</strong> Sebuah grafik menunjukkan penurunan jumlah pasien yang rutin minum ARV setelah beberapa bulan, dengan narasi "Banyak yang memulai, tapi tak banyak yang bertahan."</li>
+                </ul>
+                <div class="quiz-box">
+                    <h4><i class="fas fa-lightbulb"></i> Pertanyaan Refleksi Interaktif</h4>
+                    <div class="quiz-question">
+                        <p>Dari skenario tadi, apa <strong>tantangan terbesar</strong> yang Anda lihat dalam penjangkauan dan retensi ODHIV di komunitas Anda?</p>
+                        <div class="quiz-options">
+                            <label><input type="radio" name="challenge" value="stigma"> Stigma dan diskriminasi</label>
+                            <label><input type="radio" name="challenge" value="access"> Akses layanan yang sulit/mahal</label>
+                            <label><input type="radio" name="challenge" value="ltfu"> Tingginya angka putus pengobatan (LTFU)</label>
+                            <label><input type="radio" name="challenge" value="all"> Semua jawaban di atas</label>
+                        </div>
+                        <button class="button-check" onclick="checkReflectionQuiz()">Kirim Jawaban</button>
+                        <div id="reflection-feedback" class="quiz-feedback"></div>
+                    </div>
+                    <script>
+                        function checkReflectionQuiz() {
+                            const selected = document.querySelector('input[name="challenge"]:checked');
+                            const feedbackDiv = document.getElementById('reflection-feedback');
+                            if (selected) {
+                                if (selected.value === 'all') {
+                                    feedbackDiv.textContent = "Tepat sekali! Stigma, akses sulit, dan LTFU adalah tantangan besar yang saling terkait dan perlu diatasi secara komprehensif.";
+                                    feedbackDiv.className = "quiz-feedback correct";
+                                } else {
+                                    feedbackDiv.textContent = "Itu salah satu tantangan penting, namun ada faktor lain yang juga berkontribusi. Pertimbangkan semua aspek yang mungkin mempengaruhi penjangkauan dan retensi ODHIV.";
+                                    feedbackDiv.className = "quiz-feedback incorrect";
+                                }
+                                feedbackDiv.style.display = "block";
+                            } else {
+                                feedbackDiv.textContent = "Silakan pilih salah satu jawaban untuk melanjutkan.";
+                                feedbackDiv.className = "quiz-feedback incorrect";
+                                feedbackDiv.style.display = "block";
+                            }
+                        }
+                    </script>
                 </div>
             </div>
-            <button class="button-check" onclick="checkAllDrops()">Periksa Semua Jawaban</button>
-            <div id="overallDropFeedback" class="quiz-feedback" style="margin-top: 20px;"></div>
-        </div>
+        </section>
 
-        <p style="margin-top: 25px;">**Narasi Video:** DSD bukan hanya konsep di atas kertas, tapi wujud nyata pelayanan yang memudahkan hidup ODHIV dan orang berisiko. Melalui DSD, kita memastikan tidak ada yang tertinggal dalam mengakses layanan penting.</p>
-        <div class="video-container">
-            <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="Simulasi DSD (Rick Astley - Never Gonna Give You Up)" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-        </div>
-      </div>
-    </section>
+        <section class="slide">
+            <h2>1.2 Solusi Inovatif: Merangkul Kolaborasi dan Fleksibilitas</h2>
+            <p class="narration"><strong>Narasi:</strong> Untuk mengatasi tantangan ini, Indonesia tidak tinggal diam. Kita mengadopsi pendekatan inovatif yang mengedepankan <strong>kolaborasi</strong> dan <strong>fleksibilitas layanan</strong>. Mari kenali dua konsep utamanya: <strong>Public-Private-Community Partnership (PPCP)</strong> dan <strong>Differentiated Service Delivery (DSD)</strong>.</p>
 
-    <section class="slide">
-      <h2>1.3 Mengenal Lebih Dekat: Pos Layanan Komunitas (PoC)</h2>
-
-      <div class="media-box">
-        <h4><i class="fas fa-hand-holding-medical"></i> PoC: Perpanjangan Tangan Komunitas</h4>
-        <p>**Narasi:** Dari konsep PPCP dan DSD, lahirlah **Pos Layanan Komunitas (Point of Care - PoC)**. Bayangkan PoC sebagai **'jembatan' yang dinamis** yang menghubungkan layanan kesehatan formal dengan denyut nadi komunitas. Ini adalah **perpanjangan tangan layanan Perawatan, Dukungan, dan Pengobatan (PDP)** yang fleksibel dan adaptif.</p>
-        <div style="text-align: center; margin-bottom: 20px;">
-            <i class="fas fa-hospital fa-4x" style="color: #607d8b;"></i>
-            <i class="fas fa-arrow-right fa-3x" style="color: var(--primary); margin: 0 15px;"></i>
-            <i class="fas fa-clinic-medical fa-4x" style="color: var(--accent);"></i> <i class="fas fa-arrow-right fa-3x" style="color: var(--primary); margin: 0 15px;"></i>
-            <i class="fas fa-people-carry fa-4x" style="color: #4caf50;"></i>
-            <p style="margin-top: 10px; font-style: italic;">Fasyankes Formal <span style="font-size: 0.8em;">--></span> PoC <span style="font-size: 0.8em;">--></span> Komunitas</p>
-        </div>
-        <p>**Poin Penting PoC:**</p>
-        <ul id="pocPoints">
-          <li style="display: none;"><i class="fas fa-check-circle" style="color: var(--primary);"></i> **Bukan klinik permanen, tapi wadah fleksibel dan bergerak.**</li>
-          <li style="display: none;"><i class="fas fa-check-circle" style="color: var(--primary);"></i> **Berlokasi di tengah komunitas, dekat dengan kelompok sasaran.**</li>
-          <li style="display: none;"><i class="fas fa-check-circle" style="color: var(--primary);"></i> **Fokus pada kelompok kunci dan rentan, memastikan akses yang merata.**</li>
-        </ul>
-        <button class="button-check" onclick="revealPocPoints()">Pelajari Poin Penting PoC</button>
-        <script>
-            function revealPocPoints() {
-                const points = document.querySelectorAll('#pocPoints li');
-                let delay = 0;
-                points.forEach((point, index) => {
-                    setTimeout(() => {
-                        point.style.display = 'list-item';
-                        point.style.opacity = '0';
-                        point.style.transform = 'translateY(10px)';
-                        setTimeout(() => {
-                            point.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
-                            point.style.opacity = '1';
-                            point.style.transform = 'translateY(0)';
-                        }, 50); // Small delay to trigger transition
-                    }, delay);
-                    delay += 500; // Stagger animation
-                });
-            }
-        </script>
-      </div>
-
-      <div class="interactive-box">
-        <h4><i class="fas fa-balance-scale"></i> PoC vs. CBC: Mana Bedanya?</h4>
-        <p>**Narasi:** Meskipun keduanya berbasis komunitas, PoC dan Community-based Clinic (CBC) memiliki karakteristik dan peran yang berbeda. Memahami perbedaannya sangat penting untuk mengoptimalkan peran masing-masing dalam strategi penanggulangan HIV.</p>
-        <div class="comparison-table">
-            <table>
-              <thead>
-                <tr>
-                  <th>Fitur</th>
-                  <th>Pos Layanan Komunitas (PoC)</th>
-                  <th>Community-based Clinic (CBC)</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>**Legalitas & Izin**</td>
-                  <td>Perpanjangan tangan Fasyankes pengampu, tidak perlu izin klinik mandiri.
-                    <div class="cell-popup">PoC beroperasi di bawah payung Fasyankes utama, mengurangi birokrasi perizinan.</div>
-                  </td>
-                  <td>Memerlukan izin operasional sebagai klinik tetap (sesuai Permenkes No. 9 Tahun 2014).
-                    <div class="cell-popup">CBC adalah fasilitas kesehatan formal yang membutuhkan perizinan klinik lengkap.</div>
-                  </td>
-                </tr>
-                <tr>
-                  <td>**Tenaga Medis**</td>
-                  <td>Fleksibel, dibantu komunitas & nakes pengampu (visitasi/telemedicine).
-                    <div class="cell-popup">Petugas PoC adalah kader atau relawan terlatih, didukung nakes dari fasyankes pengampu.</div>
-                  </td>
-                  <td>Wajib memiliki tenaga medis berlisensi tetap di lokasi.
-                    <div class="cell-popup">CBC memiliki dokter, perawat, atau petugas lab yang berpraktik secara reguler.</div>
-                  </td>
-                </tr>
-                <tr>
-                  <td>**Fleksibilitas Lokasi**</td>
-                  <td>Sangat fleksibel: klinik keliling, tenda layanan, pusat komunitas, area publik (pasar, stasiun).
-                    <div class="cell-popup">PoC bisa berada di mana saja yang strategis untuk penjangkauan.</div>
-                  </td>
-                  <td>Lokasi tetap di bangunan fisik yang spesifik.
-                    <div class="cell-popup">CBC memiliki alamat permanen dan jam operasional yang tetap.</div>
-                  </td>
-                </tr>
-                <tr>
-                  <td>**Tujuan Utama**</td>
-                  <td>Memperluas jangkauan dan akses ke komunitas akar rumput, mengurangi hambatan.
-                    <div class="cell-popup">Fokus PoC adalah mempermudah orang untuk memulai layanan.</div>
-                  </td>
-                  <td>Menyediakan layanan klinis yang komprehensif secara rutin di lokasi tetap.
-                    <div class="cell-popup">CBC bisa melakukan diagnostik lanjutan, memberikan ARV, dan mengelola kasus kompleks.</div>
-                  </td>
-                </tr>
-                <tr>
-                  <td>**Jenis Layanan**</td>
-                  <td>**FOKUS** pada skrining, rujukan, dukungan, dan beberapa layanan lanjutan dengan pendampingan nakes.
-                    <div class="cell-popup">Layanan PoC mencakup tes cepat, konseling, edukasi, dan rujukan ke fasyankes.</div>
-                  </td>
-                  <td>Menyediakan layanan PDP lengkap termasuk diagnosis, pengobatan, hingga konseling mendalam.
-                    <div class="cell-popup">CBC bisa melakukan diagnostik lanjutan, memberikan ARV, dan mengelola kasus kompleks.</div>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-            <p style="font-size: 0.9em; color: #555; margin-top: 15px;">*(Arahkan kursor ke sel tabel untuk melihat detail tambahan.)*</p>
-        </div>
-      </div>
-
-      <div class="media-box">
-        <h4><i class="fas fa-hand-holding-heart"></i> Manfaat Nyata PoC: Mengubah Hidup</h4>
-        <p>**Narasi:** Lalu, apa manfaat konkret keberadaan PoC bagi upaya penanggulangan HIV dan IMS? Dampaknya sangat signifikan dan mengubah hidup!</p>
-        <ul id="benefitsList">
-          <li><i class="fas fa-road" style="color: var(--primary);"></i> **Akses Mudah, Ramah Komunitas:** "PoC mendekatkan layanan ke masyarakat, bahkan di pelosok atau tempat yang sulit dijangkau, dengan suasana yang akrab dan non-diskriminatif."</li>
-          <li><i class="fas fa-shield-alt" style="color: var(--primary);"></i> **Mengurangi Stigma dan Diskriminasi:** "Dengan berada di komunitas dan dioperasikan oleh mereka yang memahami, PoC menciptakan ruang aman yang bebas dari penilaian dan prasangka buruk."</li>
-          <li><i class="fas fa-search-plus" style="color: var(--primary);"></i> **Meningkatkan Deteksi Dini dan Kepatuhan Pengobatan:** "Semakin mudah akses, semakin banyak yang mau tes. Semakin nyaman berinteraksi, semakin tinggi kepatuhan pada pengobatan ARV."</li>
-          <li><i class="fas fa-lightbulb" style="color: var(--primary);"></i> **Pemberdayaan Komunitas:** "PoC memberi peran aktif pada komunitas, menjadikan mereka bagian dari solusi, bukan sekadar penerima layanan, membangun kemandirian."</li>
-          <li><i class="fas fa-cog" style="color: var(--primary);"></i> **Peluang Layanan Holistik dan Terintegrasi:** "Tidak hanya HIV, PoC juga bisa menjadi pintu masuk untuk skrining IMS, TBC, hingga dukungan kesehatan mental, secara terpadu."</li>
-          <li><i class="fas fa-undo-alt" style="color: var(--primary);"></i> **Mengurangi Angka ODHIV yang Hilang (LTFU):** "Pendampingan komunitas dan akses yang mudah membantu ODHIV tetap di jalur pengobatan, mengurangi angka Loss to Follow-Up yang sering menjadi masalah."</li>
-        </ul>
-        <div class="testimonial-video">
-            <p style="margin-bottom: 10px;">Dengarkan langsung cerita tentang dampak positif PoC:</p>
-            <iframe src="https://www.youtube.com/embed/videoseries?list=PL_Jk7H-5j63P0yR8yN7f8w2h2b5x5t5Q0" title="Contoh Video Testimoni (Placeholder Playlist)" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-            <p style="font-size: 0.85em; color: #666; margin-top: 5px;">*(Video ini adalah placeholder. Ganti dengan video testimoni yang relevan.)*</p>
-        </div>
-      </div>
-    </section>
-
-    <section class="slide">
-      <h2>1.4 Uji Pemahaman</h2>
-      <div class="quiz-box">
-        <h4><i class="fas fa-question-circle"></i> Kuis Singkat: Apakah Anda Sudah Paham PoC?</h4>
-        <p>Yuk, **uji pemahaman Anda** setelah mempelajari materi Bab I!</p>
-        <div class="quiz-question">
-            <p>1. Manakah dari pernyataan berikut yang paling tepat menggambarkan PoC?</p>
-            <div class="quiz-options">
-                <label><input type="radio" name="q1" value="a"> Klinik permanen dengan izin mandiri yang melayani PDP lengkap.</label>
-                <label><input type="radio" name="q1" value="b"> Perpanjangan tangan fasyankes pengampu, tidak memerlukan izin klinik mandiri dan fokus pada skrining serta rujukan.</label>
-                <label><input type="radio" name="q1" value="c"> Hanya untuk orang tanpa HIV yang memerlukan skrining IMS.</label>
-                <label><input type="radio" name="q1" value="d"> Organisasi komunitas yang hanya memberikan dukungan psikososial tanpa layanan medis.</label>
-            </div>
-            <button class="button-check" onclick="checkQuiz(1)">Periksa Jawaban</button>
-            <div id="feedback1" class="quiz-feedback"></div>
-        </div>
-
-        <div class="quiz-question">
-            <p>2. Benar atau Salah: Salah satu manfaat utama keberadaan PoC di komunitas adalah untuk **meningkatkan stigma** terkait HIV.</p>
-            <div class="quiz-options">
-                <label><input type="radio" name="q2" value="true"> Benar</label>
-                <label><input type="radio" name="q2" value="false"> Salah</label>
-            </div>
-            <button class="button-check" onclick="checkQuiz(2)">Periksa Jawaban</button>
-            <div id="feedback2" class="quiz-feedback"></div>
-        </div>
-
-        <div class="quiz-question">
-            <p>3. Pilih semua yang benar: PoC berperan penting dalam (pilih lebih dari satu jawaban):</p>
-            <div class="quiz-options">
-                <label><input type="checkbox" name="q3" value="a"> Meningkatkan deteksi dini HIV di populasi kunci.</label>
-                <label><input type="checkbox" name="q3" value="b"> Memerlukan pembangunan gedung permanen baru.</label>
-                <label><input type="checkbox" name="q3" value="c"> Pemberdayaan komunitas dan relawan dalam penanggulangan HIV.</label>
-                <label><input type="checkbox" name="q3" value="d"> Mengurangi angka putus pengobatan (Loss to Follow-Up) bagi ODHIV.</label>
-            </div>
-            <button class="button-check" onclick="checkQuiz(3)">Periksa Jawaban</button>
-            <div id="feedback3" class="quiz-feedback"></div>
-        </div>
-
-        <script>
-            function checkQuiz(questionNumber) {
-                let feedbackDiv;
-                let isCorrect = false;
-
-                if (questionNumber === 1) {
-                    const selected = document.querySelector('input[name="q1"]:checked');
-                    feedbackDiv = document.getElementById('feedback1');
-                    if (selected && selected.value === 'b') {
-                        isCorrect = true;
+            <div class="media-box">
+                <h4><i class="fas fa-people-arrows"></i> Memahami PPCP: Kekuatan Kolaborasi</h4>
+                <p class="narration"><strong>Narasi:</strong> PPCP adalah strategi kerja sama lintas sektor. Bayangkan seperti tiga kekuatan besar yang bersatu padu untuk satu tujuan: melawan HIV dan IMS. Ini menciptakan <strong>sinergi yang luar biasa!</strong></p>
+                <div style="display: flex; justify-content: space-around; gap: 15px; margin-top: 20px; flex-wrap: wrap;">
+                    <div class="target-95-item" style="background-color: #3f51b5; width: 150px; height: 150px;" onclick="showPPCPDetail('gov')">
+                        <i class="fas fa-building fa-2x"></i>
+                        <span>Pemerintah</span>
+                        <div id="gov" class="pop-up-info" style="top: 160%; width: 250px;"><strong>Pemerintah:</strong> Menyediakan regulasi, kebijakan, dan dukungan sumber daya. Contoh: Kemenkes, Dinas Kesehatan.</div>
+                    </div>
+                    <div class="target-95-item" style="background-color: #ff9800; width: 150px; height: 150px;" onclick="showPPCPDetail('private')">
+                        <i class="fas fa-handshake-alt fa-2x"></i>
+                        <span>Swasta</span>
+                        <div id="private" class="pop-up-info" style="top: 160%; width: 250px;"><strong>Swasta:</strong> Berperan dalam inovasi, pendanaan, dan perluasan layanan. Contoh: Perusahaan farmasi, klinik swasta.</div>
+                    </div>
+                    <div class="target-95-item" style="background-color: #4caf50; width: 150px; height: 150px;" onclick="showPPCPDetail('community')">
+                        <i class="fas fa-users fa-2x"></i>
+                        <span>Komunitas</span>
+                        <div id="community" class="pop-up-info" style="top: 160%; width: 250px;"><strong>Komunitas:</strong> Jantung dari PPCP, sebagai penjangkau, pendamping, dan penyedia layanan yang memahami kebutuhan akar rumput. Contoh: LSM, kelompok dukungan.</div>
+                    </div>
+                </div>
+                <script>
+                    function showPPCPDetail(id) {
+                        var popup = document.getElementById(id);
+                        if (popup.style.display === "block") {
+                            popup.style.display = "none";
+                        } else {
+                            document.querySelectorAll('.pop-up-info').forEach(p => p.style.display = 'none');
+                            popup.style.display = "block";
+                        }
                     }
-                } else if (questionNumber === 2) {
-                    const selected = document.querySelector('input[name="q2"]:checked');
-                    feedbackDiv = document.getElementById('feedback2');
-                    if (selected && selected.value === 'false') { // Manfaat utama PoC adalah MENGURANGI stigma
-                        isCorrect = true;
+                </script>
+            </div>
+
+            <div class="interactive-box">
+                <h4><i class="fas fa-cogs"></i> Memahami DSD: Layanan yang Memahami Anda</h4>
+                <p class="narration"><strong>Narasi:</strong> Differentiated Service Delivery (DSD) berarti menyediakan layanan kesehatan HIV yang disesuaikan dengan kebutuhan individu. Bukan satu ukuran untuk semua, melainkan layanan yang <strong>'pas' untuk setiap orang</strong>, mempertimbangkan konteks dan preferensi.</p>
+
+                <h4 style="margin-top: 25px;"><i class="fas fa-arrows-alt"></i> Aktivitas Drag-and-Drop: Contoh Implementasi DSD</h4>
+                <p><strong>Instruksi:</strong> Seret dan lepaskan contoh implementasi DSD ke kategori keunggulan utamanya. Ini akan membantu Anda memahami bagaimana DSD memberikan dampak nyata!</p>
+
+                <div class="drag-drop-container">
+                    <div class="drag-items-area" id="dragItemsArea">
+                        <div class="draggable-dsd" draggable="true" id="drag1" data-category="access">Penambahan fasyankes PDP baru</div>
+                        <div class="draggable-dsd" draggable="true" id="drag2" data-category="efficiency">Pengambilan ARV multi-bulan</div>
+                        <div class="draggable-dsd" draggable="true" id="drag3" data-category="client-centered">Layanan kunjungan rumah</div>
+                        <div class="draggable-dsd" draggable="true" id="drag4" data-category="community-led">Kelompok dukungan sebaya</div>
+                        <div class="draggable-dsd" draggable="true" id="drag5" data-category="simplified">Sistem rujukan yang lebih mudah</div>
+                    </div>
+                    <div class="drop-targets-area" id="dropTargetsArea">
+                        <div class="drop-target" data-accept="access">
+                            <h5><i class="fas fa-map-marker-alt"></i> Peningkatan Akses</h5>
+                            <div class="drop-feedback"></div>
+                        </div>
+                        <div class="drop-target" data-accept="efficiency">
+                            <h5><i class="fas fa-hourglass-half"></i> Efisiensi Waktu</h5>
+                            <div class="drop-feedback"></div>
+                        </div>
+                        <div class="drop-target" data-accept="client-centered">
+                            <h5><i class="fas fa-user-check"></i> Lebih Berpusat pada Klien</h5>
+                            <div class="drop-feedback"></div>
+                        </div>
+                        <div class="drop-target" data-accept="community-led">
+                            <h5><i class="fas fa-users-cog"></i> Peran Komunitas Lebih Kuat</h5>
+                            <div class="drop-feedback"></div>
+                        </div>
+                        <div class="drop-target" data-accept="simplified">
+                            <h5><i class="fas fa-hand-point-right"></i> Prosedur Lebih Sederhana</h5>
+                            <div class="drop-feedback"></div>
+                        </div>
+                    </div>
+                    <button class="button-check" onclick="checkDragAndDrop()">Cek Jawaban DSD</button>
+                    <div id="drag-drop-overall-feedback" class="quiz-feedback"></div>
+                </div>
+
+                <script>
+                    let draggedItem = null;
+
+                    document.addEventListener('DOMContentLoaded', (event) => {
+                        const dragItemsArea = document.getElementById('dragItemsArea');
+                        const dropTargets = document.querySelectorAll('.drop-target');
+
+                        // Event listeners for draggable items
+                        document.querySelectorAll('.draggable-dsd').forEach(item => {
+                            item.addEventListener('dragstart', (e) => {
+                                draggedItem = e.target;
+                                e.dataTransfer.setData('text/plain', e.target.id);
+                                setTimeout(() => {
+                                    e.target.style.opacity = '0.5';
+                                }, 0);
+                            });
+
+                            item.addEventListener('dragend', (e) => {
+                                e.target.style.opacity = '1';
+                                draggedItem = null;
+                            });
+                        });
+
+                        // Event listeners for drop targets
+                        dropTargets.forEach(target => {
+                            target.addEventListener('dragover', (e) => {
+                                e.preventDefault(); // Allow drop
+                                target.classList.add('hovered');
+                            });
+
+                            target.addEventListener('dragleave', (e) => {
+                                target.classList.remove('hovered');
+                            });
+
+                            target.addEventListener('drop', (e) => {
+                                e.preventDefault();
+                                target.classList.remove('hovered');
+
+                                const data = e.dataTransfer.getData('text/plain');
+                                const draggableElement = document.getElementById(data);
+
+                                if (draggableElement && draggableElement.dataset.category === target.dataset.accept) {
+                                    target.appendChild(draggableElement);
+                                    draggableElement.style.margin = '5px'; // Adjust styling after drop
+                                    draggableElement.style.cursor = 'default';
+                                    draggableElement.draggable = false; // Make it not draggable after correct drop
+                                    target.classList.add('correct-drop');
+                                    target.querySelector('.drop-feedback').textContent = "Tepat!";
+                                    target.querySelector('.drop-feedback').className = "drop-feedback correct";
+                                    target.querySelector('.drop-feedback').style.display = "block";
+                                } else if (draggableElement) {
+                                    target.classList.add('incorrect-drop');
+                                    target.querySelector('.drop-feedback').textContent = "Salah tempat. Coba lagi!";
+                                    target.querySelector('.drop-feedback').className = "drop-feedback incorrect";
+                                    target.querySelector('.drop-feedback').style.display = "block";
+                                    // Optionally, move it back to the original area or reset its state
+                                    setTimeout(() => {
+                                        target.classList.remove('incorrect-drop');
+                                        target.querySelector('.drop-feedback').style.display = "none";
+                                    }, 1000);
+                                }
+                            });
+                        });
+                    });
+
+                    function checkDragAndDrop() {
+                        const dropTargets = document.querySelectorAll('.drop-target');
+                        let allCorrect = true;
+                        dropTargets.forEach(target => {
+                            const droppedItems = target.querySelectorAll('.draggable-dsd');
+                            const feedbackDiv = target.querySelector('.drop-feedback');
+                            if (droppedItems.length === 0) {
+                                allCorrect = false;
+                                feedbackDiv.textContent = "Belum terisi!";
+                                feedbackDiv.className = "drop-feedback incorrect";
+                                feedbackDiv.style.display = "block";
+                            } else {
+                                droppedItems.forEach(item => {
+                                    if (item.dataset.category !== target.dataset.accept) {
+                                        allCorrect = false;
+                                        feedbackDiv.textContent = "Ada yang salah di sini!";
+                                        feedbackDiv.className = "drop-feedback incorrect";
+                                        feedbackDiv.style.display = "block";
+                                    } else {
+                                        feedbackDiv.textContent = "Tepat!";
+                                        feedbackDiv.className = "drop-feedback correct";
+                                        feedbackDiv.style.display = "block";
+                                    }
+                                });
+                            }
+                        });
+
+                        const overallFeedback = document.getElementById('drag-drop-overall-feedback');
+                        if (allCorrect && document.querySelectorAll('.draggable-dsd[draggable="true"]').length === 0) {
+                            overallFeedback.textContent = "Hebat! Semua jawaban DSD Anda benar dan ditempatkan dengan tepat.";
+                            overallFeedback.className = "quiz-feedback correct";
+                        } else {
+                            overallFeedback.textContent = "Periksa kembali jawaban Anda. Pastikan semua ditempatkan di kategori yang tepat.";
+                            overallFeedback.className = "quiz-feedback incorrect";
+                        }
+                        overallFeedback.style.display = "block";
                     }
-                } else if (questionNumber === 3) {
-                    const selectedOptions = document.querySelectorAll('input[name="q3"]:checked');
-                    feedbackDiv = document.getElementById('feedback3');
-                    const correctAnswers = ['a', 'c', 'd'];
-                    const selectedValues = Array.from(selectedOptions).map(input => input.value);
+                </script>
+            </div>
+        </section>
 
-                    isCorrect = correctAnswers.every(val => selectedValues.includes(val)) && selectedValues.length === correctAnswers.length;
-                }
+        <section class="slide">
+            <h2>1.3 Pos Layanan Komunitas (PoC): Jawabannya Ada di Tangan Kita!</h2>
+            <p class="narration"><strong>Narasi:</strong> Dari PPCP dan DSD, lahirlah PoC – Pos Layanan Komunitas. Ini adalah jawaban inovatif kita untuk menjangkau lebih banyak orang, di tempat yang mereka rasa aman dan nyaman.</p>
 
-                if (isCorrect) {
-                    feedbackDiv.textContent = "Tepat sekali! Anda memahami poin kuncinya. Lanjutkan ke materi selanjutnya!";
-                    feedbackDiv.className = "quiz-feedback correct";
-                } else {
-                    feedbackDiv.textContent = "Belum tepat. Coba tinjau kembali materi tentang definisi, perbedaan, dan manfaat PoC.";
-                    feedbackDiv.className = "quiz-feedback incorrect";
-                }
-                feedbackDiv.style.display = "block";
-            }
-        </script>
-      </div>
-    </section>
+            <h3>Apa itu PoC?</h3>
+            <p><strong>Pos Layanan Komunitas (PoC)</strong> adalah fasilitas layanan kesehatan HIV dan IMS yang <strong>dikelola oleh komunitas</strong>, terintegrasi dengan layanan kesehatan formal, dan menyediakan layanan yang <strong>diferensiasi serta berpusat pada klien</strong>. PoC bertujuan untuk mendekatkan layanan dan mengurangi hambatan.</p>
 
-    <section class="slide" style="text-align: center;">
-      <h2>Selamat! Anda Telah Menyelesaikan Bab I</h2>
-      <p style="font-size: 1.1em; line-height: 1.8;">**Narasi Penutup:** Selamat! Anda telah menyelesaikan Bab I. Anda kini memahami betapa vitalnya peran Pos Layanan Komunitas sebagai pilar baru dalam upaya kita mencapai **Indonesia Bebas AIDS 2030**. Pemahaman ini adalah langkah awal yang sangat penting!</p>
-      <p style="font-size: 1.1em; line-height: 1.8;">Mari lanjutkan perjalanan kita ke Bab berikutnya untuk menggali lebih dalam bagaimana PoC diimplementasikan secara praktis, peran Anda di dalamnya, dan dampak positif yang bisa kita ciptakan bersama!</p>
-      <div style="margin-top: 30px;">
-        <i class="fas fa-hand-holding-heart fa-5x" style="color: var(--primary);"></i>
-        <i class="fas fa-arrow-right fa-3x" style="color: var(--accent); margin: 0 20px;"></i>
-        <i class="fas fa-book-reader fa-5x" style="color: var(--primary-dark);"></i>
-      </div>
-    </section>
-  </main>
+            <div class="media-box">
+                <h4><i class="fas fa-video"></i> Video Inspirasi: PoC dalam Aksi</h4>
+                <p class="narration"><strong>Narasi:</strong> Saksikan bagaimana PoC memberikan dampak nyata dalam kehidupan sehari-hari masyarakat.</p>
+                <div class="video-container">
+                    <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+            </div>
 
-  <footer>
-    Disiapkan oleh PIKAT untuk Kementerian Kesehatan Republik Indonesia © 2025
-  </footer>
+            <div class="interactive-box comparison-table">
+                <h4><i class="fas fa-table"></i> Perbandingan: PoC vs. Layanan Berbasis Komunitas Konvensional (CBC)</h4>
+                <p class="narration"><strong>Narasi:</strong> Penting untuk memahami perbedaan mendasar antara PoC dan Community-Based Care (CBC) tradisional. Meski sama-sama berbasis komunitas, PoC membawa inovasi yang signifikan.</p>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Karakteristik</th>
+                            <th>PoC (Pos Layanan Komunitas)</th>
+                            <th>CBC (Community-Based Care) Konvensional</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Model Pengelolaan</strong></td>
+                            <td>Dikelola & dimiliki oleh komunitas <span class="cell-popup">Komunitas punya kontrol penuh atas operasional.</span></td>
+                            <td>Didukung/dikelola oleh LSM/fasyankes <span class="cell-popup">Fokus pada penjangkauan, bukan selalu pengelolaan fasilitas.</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Integrasi Layanan</strong></td>
+                            <td>Terintegrasi erat dengan fasyankes <span class="cell-popup">Ada sistem rujukan dan pelaporan yang jelas.</span></td>
+                            <td>Umumnya independen, rujukan ad-hoc <span class="cell-popup">Kurang terstruktur dengan sistem kesehatan formal.</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Jenis Layanan</strong></td>
+                            <td>Layanan lengkap (test, ART, DSD, dll) <span class="cell-popup">Sediakan tes, pengobatan, pendampingan, hingga DSD.</span></td>
+                            <td>Fokus pada penjangkauan & konseling <span class="cell-popup">Biasanya terbatas pada edukasi dan deteksi awal.</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Fleksibilitas</strong></td>
+                            <td>Sangat fleksibel, disesuaikan kebutuhan lokal <span class="cell-popup">Waktu dan lokasi layanan bisa sangat adaptif.</span></td>
+                            <td>Terbatas oleh sumber daya & kebijakan LSM <span class="cell-popup">Lebih rigid dalam operasional.</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Status Hukum</strong></td>
+                            <td>Diakui dalam sistem kesehatan nasional <span class="cell-popup">Memiliki legitimasi sebagai bagian dari layanan kesehatan.</span></td>
+                            <td>Kegiatan swadaya, informal <span class="cell-popup">Tidak selalu diakui secara formal sebagai unit layanan.</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
 
-  <script>
-    // DSD Drag and Drop functionality
-    let draggedItem = null;
+            <div class="media-box testimonial-video">
+                <h4><i class="fas fa-comment-dots"></i> Kisah Nyata: Testimoni dari Lapangan</h4>
+                <p class="narration"><strong>Narasi:</strong> Dengar langsung dari mereka yang merasakan manfaat PoC. Kisah ini adalah bukti nyata dampak positif yang bisa kita ciptakan bersama.</p>
+                <div class="video-container">
+                    <iframe src="https://www.youtube.com/embed/another_relevant_video_id" title="Testimonial Video" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+            </div>
+        </section>
 
-    document.querySelectorAll('.draggable-dsd').forEach(item => {
-        item.addEventListener('dragstart', (e) => {
-            draggedItem = e.target;
-            e.dataTransfer.setData('text/plain', e.target.id);
-            setTimeout(() => {
-                e.target.style.opacity = '0.5';
-            }, 0);
-        });
+        <section class="slide">
+            <h2>1.4 Kuis Penutup Bab I</h2>
+            <p class="narration"><strong>Narasi:</strong> Selamat! Anda telah berhasil menyelesaikan BAB I. Mari kita uji pemahaman Anda dengan kuis singkat ini. Ini akan membantu menguatkan apa yang telah Anda pelajari.</p>
 
-        item.addEventListener('dragend', (e) => {
-            e.target.style.opacity = '1';
-            draggedItem = null;
-        });
-    });
+            <div class="quiz-box">
+                <h4><i class="fas fa-question-circle"></i> Kuis Interaktif</h4>
+                <div class="quiz-question">
+                    <p>1. Manakah dari target di bawah ini yang BUKAN merupakan bagian dari visi "Indonesia Bebas AIDS 2030"?</p>
+                    <div class="quiz-options">
+                        <label><input type="radio" name="q1" value="a"> Nol Kasus Infeksi Baru</label>
+                        <label><input type="radio" name="q1" value="b"> Nol Kematian Terkait AIDS</label>
+                        <label><input type="radio" name="q1" value="c"> Nol Diskriminasi terhadap ODHIV</label>
+                        <label><input type="radio" name="q1" value="d"> Nol Biaya Pengobatan ARV</label>
+                    </div>
+                    <button class="button-check" onclick="checkQuiz(1, 'd')">Cek Jawaban</button>
+                    <div id="q1-feedback" class="quiz-feedback"></div>
+                </div>
 
-    document.querySelectorAll('.drop-target').forEach(target => {
-        target.addEventListener('dragover', (e) => {
-            e.preventDefault(); // Allow drop
-            target.classList.add('hovered');
-        });
+                <div class="quiz-question">
+                    <p>2. Konsep Differentiated Service Delivery (DSD) dalam penanggulangan HIV bertujuan untuk?</p>
+                    <div class="quiz-options">
+                        <label><input type="radio" name="q2" value="a"> Menstandardisasi semua layanan HIV untuk efisiensi.</label>
+                        <label><input type="radio" name="q2" value="b"> Menyediakan layanan HIV yang disesuaikan dengan kebutuhan individu.</label>
+                        <label><input type="radio" name="q2" value="c"> Membatasi jumlah layanan yang tersedia bagi ODHIV.</label>
+                        <label><input type="radio" name="q2" value="d"> Mengalihkan semua layanan ke fasilitas rumah sakit besar.</label>
+                    </div>
+                    <button class="button-check" onclick="checkQuiz(2, 'b')">Cek Jawaban</button>
+                    <div id="q2-feedback" class="quiz-feedback"></div>
+                </div>
 
-        target.addEventListener('dragleave', (e) => {
-            target.classList.remove('hovered');
-        });
+                <div class="quiz-question">
+                    <p>3. Berikut ini adalah karakteristik utama Pos Layanan Komunitas (PoC), KECUALI?</p>
+                    <div class="quiz-options">
+                        <label><input type="radio" name="q3" value="a"> Dikelola dan dimiliki oleh komunitas.</label>
+                        <label><input type="radio" name="q3" value="b"> Terintegrasi erat dengan layanan kesehatan formal.</label>
+                        <label><input type="radio" name="q3" value="c"> Menyediakan layanan yang kaku dan tidak fleksibel.</label>
+                        <label><input type="radio" name="q3" value="d"> Diakui dalam sistem kesehatan nasional.</label>
+                    </div>
+                    <button class="button-check" onclick="checkQuiz(3, 'c')">Cek Jawaban</button>
+                    <div id="q3-feedback" class="quiz-feedback"></div>
+                </div>
 
-        target.addEventListener('drop', (e) => {
-            e.preventDefault();
-            target.classList.remove('hovered');
+                <script>
+                    function checkQuiz(questionNumber, correctAnswer) {
+                        const questionName = 'q' + questionNumber;
+                        const selectedOption = document.querySelector(`input[name="${questionName}"]:checked`);
+                        const feedbackDiv = document.getElementById(`${questionName}-feedback`);
 
-            const data = e.dataTransfer.getData('text/plain');
-            const droppedElement = document.getElementById(data);
+                        if (selectedOption) {
+                            if (selectedOption.value === correctAnswer) {
+                                feedbackDiv.textContent = "Jawaban Anda Benar!";
+                                feedbackDiv.className = "quiz-feedback correct";
+                            } else {
+                                feedbackDiv.textContent = "Jawaban Anda Salah. Silakan coba lagi.";
+                                feedbackDiv.className = "quiz-feedback incorrect";
+                            }
+                            feedbackDiv.style.display = "block";
+                        } else {
+                            feedbackDiv.textContent = "Pilih salah satu jawaban.";
+                            feedbackDiv.className = "quiz-feedback incorrect";
+                            feedbackDiv.style.display = "block";
+                        }
+                    }
+                </script>
+            </div>
+        </section>
+    </main>
 
-            if (droppedElement) {
-                const targetCategory = target.getAttribute('data-target-category');
-                const itemCategory = droppedElement.getAttribute('data-category');
-                const feedbackDiv = target.querySelector('.drop-feedback');
-
-                if (targetCategory === itemCategory) {
-                    target.appendChild(droppedElement);
-                    droppedElement.style.margin = '5px'; // Adjust margin after drop
-                    droppedElement.draggable = false; // Make it non-draggable once dropped correctly
-                    droppedElement.classList.add('dropped-correct'); // Add a class for styling dropped items
-                    feedbackDiv.textContent = "Tepat!";
-                    feedbackDiv.className = "drop-feedback correct";
-                } else {
-                    feedbackDiv.textContent = "Kurang tepat. Coba lagi.";
-                    feedbackDiv.className = "drop-feedback incorrect";
-                    // Optionally, return item to its original place or a specific "try again" area
-                }
-                feedbackDiv.style.display = 'block';
-            }
-        });
-    });
-
-    function checkAllDrops() {
-        const dragItems = document.querySelectorAll('.draggable-dsd');
-        let allCorrect = true;
-        const overallFeedbackDiv = document.getElementById('overallDropFeedback');
-
-        dragItems.forEach(item => {
-            if (!item.classList.contains('dropped-correct')) {
-                allCorrect = false;
-            }
-        });
-
-        if (allCorrect) {
-            overallFeedbackDiv.textContent = "Selamat! Semua contoh DSD ditempatkan dengan benar pada kategorinya.";
-            overallFeedbackDiv.className = "quiz-feedback correct";
-        } else {
-            overallFeedbackDiv.textContent = "Ada beberapa contoh yang belum tepat. Silakan periksa kembali dan coba lagi.";
-            overallFeedbackDiv.className = "quiz-feedback incorrect";
-        }
-        overallFeedbackDiv.style.display = 'block';
-    }
-  </script>
+    <footer>
+        <p>&copy; 2024 E-Learning PoC Kementerian Kesehatan RI. Semua Hak Dilindungi Undang-Undang.</p>
+    </footer>
 </body>
 </html>
