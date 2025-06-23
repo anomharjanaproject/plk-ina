@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Beranda E-Learning – Pos Layanan Komunitas HIV/IMS</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <style>
+    :root {
+      --primary: #009688;
+      --primary-dark: #00796b;
+      --accent: #004d40;
+      --light: #fff;
+      --bg: #f5f5f5;
+      --footer-dark: #263238;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    body {
+      background: var(--bg);
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    header {
+      background: var(--light);
+      color: var(--accent);
+      padding: 24px 16px;
+      text-align: center;
+      border-bottom: 1px solid #e0e0e0;
+    }
+
+    .logo {
+      max-width: 240px;
+      margin-bottom: 10px;
+    }
+
+    h1 {
+      font-size: 1.8rem;
+      margin-bottom: 6px;
+    }
+
+    h2.subtitle {
+      font-size: 1.1rem;
+      color: var(--primary-dark);
+      margin-bottom: 12px;
+    }
+
+    main {
+      flex: 1;
+      max-width: 1000px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    .section-heading {
+      text-align: center;
+      color: var(--accent);
+      font-size: 1.3rem;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    .dashboard-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 24px;
+      margin-top: 20px;
+    }
+
+    .card {
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,.07);
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .card h3 {
+      font-size: 1.2rem;
+      color: var(--accent);
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .card p {
+      font-size: 0.95rem;
+      margin-bottom: 12px;
+      color: #444;
+    }
+
+    .card a {
+      align-self: flex-start;
+      padding: 10px 16px;
+      background-color: var(--primary);
+      color: #fff;
+      text-decoration: none;
+      font-weight: bold;
+      border-radius: 6px;
+      transition: background-color 0.3s ease;
+    }
+
+    .card a:hover {
+      background-color: var(--primary-dark);
+    }
+
+    footer {
+      background: var(--footer-dark);
+      color: #fff;
+      text-align: center;
+      padding: 14px 8px;
+      font-size: .9rem;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <img src="https://res.cloudinary.com/djexglfns/image/upload/v1749135749/logo_kemenkes_c2ggdg.png" alt="Logo Kemenkes" class="logo">
+  <h1>Platform E-Learning</h1>
+  <h2 class="subtitle">Pos Layanan Komunitas – HIV & IMS</h2>
+</header>
+
+<main>
+  <p class="section-heading">Selamat datang di halaman utama pembelajaran daring untuk mendukung pencegahan dan pengendalian HIV dan IMS melalui pendekatan komunitas.</p>
+
+  <!-- Ganti bagian <div class="dashboard-grid"> ... </div> dengan yang ini -->
+
+<div class="dashboard-grid">
+
+  <section class="card">
+    <h3><i class="fas fa-chalkboard-teacher"></i> BAB I: Pengantar Pos Layanan Komunitas (PoC)</h3>
+    <p>Pengenalan konsep, latar belakang, dan prinsip dasar pelaksanaan Pos Layanan Komunitas untuk HIV dan IMS.</p>
+    <a href="bab1.html" target="_blank"><i class="fas fa-arrow-right"></i> Pelajari BAB Ini</a>
+  </section>
+
+  <section class="card">
+    <h3><i class="fas fa-handshake"></i> BAB II: Implementasi Pos Layanan Komunitas</h3>
+    <p>Langkah-langkah teknis dan operasional dalam menyelenggarakan layanan komunitas di lapangan.</p>
+    <a href="bab2.html" target="_blank"><i class="fas fa-arrow-right"></i> Pelajari BAB Ini</a>
+  </section>
+
+  <section class="card">
+    <h3><i class="fas fa-chart-line"></i> BAB III: Pemantauan dan Evaluasi PoC</h3>
+    <p>Panduan dalam melakukan pemantauan, supervisi, serta evaluasi terhadap pelaksanaan layanan komunitas.</p>
+    <a href="bab3.html" target="_blank"><i class="fas fa-arrow-right"></i> Pelajari BAB Ini</a>
+  </section>
+
+  <section class="card">
+    <h3><i class="fas fa-file-alt"></i> BAB IV: Alur & Instrumen Pencatatan, Pelaporan, Pemantauan, dan Evaluasi</h3>
+    <p>Instrumen dan sistem yang digunakan dalam pencatatan data layanan, pelaporan, dan evaluasi program secara menyeluruh.</p>
+    <a href="bab4.html" target="_blank"><i class="fas fa-arrow-right"></i> Pelajari BAB Ini</a>
+  </section>
+
+</div>
+
+</main>
+
+<footer>Disiapkan oleh PIKAT untuk Kementerian Kesehatan Republik Indonesia © 2025</footer>
+
+</body>
+</html>
