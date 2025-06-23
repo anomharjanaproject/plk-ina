@@ -30,57 +30,49 @@
             line-height: 1.6;
         }
 
-        /* --- ATURAN PERBAIKAN BOLD --- */
-        /* Pastikan semua judul dan header tebal */
-        h1, h2, h3, h4, h5, h6 {
-            font-weight: bold !important;
-        }
-
-        /* Pastikan tag STRONG selalu tebal, ini yang paling penting untuk **text** */
+        /* --- ATURAN BARU: HANYA YANG DITANDAI DAN ELEMEN STRUKTURAL YANG BOLD --- */
         strong {
-            font-weight: 900 !important;
+            font-weight: 900 !important; /* Membuat teks di dalam <strong> sangat tebal */
         }
 
-        /* Teks di dalam list item (li) - pastikan normal kecuali ada strong di dalamnya */
-        ul li {
-            font-weight: normal;
+        h1, h2, h3, h4, h5, h6 {
+            font-weight: bold; /* Judul tetap bold secara default */
         }
 
-        /* Teks di dalam header navigasi */
-        header ul li, header ul li i {
-            font-weight: normal !important; /* Pastikan ikon dan teks di header list tidak bold */
+        /* Navigasi Header */
+        header ul li {
+            font-weight: normal; /* Reset kembali ke normal */
+        }
+        header ul li i {
+            font-weight: normal; /* Ikon tidak bold */
         }
 
-        /* Teks dalam Pop-up Info dan Modal - harus normal kecuali ada strong */
-        .pop-up-info p, .pop-up-info span, #modalBody p, #modalBody ul li, #modalBody span {
-            font-weight: normal !important;
-        }
-        /* Namun, pastikan strong di dalamnya tetap tebal */
-        .pop-up-info strong, #modalBody strong {
-            font-weight: 900 !important;
-        }
+  
 
-        /* Label kuis - harus normal kecuali ada strong */
+        /* Teks dalam label kuis */
         .quiz-options label {
-            font-weight: normal !important;
+            font-weight: normal; /* Label kuis tidak bold secara default */
+        }
+        .quiz-options input[type="radio"], .quiz-options input[type="checkbox"] {
+            font-weight: normal; /* Input radio/checkbox tidak bold */
         }
 
-        /* Teks di dalam tombol - umumnya tebal */
+        /* Teks di dalam tombol */
         button {
-            font-weight: bold !important;
+            font-weight: bold; /* Teks dalam tombol umumnya tebal */
         }
 
-        /* Header tabel - harus tebal */
+        /* Teks di dalam tabel header */
         table th {
-            font-weight: bold !important;
+            font-weight: bold; /* Header tabel tetap bold */
         }
 
-        /* Placeholder input - harus normal */
+        /* Input placeholder */
         input::placeholder {
             font-weight: normal !important;
         }
+        /* --- AKHIR ATURAN BOLD TERPILIH --- */
 
-        /* --- AKHIR ATURAN PERBAIKAN BOLD --- */
 
         header {
             background: var(--light);
@@ -219,7 +211,7 @@
             margin-top: 20px;
             border-radius: 8px;
             font-size: 1em;
-            display: none;
+            display: none; /* Default hidden */
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
             animation: fadeIn 0.4s ease-out;
         }
@@ -262,7 +254,6 @@
             margin-right: 12px;
             transform: scale(1.3);
             accent-color: var(--primary-dark);
-            font-weight: normal !important; /* Pastikan input type tidak bold */
         }
         .quiz-feedback {
             margin-top: 15px;
@@ -316,6 +307,11 @@
             text-align: left;
             font-size: 0.95rem;
         }
+        table th {
+            background-color: var(--primary);
+            color: var(--light);
+            text-transform: uppercase;
+        }
         table tr:nth-child(even) {
             background-color: #f9f9f9;
         }
@@ -360,12 +356,11 @@
             margin-bottom: 15px;
             color: #b2dfdb;
         }
-        /* Pastikan strong di grid-item tetap bold */
         .interactive-grid .grid-item strong {
             display: block;
             font-size: 1.2em;
             line-height: 1.4;
-            font-weight: 900 !important;
+            font-weight: 900 !important; /* Memastikan strong di grid-item tetap bold */
         }
 
         /* Calculation Exercise Styles */
@@ -378,7 +373,6 @@
             max-width: 250px;
             font-size: 1em;
             transition: border-color 0.3s ease, box-shadow 0.3s ease;
-            font-weight: normal !important; /* Pastikan input text tidak bold */
         }
         .calculation-exercise input[type="number"]:focus, .calculation-exercise input[type="text"]:focus {
             border-color: var(--primary);
@@ -395,10 +389,6 @@
             color: #555;
             display: none;
             animation: fadeIn 0.5s ease-out;
-            font-weight: normal !important; /* Pastikan solution box tidak bold kecuali strong */
-        }
-        .calculation-exercise .solution-box strong {
-            font-weight: 900 !important; /* Strong di solution box tetap bold */
         }
         footer {
             background: var(--footer-dark);
@@ -520,10 +510,6 @@
             font-size: 1.1em;
             line-height: 1.3;
         }
-        /* Pastikan strong di barrier-wall tetap bold */
-        .barrier-wall strong {
-            font-weight: 900 !important;
-        }
 
         .barrier-wall:hover {
             background-color: #ff8a80;
@@ -540,7 +526,7 @@
 
         /* Modal for Indicator Details and Illustrations */
         .modal {
-            display: none;
+            display: none; /* Hidden by default */
             position: fixed;
             z-index: 1000;
             left: 0;
@@ -549,7 +535,7 @@
             height: 100%;
             overflow: auto;
             background-color: rgba(0,0,0,0.7);
-            display: flex;
+            display: flex; /* Use flexbox for centering */
             justify-content: center;
             align-items: center;
             animation: fadeIn 0.3s ease-out;
@@ -618,7 +604,6 @@
             margin-top: 10px;
             font-size: 0.95em;
             color: #555;
-            font-weight: normal !important; /* Caption illustration tidak bold */
         }
 
 
@@ -663,10 +648,6 @@
             transition: all 0.3s ease;
             box-shadow: 0 2px 5px rgba(0,0,0,0.2);
             animation: pulse 2s infinite ease-in-out;
-        }
-        /* Pastikan strong di infographic-label tetap bold */
-        .infographic-label strong {
-            font-weight: 900 !important;
         }
 
         .infographic-label:hover {
@@ -724,11 +705,10 @@
             padding: 15px;
             border-radius: 8px;
             box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-            font-weight: normal !important; /* Pastikan timeline content normal kecuali strong */
         }
         .timeline-content strong {
             color: var(--accent);
-            font-weight: 900 !important; /* Memastikan strong di timeline-content tetap bold */
+            font-weight: 900; /* Memastikan strong di timeline-content tetap bold */
         }
 
         /* Utility Class for hidden content */
@@ -767,10 +747,6 @@
                 position: static;
                 margin-bottom: 0;
             }
-            table th, table td {
-                padding: 10px;
-                font-size: 0.85rem;
-            }
         }
 
         @media (max-width: 480px) {
@@ -798,6 +774,10 @@
             }
             .intro-text-overlay {
                 text-align: center;
+            }
+            table th, table td {
+                padding: 10px;
+                font-size: 0.85rem;
             }
         }
 
@@ -851,16 +831,16 @@
         <h1>BAB III: Mengukur Dampak, Membangun Masa Depan</h1>
         <p>Setelah menyelesaikan bab ini, Anda diharapkan dapat:</p>
         <ul>
-            <li><i class="fas fa-chart-line"></i> Memahami mengapa **Pemantauan dan Evaluasi (Monev)** sangat penting bagi keberhasilan Pos Layanan Komunitas (PoC).</li>
-            <li><i class="fas fa-list-check"></i> Mengidentifikasi **indikator kunci** untuk layanan PoC, baik paket minimal maupun pengembangan.</li>
-            <li><i class="fas fa-chart-simple"></i> Menganalisis **data sederhana** untuk mengukur capaian program PoC.</li>
+            <li><i class="fas fa-chart-line"></i> Memahami mengapa <strong>Pemantauan dan Evaluasi (Monev)</strong> sangat penting bagi keberhasilan Pos Layanan Komunitas (PoC).</li>
+            <li><i class="fas fa-list-check"></i> Mengidentifikasi <strong>indikator kunci</strong> untuk layanan PoC, baik paket minimal maupun pengembangan.</li>
+            <li><i class="fas fa-chart-simple"></i> Menganalisis <strong>data sederhana</strong> untuk mengukur capaian program PoC.</li>
         </ul>
     </header>
 
     <main>
         <section class="slide introduction">
             <h2>Modul 3.1: Mengapa Monev Adalah Jantung PoC?</h2>
-            <p>Narasi Pembuka: Setiap program hebat butuh bukti. Bukti bahwa ia bekerja, bahwa ia mencapai tujuannya, dan bahwa ia memberi dampak nyata. Di sinilah **Pemantauan dan Evaluasi (Monev)** memegang peran krusial bagi Pos Layanan Komunitas Anda.</p>
+            <p>Narasi Pembuka: Setiap program hebat butuh bukti. Bukti bahwa ia bekerja, bahwa ia mencapai tujuannya, dan bahwa ia memberi dampak nyata. Di sinilah <strong>Pemantauan dan Evaluasi (Monev)</strong> memegang peran krusial bagi Pos Layanan Komunitas Anda.</p>
 
             <div class="animated-intro-container">
                 <div class="tree-animation">
@@ -871,7 +851,7 @@
                     <div class="measure-line-3"></div>
                 </div>
                 <div class="intro-text-overlay">
-                    <p>Seperti pohon yang tumbuh dari benih, kita perlu **mengukur pertumbuhannya** (daun, tinggi, buah) untuk memastikan kesehatan dan perkembangannya. Begitu pula dengan PoC, **Monev adalah alat ukur kita**.</p>
+                    <p>Seperti pohon yang tumbuh dari benih, kita perlu mengukur pertumbuhannya (daun, tinggi, buah) untuk memastikan kesehatan dan perkembangannya. Begitu pula dengan PoC, Monev adalah alat ukur kita.</p>
                 </div>
             </div>
             <div class="interactive-box">
@@ -880,32 +860,32 @@
                 <div class="interactive-grid">
                     <div class="grid-item" onclick="togglePopup('accountability')">
                         <i class="fas fa-handshake"></i>
-                        <strong>Akuntabilitas</strong>
+                        <span class="grid-text">Akuntabilitas</span>
                     </div>
                     <div class="grid-item" onclick="togglePopup('effectiveness')">
                         <i class="fas fa-chart-bar"></i>
-                        <strong>Efektivitas Program</strong>
+                        <span class="grid-text">Efektivitas Program</span>
                     </div>
                     <div class="grid-item" onclick="togglePopup('continuousImprovement')">
                         <i class="fas fa-cogs"></i>
-                        <strong>Perbaikan Berkelanjutan</strong>
+                        <span class="grid-text">Perbaikan Berkelanjutan</span>
                     </div>
                 </div>
 
                 <div id="accountability" class="pop-up-info">
-                    Monev memastikan kita bertanggung jawab kepada komunitas, donor, dan pemerintah bahwa sumber daya digunakan secara efektif dan hasilnya nyata. Ini tentang **kepercayaan dan transparansi.**
+                    <strong>Monev</strong> memastikan kita bertanggung jawab kepada komunitas, donor, dan pemerintah bahwa sumber daya digunakan secara efektif dan hasilnya nyata. Ini tentang kepercayaan dan transparansi.
                 </div>
                 <div id="effectiveness" class="pop-up-info">
-                    Monev membantu kita melihat apakah strategi kita berhasil. Apakah **jumlah tes meningkat**? Apakah **kepatuhan ARV membaik**? Jika tidak, kenapa? Ini membantu mengidentifikasi keberhasilan dan tantangan.
+                    <strong>Monev</strong> membantu kita melihat apakah strategi kita berhasil. Apakah jumlah tes meningkat? Apakah kepatuhan ARV membaik? Jika tidak, kenapa? Ini membantu mengidentifikasi keberhasilan dan tantangan.
                 </div>
                 <div id="continuousImprovement" class="pop-up-info">
-                    Data Monev adalah cermin kita. Ia menunjukkan apa yang perlu diperbaiki, di mana ada hambatan, dan bagaimana kita bisa terus **berinovasi dan beradaptasi** untuk layanan yang lebih baik.
+                    Data <strong>Monev</strong> adalah cermin kita. Ia menunjukkan apa yang perlu diperbaiki, di mana ada hambatan, dan bagaimana kita bisa terus berinovasi dan beradaptasi untuk layanan yang lebih baik.
                 </div>
 
                 <div class="quiz-box" style="margin-top: 30px;">
                     <h4><i class="fas fa-lightbulb"></i> Pertanyaan Refleksi</h4>
                     <div class="quiz-question">
-                        <p>Menurut Anda, dari ketiga alasan pentingnya Monev, mana yang **paling penting** bagi PoC di komunitas Anda? Mengapa?</p>
+                        <p>Menurut Anda, dari ketiga alasan pentingnya Monev, mana yang paling penting bagi PoC di komunitas Anda? Mengapa?</p>
                         <div class="quiz-options">
                             <label><input type="radio" name="reflection_q1" value="accountability"> Akuntabilitas</label>
                             <label><input type="radio" name="reflection_q1" value="effectiveness"> Efektivitas Program</label>
@@ -919,65 +899,69 @@
 
             <div class="interactive-box" style="margin-top: 40px;">
                 <h4><i class="fas fa-shield-alt"></i> Mengatasi Tantangan Monev: Menembus Dinding Penghalang!</h4>
-                <p>Monev terkadang menghadapi tantangan seperti stigma dan diskriminasi dalam pengumpulan data. **Klik pada "dinding" di bawah** untuk melihat bagaimana kita bisa menembus hambatan ini dengan solusi PoC yang inovatif.</p>
+                <p>Monev terkadang menghadapi tantangan seperti <strong>stigma</strong> dan <strong>diskriminasi</strong> dalam pengumpulan data. Klik pada "dinding" di bawah untuk melihat bagaimana kita bisa menembus hambatan ini dengan solusi PoC yang inovatif.</p>
                 <div class="barrier-container">
-                    <div id="stigmaBarrier" class="barrier-wall" data-solution="Solusi: **Pendekatan personal** oleh petugas PoC yang sudah dilatih dan memiliki pengalaman hidup serupa untuk membangun kepercayaan, serta memastikan kerahasiaan data yang ketat. Ini menciptakan lingkungan yang aman bagi komunitas untuk berbagi informasi.">
+                    <div id="stigmaBarrier" class="barrier-wall" data-solution-title="Stigma dan Diskriminasi" data-solution-content="Solusi: Pendekatan personal oleh petugas PoC yang sudah dilatih dan memiliki pengalaman hidup serupa untuk membangun kepercayaan, serta memastikan <strong>kerahasiaan data yang ketat</strong>. Ini menciptakan lingkungan yang aman bagi komunitas untuk berbagi informasi.">
                         <i class="fas fa-mask"></i>
                         <p><strong>Stigma dan Diskriminasi</strong></p>
                     </div>
-                    <div id="dataQualityBarrier" class="barrier-wall" data-solution="Solusi: **Pelatihan berkelanjutan** bagi petugas PoC dalam pencatatan dan pelaporan data yang akurat, serta **validasi rutin** oleh Fasyankes pengampu. Penggunaan instrumen pencatatan yang sederhana dan jelas juga sangat membantu.">
+                    <div id="dataQualityBarrier" class="barrier-wall" data-solution-title="Kualitas Data yang Buruk" data-solution-content="Solusi: <strong>Pelatihan berkelanjutan</strong> bagi petugas PoC dalam pencatatan dan pelaporan data yang akurat, serta <strong>validasi rutin</strong> oleh Fasyankes pengampu. Penggunaan instrumen pencatatan yang sederhana dan jelas juga sangat membantu.">
                         <i class="fas fa-database"></i>
                         <p><strong>Kualitas Data yang Buruk</strong></p>
                     </div>
-                    <div id="resourceBarrier" class="barrier-wall" data-solution="Solusi: **Kemitraan strategis** dengan LSM, komunitas, dan Fasyankes untuk berbagi sumber daya, serta advokasi untuk alokasi dana yang memadai dari pemerintah daerah. Inovasi dalam penggunaan teknologi juga dapat menghemat sumber daya.">
+                    <div id="resourceBarrier" class="barrier-wall" data-solution-title="Keterbatasan Sumber Daya" data-solution-content="Solusi: <strong>Kemitraan strategis</strong> dengan LSM, komunitas, dan Fasyankes untuk berbagi sumber daya, serta <strong>advokasi</strong> untuk alokasi dana yang memadai dari pemerintah daerah. Inovasi dalam penggunaan teknologi juga dapat menghemat sumber daya.">
                         <i class="fas fa-coins"></i>
                         <p><strong>Keterbatasan Sumber Daya</strong></p>
                     </div>
                 </div>
-                <div id="barrierSolution" class="pop-up-info" style="display: none;"></div>
+                <div id="barrierSolution" class="pop-up-info"></div>
             </div>
             <div class="media-box">
                 <h4><i class="fas fa-users-gear"></i> Siapa Saja yang Terlibat dalam Monev PoC?</h4>
                 <p>Monev adalah upaya kolektif. Setiap pihak memiliki peran vital dalam memastikan data yang akurat dan lengkap. Klik pada setiap entitas untuk melihat tanggung jawab mereka!</p>
                 <div class="infographic-container">
-                    <img src="https://via.placeholder.com/600x300?text=Infografis+Peran+Monev+PoC" alt="Infografis Peran Monev PoC" class="infographic-image">
+                    <i class="fas fa-chart-pie infographic-placeholder-icon"></i>
+                    <p>Infografis: Peran Pihak Terlibat dalam Monev PoC</p>
                     <div class="infographic-labels">
-                        <div class="infographic-label lsm-label" onclick="togglePopup('lsmRoles')"><strong>LSM/Mitra Komunitas</strong></div>
-                        <div class="infographic-label poc-label" onclick="togglePopup('pocRoles')"><strong>Petugas PoC</strong></div>
-                        <div class="infographic-label fasyankes-label" onclick="togglePopup('fasyankesRoles')"><strong>Fasyankes Pengampu</strong></div>
+                        <div class="infographic-label lsm-label" onclick="showIndicatorDetail('lsmRoles')">LSM/Mitra Komunitas</div>
+                        <div class="infographic-label poc-label" onclick="showIndicatorDetail('pocRoles')">Petugas PoC</div>
+                        <div class="infographic-label fasyankes-label" onclick="showIndicatorDetail('fasyankesRoles')">Fasyankes Pengampu</div>
                     </div>
                 </div>
-                <div id="lsmRoles" class="pop-up-info">
-                    LSM/Mitra Komunitas: **Mengumpulkan data awal di lapangan** (penjangkauan, skrining awal), **melaporkan kegiatan penjangkauan**, berpartisipasi dalam diskusi evaluasi komunitas, **memberikan umpan balik dari lapangan.**
+                <div id="lsmRoles" class="pop-up-info hidden-info-content">
+                    <strong>LSM/Mitra Komunitas:</strong> Mengumpulkan <strong>data awal di lapangan</strong> (penjangkauan, skrining awal), melaporkan kegiatan penjangkauan, berpartisipasi dalam diskusi evaluasi komunitas, memberikan umpan balik dari lapangan.<br>
+                    <span class="illustration-type" data-icon="fas fa-handshake" data-text="Ilustrasi: Kerjasama LSM dan Komunitas"></span>
                 </div>
-                <div id="pocRoles" class="pop-up-info">
-                    Petugas PoC: **Mencatat layanan harian** (tes, rujukan, pendampingan), **merekapitulasi data bulanan**, melakukan validasi awal data dengan fasyankes, **menyusun laporan kegiatan PoC.**
+                <div id="pocRoles" class="pop-up-info hidden-info-content">
+                    <strong>Petugas PoC:</strong> Mencatat <strong>layanan harian</strong> (tes, rujukan, pendampingan), merekapitulasi data bulanan, melakukan validasi awal data dengan fasyankes, menyusun laporan kegiatan PoC.<br>
+                    <span class="illustration-type" data-icon="fas fa-clipboard-check" data-text="Ilustrasi: Petugas PoC Mencatat Data"></span>
                 </div>
-                <div id="fasyankesRoles" class="pop-up-info">
-                    Fasyankes Pengampu (Nakes, Petugas RR, Lab): **Memvalidasi data PoC**, melakukan input data ke SIHA/PrEP Nasional, **menyediakan data hasil tes lab**, memberikan dukungan teknis Monev, **menyediakan ARV & PrEP.**
+                <div id="fasyankesRoles" class="pop-up-info hidden-info-content">
+                    <strong>Fasyankes Pengampu (Nakes, Petugas RR, Lab):</strong> Memvalidasi data PoC, melakukan input data ke SIHA/PrEP Nasional, menyediakan data hasil tes lab, memberikan dukungan teknis Monev, menyediakan ARV & PrEP.<br>
+                    <span class="illustration-type" data-icon="fas fa-hospital" data-text="Ilustrasi: Fasyankes Memberikan Dukungan"></span>
                 </div>
             </div>
 
             <div class="media-box">
                 <h4><i class="fas fa-calendar-check"></i> Mekanisme Pelaporan Berkala: Laporan Bulanan</h4>
-                <p>Laporan rekapitulasi bulanan adalah **tulang punggung** dari sistem Monev PoC Anda. Ini adalah momen untuk merefleksikan capaian dan merencanakan langkah selanjutnya.</p>
+                <p>Laporan rekapitulasi bulanan adalah <strong>tulang punggung</strong> dari sistem Monev PoC Anda. Ini adalah momen untuk merefleksikan capaian dan merencanakan langkah selanjutnya.</p>
                 <div class="timeline-animation">
                     <div class="timeline-item">
                         <div class="timeline-icon"><i class="fas fa-clipboard-list"></i></div>
                         <div class="timeline-content">
-                            Petugas PoC bertanggung jawab menyusun laporan ini dari **data harian** yang terkumpul.
+                            Petugas PoC bertanggung jawab menyusun laporan ini dari <strong>data harian</strong> yang terkumpul.
                         </div>
                     </div>
                     <div class="timeline-item">
                         <div class="timeline-icon"><i class="fas fa-file-export"></i></div>
                         <div class="timeline-content">
-                            Data kemudian **divalidasi dan dikirim ke fasyankes pengampu** untuk integrasi dan pelaporan ke tingkat yang lebih tinggi.
+                            Data kemudian <strong>divalidasi dan dikirim</strong> ke fasyankes pengampu untuk integrasi dan pelaporan ke tingkat yang lebih tinggi.
                         </div>
                     </div>
                     <div class="timeline-item">
                         <div class="timeline-icon"><i class="fas fa-chart-pie"></i></div>
                         <div class="timeline-content">
-                            Laporan ini menjadi **dasar untuk pengambilan keputusan** dan perbaikan program di bulan berikutnya.
+                            Laporan ini menjadi dasar untuk <strong>pengambilan keputusan dan perbaikan program</strong> di bulan berikutnya.
                         </div>
                     </div>
                 </div>
@@ -985,10 +969,10 @@
                 <div class="quiz-box" style="margin-top: 20px;">
                     <h4><i class="fas fa-spell-check"></i> Pertanyaan Penguatan</h4>
                     <div class="quiz-question">
-                        <p>Mengapa menurut Anda laporan bulanan ini **tidak boleh terlewatkan** dalam operasional PoC?</p>
+                        <p>Mengapa menurut Anda laporan bulanan ini tidak boleh terlewatkan dalam operasional PoC?</p>
                         <div class="quiz-options">
                             <label><input type="radio" name="monthly_report_q" value="a"> Untuk memenuhi persyaratan administratif saja.</label>
-                            <label><input type="radio" name="monthly_report_q" value="b"> Karena ini adalah dasar untuk menilai kinerja, mengidentifikasi masalah, dan merencanakan perbaikan program.</label>
+                            <label><input type="radio" name="monthly_report_q" value="b"> Karena ini adalah dasar untuk <strong>menilai kinerja, mengidentifikasi masalah, dan merencanakan perbaikan program</strong>.</label>
                             <label><input type="radio" name="monthly_report_q" value="c"> Hanya untuk menunjukkan jumlah layanan yang diberikan kepada atasan.</label>
                             <label><input type="radio" name="monthly_report_q" value="d"> Agar PoC terlihat aktif di komunitas.</label>
                         </div>
@@ -1001,11 +985,11 @@
 
         <section class="slide">
             <h2>Modul 3.2: Indikator Kunci: Paket Layanan Minimal</h2>
-            <p>Narasi Pembuka: Untuk mengetahui apakah PoC kita efektif, kita perlu mengukur hal yang tepat. Mari kita lihat **indikator-indikator kunci** untuk paket layanan minimal yang wajib Anda pantau.</p>
+            <p>Narasi Pembuka: Untuk mengetahui apakah PoC kita efektif, kita perlu mengukur hal yang tepat. Mari kita lihat <strong>indikator-indikator kunci</strong> untuk paket layanan minimal yang wajib Anda pantau.</p>
 
             <div class="interactive-box">
                 <h4><i class="fas fa-table"></i> Tabel Interaktif Indikator Minimal</h4>
-                <p>Berikut adalah **indikator esensial** yang harus dipantau untuk paket layanan minimal PoC. Klik pada setiap indikator untuk melihat detail lebih lanjut (Definisi Operasional, Perhitungan, Instrumen, Penyedia Data) dan **ilustrasi visual** relevan jika tersedia.</p>
+                <p>Berikut adalah <strong>indikator esensial</strong> yang harus dipantau untuk paket layanan minimal PoC. Klik pada setiap indikator untuk melihat detail lebih lanjut (Definisi Operasional, Perhitungan, Instrumen, Penyedia Data) dan ilustrasi visual relevan jika tersedia.</p>
                 <table>
                     <thead>
                         <tr>
@@ -1016,32 +1000,32 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr onclick="showIndicatorDetail('ind1', 'https://via.placeholder.com/400x250?text=Ilustrasi+Tes+HIV', 'Ilustrasi proses tes HIV di PoC.')"> <td>1</td>
-                            <td style="cursor: pointer; color: var(--primary-dark);">**Jumlah Layanan Tes HIV** <i class="fas fa-image illustration-icon"></i></td>
+                        <tr onclick="showIndicatorDetail('ind1')"> <td>1</td>
+                            <td style="cursor: pointer; color: var(--primary-dark);">Jumlah Layanan Tes HIV <i class="fas fa-image illustration-icon"></i></td>
                             <td>Buku Register PoC, Form Rujukan/Pencatatan Tes HIV</td>
                             <td>Petugas PoC</td>
                         </tr>
-                        <tr onclick="showIndicatorDetail('ind2', 'https://via.placeholder.com/400x250?text=Ilustrasi+Hasil+Reaktif', 'Grafik proporsi hasil tes HIV reaktif.')">
+                        <tr onclick="showIndicatorDetail('ind2')">
                             <td>2</td>
-                            <td style="cursor: pointer; color: var(--primary-dark);">**Proporsi Hasil Tes HIV Reaktif** <i class="fas fa-image illustration-icon"></i></td>
+                            <td style="cursor: pointer; color: var(--primary-dark);">Proporsi Hasil Tes HIV Reaktif <i class="fas fa-image illustration-icon"></i></td>
                             <td>Buku Register PoC, Hasil Lab Fasyankes</td>
                             <td>Petugas PoC, Fasyankes</td>
                         </tr>
-                        <tr onclick="showIndicatorDetail('ind3', 'https://via.placeholder.com/400x250?text=Ilustrasi+SHM', 'Visualisasi individu melakukan SHM.')">
+                        <tr onclick="showIndicatorDetail('ind3')">
                             <td>3</td>
-                            <td style="cursor: pointer; color: var(--primary-dark);">**Proporsi Layanan Skrining HIV Mandiri (SHM)** <i class="fas fa-image illustration-icon"></i></td>
+                            <td style="cursor: pointer; color: var(--primary-dark);">Proporsi Layanan Skrining HIV Mandiri (SHM) <i class="fas fa-image illustration-icon"></i></td>
                             <td>Buku Register PoC</td>
                             <td>Petugas PoC</td>
                         </tr>
-                        <tr onclick="showIndicatorDetail('ind4', 'https://via.placeholder.com/400x250?text=Ilustrasi+Rujukan+PDP', 'Ilustrasi proses rujukan ke Fasyankes PDP.')">
+                        <tr onclick="showIndicatorDetail('ind4')">
                             <td>4</td>
-                            <td style="cursor: pointer; color: var(--primary-dark);">**Proporsi ODHIV Reaktif yang Dirujuk ke Fasyankes PDP** <i class="fas fa-image illustration-icon"></i></td>
+                            <td style="cursor: pointer; color: var(--primary-dark);">Proporsi ODHIV Reaktif yang Dirujuk ke Fasyankes PDP <i class="fas fa-image illustration-icon"></i></td>
                             <td>Buku Register PoC, Form Rujukan</td>
                             <td>Petugas PoC</td>
                         </tr>
-                        <tr onclick="showIndicatorDetail('ind5', 'https://via.placeholder.com/400x250?text=Ilustrasi+Komoditas+Tes', 'Visualisasi pengelolaan komoditas tes HIV.')">
+                        <tr onclick="showIndicatorDetail('ind5')">
                             <td>5</td>
-                            <td style="cursor: pointer; color: var(--primary-dark);">**Jumlah Komoditas Tes HIV yang Diterima/Digunakan** <i class="fas fa-image illustration-icon"></i></td>
+                            <td style="cursor: pointer; color: var(--primary-dark);">Jumlah Komoditas Tes HIV yang Diterima/Digunakan <i class="fas fa-image illustration-icon"></i></td>
                             <td>Buku Inventaris Komoditas PoC</td>
                             <td>Petugas PoC</td>
                         </tr>
@@ -1053,57 +1037,61 @@
                         <span class="close-button">×</span>
                         <h3 id="modalTitle"></h3>
                         <div id="modalBody"></div>
-                        <div class="modal-illustration-container" id="modalIllustrationContainer" style="display: none;">
-                            <img id="modalIllustration" src="" alt="Ilustrasi Indikator">
+                        <div class="modal-illustration-container" id="modalIllustrationContainer">
+                            <div id="modalIllustrationElement" class="illustration-element"></div>
                             <p id="modalIllustrationCaption"></p>
                         </div>
                     </div>
                 </div>
                 <div id="ind1" class="pop-up-info hidden-info-content">
-                    **Indikator: Jumlah Layanan Tes HIV**<br>
-                    Definisi Operasional: Total tes HIV (termasuk skrining, konfirmasi) yang difasilitasi oleh PoC.<br>
-                    Perhitungan: Cukup menjumlahkan data dari buku register.<br>
-                    Instrumen: Buku Register PoC, Form Pencatatan Tes HIV.<br>
-                    Penyedia Data: Petugas PoC.<br>
-                    <em>[**Visual Placeholder:** Screenshot contoh Buku Register PoC yang relevan]</em>
+                    <strong>Indikator:</strong> Jumlah Layanan Tes HIV<br>
+                    <strong>Definisi Operasional:</strong> Total tes HIV (termasuk skrining, konfirmasi) yang difasilitasi oleh PoC.<br>
+                    <strong>Perhitungan:</strong> Cukup menjumlahkan data dari buku register.<br>
+                    <strong>Instrumen:</strong> Buku Register PoC, Form Pencatatan Tes HIV.<br>
+                    <strong>Penyedia Data:</strong> Petugas PoC.<br>
+                    <span class="illustration-type" data-icon="fas fa-hand-holding-medical" data-text="Ilustrasi: Proses Tes HIV di PoC"></span>
                 </div>
                 <div id="ind2" class="pop-up-info hidden-info-content">
-                    **Indikator: Proporsi Hasil Tes HIV Reaktif**<br>
-                    Definisi Operasional: Persentase individu dengan hasil tes HIV reaktif dari total tes yang difasilitasi.<br>
-                    Perhitungan: (**Jumlah hasil tes HIV reaktif** / **Total tes HIV yang dilakukan**) x 100%.<br>
-                    Instrumen: Buku Register PoC, Hasil Lab Fasyankes.<br>
-                    Penyedia Data: Petugas PoC, Fasyankes.<br>
+                    <strong>Indikator:</strong> Proporsi Hasil Tes HIV Reaktif<br>
+                    <strong>Definisi Operasional:</strong> Persentase individu dengan hasil tes HIV reaktif dari total tes yang difasilitasi.<br>
+                    <strong>Perhitungan:</strong> (Jumlah hasil tes HIV reaktif / Total tes HIV yang dilakukan) x 100%.<br>
+                    <strong>Instrumen:</strong> Buku Register PoC, Hasil Lab Fasyankes.<br>
+                    <strong>Penyedia Data:</strong> Petugas PoC, Fasyankes.<br>
+                    <span class="illustration-type" data-icon="fas fa-exclamation-triangle" data-text="Ilustrasi: Grafik Proporsi Hasil Reaktif"></span>
                 </div>
                 <div id="ind3" class="pop-up-info hidden-info-content">
-                    **Indikator: Proporsi Layanan Skrining HIV Mandiri (SHM)**<br>
-                    Definisi Operasional: Persentase individu yang menyatakan ingin SHM dan berhasil melakukannya dengan pendampingan.<br>
-                    Perhitungan: (**Jumlah individu yang melakukan SHM** / **Total individu yang terdaftar ingin melakukan SHM**) x 100%.<br>
-                    Instrumen: Buku Register PoC.<br>
-                    Penyedia Data: Petugas PoC.<br>
+                    <strong>Indikator:</strong> Proporsi Layanan Skrining HIV Mandiri (SHM)<br>
+                    <strong>Definisi Operasional:</strong> Persentase individu yang menyatakan ingin SHM dan berhasil melakukannya dengan pendampingan.<br>
+                    <strong>Perhitungan:</strong> (Jumlah individu yang melakukan SHM / Total individu yang terdaftar ingin melakukan SHM) x 100%.<br>
+                    <strong>Instrumen:</strong> Buku Register PoC.<br>
+                    <strong>Penyedia Data:</strong> Petugas PoC.<br>
+                    <span class="illustration-type" data-icon="fas fa-user-check" data-text="Ilustrasi: Individu Melakukan SHM"></span>
                 </div>
                 <div id="ind4" class="pop-up-info hidden-info-content">
-                    **Indikator: Proporsi ODHIV Reaktif yang Dirujuk ke Fasyankes PDP**<br>
-                    Definisi Operasional: Persentase individu dengan hasil tes reaktif yang berhasil dirujuk ke fasyankes untuk layanan PDP.<br>
-                    Perhitungan: (**Jumlah ODHIV reaktif yang dirujuk** / **Total ODHIV reaktif yang ditemukan**) x 100%.<br>
-                    Instrumen: Buku Register PoC, Form Rujukan/Verifikasi Rujukan.<br>
-                    Penyedia Data: Petugas PoC.<br>
+                    <strong>Indikator:</strong> Proporsi ODHIV Reaktif yang Dirujuk ke Fasyankes PDP<br>
+                    <strong>Definisi Operasional:</strong> Persentase individu dengan hasil tes reaktif yang berhasil dirujuk ke fasyankes untuk layanan PDP.<br>
+                    <strong>Perhitungan:</strong> (Jumlah ODHIV reaktif yang dirujuk / Total ODHIV reaktif yang ditemukan) x 100%.<br>
+                    <strong>Instrumen:</strong> Buku Register PoC, Form Rujukan/Verifikasi Rujukan.<br>
+                    <strong>Penyedia Data:</strong> Petugas PoC.<br>
+                    <span class="illustration-type" data-icon="fas fa-hospital-user" data-text="Ilustrasi: Proses Rujukan ke Fasyankes PDP"></span>
                 </div>
                 <div id="ind5" class="pop-up-info hidden-info-content">
-                    **Indikator: Jumlah Komoditas Tes HIV yang Diterima/Digunakan**<br>
-                    Definisi Operasional: Jumlah *reagen* tes HIV atau alat SHM yang diterima dan digunakan oleh PoC.<br>
-                    Perhitungan: Cukup menjumlahkan atau menghitung selisih stok awal dan akhir.<br>
-                    Instrumen: Buku Inventaris Komoditas PoC.<br>
-                    Penyedia Data: Petugas PoC.<br>
+                    <strong>Indikator:</strong> Jumlah Komoditas Tes HIV yang Diterima/Digunakan<br>
+                    <strong>Definisi Operasional:</strong> Jumlah reagen tes HIV atau alat SHM yang diterima dan digunakan oleh PoC.<br>
+                    <strong>Perhitungan:</strong> Cukup menjumlahkan atau menghitung selisih stok awal dan akhir.<br>
+                    <strong>Instrumen:</strong> Buku Inventaris Komoditas PoC.<br>
+                    <strong>Penyedia Data:</strong> Petugas PoC.<br>
+                    <span class="illustration-type" data-icon="fas fa-boxes" data-text="Ilustrasi: Pengelolaan Komoditas Tes HIV"></span>
                 </div>
             </div>
 
             <div class="quiz-box">
                 <h4><i class="fas fa-calculator"></i> Latihan Praktis: Menghitung Indikator</h4>
-                <p>Mari kita latih kemampuan Anda dalam menghitung **indikator kunci** PoC!</p>
+                <p>Mari kita latih kemampuan Anda dalam menghitung <strong>indikator kunci PoC</strong>!</p>
 
                 <div class="quiz-question calculation-exercise">
-                    <p>Skenario 1: **Proporsi Layanan Skrining HIV Mandiri (SHM)**</p>
-                    <p>Dalam satu bulan, PoC Anda mencatat **120 individu** yang menyatakan keinginan untuk melakukan SHM. Dari jumlah tersebut, **90 individu** berhasil melakukan SHM dengan pendampingan.</p>
+                    <p>Skenario 1: <strong>Proporsi Layanan Skrining HIV Mandiri (SHM)</strong></p>
+                    <p>Dalam satu bulan, PoC Anda mencatat <strong>120 individu</strong> yang menyatakan keinginan untuk melakukan SHM. Dari jumlah tersebut, <strong>90 individu</strong> berhasil melakukan SHM dengan pendampingan.</p>
                     <p>Berapa proporsi layanan SHM yang berhasil difasilitasi PoC Anda?</p>
                     Jumlah individu yang melakukan SHM: <input type="number" id="shmDone" value="" placeholder="90"><br>
                     Total individu yang ingin SHM: <input type="number" id="shmTotal" value="" placeholder="120"><br>
@@ -1111,8 +1099,8 @@
                     <button class="button-check" onclick="checkSHMCalculation()">Cek Jawaban</button>
                     <div id="shmFeedback" class="quiz-feedback"></div>
                     <div id="shmSolution" class="solution-box">
-                        **Rumus:** (**Jumlah individu yang melakukan SHM** / **Total individu yang terdaftar ingin melakukan SHM**) x 100%<br>
-                        **Perhitungan:** (90 / 120) x 100% = 75%
+                        <strong>Rumus:</strong> (Jumlah individu yang melakukan SHM / Total individu yang terdaftar ingin melakukan SHM) x 100%<br>
+                        <strong>Perhitungan:</strong> (90 / 120) x 100% = 75%
                     </div>
                 </div>
             </div>
@@ -1120,11 +1108,11 @@
 
         <section class="slide">
             <h2>Modul 3.3: Indikator Kunci: Paket Layanan Pengembangan</h2>
-            <p>Narasi Pembuka: Jika PoC Anda sudah menyediakan **layanan pengembangan**, ada indikator tambahan yang perlu kita pantau untuk melihat efektivitas layanan yang lebih kompleks ini.</p>
+            <p>Narasi Pembuka: Jika PoC Anda sudah menyediakan layanan pengembangan, ada <strong>indikator tambahan</strong> yang perlu kita pantau untuk melihat efektivitas layanan yang lebih kompleks ini.</p>
 
             <div class="interactive-box">
                 <h4><i class="fas fa-table"></i> Tabel Interaktif Indikator Pengembangan</h4>
-                <p>Berikut adalah **indikator untuk paket layanan pengembangan** PoC. Klik pada setiap indikator untuk melihat detail lengkapnya dan **ilustrasi visual** relevan jika tersedia.</p>
+                <p>Berikut adalah <strong>indikator</strong> untuk paket layanan pengembangan PoC. Klik pada setiap indikator untuk melihat detail lengkapnya dan ilustrasi visual relevan jika tersedia.</p>
                 <table>
                     <thead>
                         <tr>
@@ -1135,21 +1123,21 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr onclick="showIndicatorDetail('devInd1', 'https://via.placeholder.com/400x250?text=Ilustrasi+Mulai+ARV', 'Diagram alur ODHIV memulai ARV dari rujukan PoC.')">
+                        <tr onclick="showIndicatorDetail('devInd1')">
                             <td>1</td>
-                            <td style="cursor: pointer; color: var(--primary-dark);">**Proporsi ODHIV yang Memulai ARV dari Rujukan PoC** <i class="fas fa-image illustration-icon"></i></td>
+                            <td style="cursor: pointer; color: var(--primary-dark);">Proporsi ODHIV yang Memulai ARV dari Rujukan PoC <i class="fas fa-image illustration-icon"></i></td>
                             <td>SIHA/PrEP Nasional, Buku Register PoC</td>
                             <td>Fasyankes, Petugas PoC</td>
                         </tr>
-                        <tr onclick="showIndicatorDetail('devInd2', 'https://via.placeholder.com/400x250?text=Ilustrasi+Pemberian+PrEP', 'Visualisasi proses pemberian PrEP.')">
+                        <tr onclick="showIndicatorDetail('devInd2')">
                             <td>2</td>
-                            <td style="cursor: pointer; color: var(--primary-dark);">**Jumlah Pemberian/Pengambilan PrEP** <i class="fas fa-image illustration-icon"></i></td>
+                            <td style="cursor: pointer; color: var(--primary-dark);">Jumlah Pemberian/Pengambilan PrEP <i class="fas fa-image illustration-icon"></i></td>
                             <td>Buku Register PrEP, Catatan PoC</td>
                             <td>Petugas PoC, Fasyankes</td>
                         </tr>
-                        <tr onclick="showIndicatorDetail('devInd3', 'https://via.placeholder.com/400x250?text=Ilustrasi+Retensi+ARV', 'Grafik retensi ODHIV kembali ke ARV.')">
+                        <tr onclick="showIndicatorDetail('devInd3')">
                             <td>3</td>
-                            <td style="cursor: pointer; color: var(--primary-dark);">**Persentase Retensi ODHIV yang Kembali ke ARV** <i class="fas fa-image illustration-icon"></i></td>
+                            <td style="cursor: pointer; color: var(--primary-dark);">Persentase Retensi ODHIV yang Kembali ke ARV <i class="fas fa-image illustration-icon"></i></td>
                             <td>SIHA/PrEP Nasional, Catatan PoC/LSM</td>
                             <td>Fasyankes, Petugas PoC, LSM</td>
                         </tr>
@@ -1157,44 +1145,47 @@
                 </table>
 
                 <div id="devInd1" class="pop-up-info hidden-info-content">
-                    **Indikator: Proporsi ODHIV yang Memulai ARV dari Rujukan PoC**<br>
-                    Definisi Operasional: Persentase ODHIV yang dirujuk dari PoC dan memulai terapi ARV di fasyankes.<br>
-                    Perhitungan: (**Jumlah ODHIV memulai ARV dari rujukan PoC** / **Total ODHIV reaktif yang dirujuk PoC**) x 100%.<br>
-                    Instrumen: SIHA/PrEP Nasional, Buku Register PoC.<br>
-                    Penyedia Data: Fasyankes, Petugas PoC.<br>
+                    <strong>Indikator:</strong> Proporsi ODHIV yang Memulai ARV dari Rujukan PoC<br>
+                    <strong>Definisi Operasional:</strong> Persentase ODHIV yang dirujuk dari PoC dan memulai terapi ARV di fasyankes.<br>
+                    <strong>Perhitungan:</strong> (Jumlah ODHIV memulai ARV dari rujukan PoC / Total ODHIV reaktif yang dirujuk PoC) x 100%.<br>
+                    <strong>Instrumen:</strong> SIHA/PrEP Nasional, Buku Register PoC.<br>
+                    <strong>Penyedia Data:</strong> Fasyankes, Petugas PoC.<br>
+                    <span class="illustration-type" data-icon="fas fa-pills" data-text="Ilustrasi: Proses ODHIV Memulai ARV"></span>
                 </div>
                 <div id="devInd2" class="pop-up-info hidden-info-content">
-                    **Indikator: Jumlah Pemberian/Pengambilan PrEP**<br>
-                    Definisi Operasional: Jumlah *dosis* atau *pasien* yang menerima/mengambil PrEP melalui PoC.<br>
-                    Perhitungan: Menjumlahkan catatan pemberian PrEP.<br>
-                    Instrumen: Buku Register PrEP, Catatan PoC.<br>
-                    Penyedia Data: Petugas PoC, Fasyankes.<br>
+                    <strong>Indikator:</strong> Jumlah Pemberian/Pengambilan PrEP<br>
+                    <strong>Definisi Operasional:</strong> Jumlah dosis atau pasien yang menerima/mengambil PrEP melalui PoC.<br>
+                    <strong>Perhitungan:</strong> Menjumlahkan catatan pemberian PrEP.<br>
+                    <strong>Instrumen:</strong> Buku Register PrEP, Catatan PoC.<br>
+                    <strong>Penyedia Data:</strong> Petugas PoC, Fasyankes.<br>
+                    <span class="illustration-type" data-icon="fas fa-hand-holding-medical" data-text="Ilustrasi: Pemberian PrEP di PoC"></span>
                 </div>
                 <div id="devInd3" class="pop-up-info hidden-info-content">
-                    **Indikator: Persentase Retensi ODHIV yang Kembali ke ARV**<br>
-                    Definisi Operasional: Persentase ODHIV yang sebelumnya putus pengobatan yang berhasil dijangkau dan kembali memulai ARV.<br>
-                    Perhitungan: (**Jumlah ODHIV yang kembali terapi ARV** / **Total ODHIV putus obat yang dijangkau**) x 100%.<br>
-                    Instrumen: SIHA/PrEP Nasional, Catatan PoC/LSM.<br>
-                    Penyedia Data: Fasyankes, Petugas PoC, LSM.<br>
+                    <strong>Indikator:</strong> Persentase Retensi ODHIV yang Kembali ke ARV<br>
+                    <strong>Definisi Operasional:</strong> Persentase ODHIV yang sebelumnya putus pengobatan yang berhasil dijangkau dan kembali memulai ARV.<br>
+                    <strong>Perhitungan:</strong> (Jumlah ODHIV yang kembali terapi ARV / Total ODHIV putus obat yang dijangkau) x 100%.<br>
+                    <strong>Instrumen:</strong> SIHA/PrEP Nasional, Catatan PoC/LSM.<br>
+                    <strong>Penyedia Data:</strong> Fasyankes, Petugas PoC, LSM.<br>
+                    <span class="illustration-type" data-icon="fas fa-rotate-left" data-text="Ilustrasi: Retensi ODHIV Kembali ke ARV"></span>
                 </div>
             </div>
 
             <div class="quiz-box">
                 <h4><i class="fas fa-user-friends"></i> Studi Kasus: Memahami Indikator Kompleks</h4>
-                <p>Mari kita hadapi skenario nyata untuk memahami **indikator yang lebih kompleks**!</p>
+                <p>Mari kita hadapi skenario nyata untuk memahami <strong>indikator yang lebih kompleks</strong>!</p>
 
                 <div class="quiz-question calculation-exercise">
-                    <p>Skenario: **Persentase Retensi ODHIV yang Kembali ke ARV**</p>
-                    <p>Seorang petugas PoC dan LSM mengidentifikasi **15 ODHIV** yang sebelumnya 'hilang' dari pengobatan ARV (tidak mengambil ARV selama 3 bulan atau lebih). Setelah upaya penjangkauan intensif, **10 dari mereka** berhasil dibujuk dan kembali memulai terapi ARV melalui PoC.</p>
-                    <p>Bagaimana Anda menghitung persentase retensinya?</p>
+                    <p>Skenario: <strong>Persentase Retensi ODHIV yang Kembali ke ARV</strong></p>
+                    <p>Seorang petugas PoC dan LSM mengidentifikasi <strong>15 ODHIV</strong> yang sebelumnya 'hilang' dari pengobatan ARV (tidak mengambil ARV selama 3 bulan atau lebih). Setelah upaya penjangkauan intensif, <strong>10 dari mereka</strong> berhasil dibujuk dan kembali memulai terapi ARV melalui PoC.</p>
+                    <p>Bagaimana Anda menghitung persentasenya?</p>
                     Jumlah ODHIV yang hilang & diidentifikasi: <input type="number" id="ltfuIdentified" value="" placeholder="15"><br>
                     Jumlah ODHIV yang kembali ke terapi: <input type="number" id="ltfuReturned" value="" placeholder="10"><br>
                     Persentase Retensi (%): <input type="text" id="ltfuResult" value="" readonly><br>
                     <button class="button-check" onclick="checkLTFUReturnCalculation()">Cek Jawaban</button>
                     <div id="ltfuFeedback" class="quiz-feedback"></div>
                     <div id="ltfuSolution" class="solution-box">
-                        **Rumus:** (**Jumlah ODHIV yang kembali terapi ARV** / **Total ODHIV putus obat yang dijangkau**) x 100%<br>
-                        **Perhitungan:** (10 / 15) x 100% = 66.67%
+                        <strong>Rumus:</strong> (Jumlah ODHIV yang kembali terapi ARV / Total ODHIV putus obat yang dijangkau) x 100%<br>
+                        <strong>Perhitungan:</strong> (10 / 15) x 100% = 66.67%
                     </div>
                 </div>
             </div>
@@ -1206,12 +1197,12 @@
     </footer>
 
     <script>
-        // Function to toggle pop-up info (reused from your original code)
+        // Function to toggle specific pop-up info (for Akuntabilitas, Efektivitas, Perbaikan Berkelanjutan)
         function togglePopup(id) {
             var popup = document.getElementById(id);
-            // Close all other popups if open
+            // Close all other popups of this type if open
             document.querySelectorAll('.pop-up-info').forEach(p => {
-                if (p.id !== id) {
+                if (p.id !== id && p.style.display === 'block' && p.id !== 'barrierSolution' && p.id !== 'indicatorDetailModal') {
                     p.style.display = 'none';
                 }
             });
@@ -1223,36 +1214,36 @@
             }
         }
 
-        // Function for Reflection Quiz
+        // Function for Reflection Quiz (simple radio button quiz)
         function checkReflection(name) {
             const selected = document.querySelector(`input[name="${name}"]:checked`);
             const feedbackDiv = document.getElementById(`feedback_${name}`);
             if (selected) {
-                feedbackDiv.textContent = "Pilihan yang menarik! Setiap aspek Monev memiliki nilai penting tergantung pada konteks dan prioritas. Memahami ketiganya akan memperkuat program PoC Anda.";
+                feedbackDiv.innerHTML = "Pilihan yang menarik! Setiap aspek Monev memiliki nilai penting tergantung pada konteks dan prioritas. Memahami ketiganya akan memperkuat program PoC Anda.";
                 feedbackDiv.className = "quiz-feedback correct";
                 feedbackDiv.style.display = "block";
             } else {
-                feedbackDiv.textContent = "Silakan pilih salah satu jawaban untuk melanjutkan.";
+                feedbackDiv.innerHTML = "Silakan pilih salah satu jawaban untuk melanjutkan.";
                 feedbackDiv.className = "quiz-feedback incorrect";
                 feedbackDiv.style.display = "block";
             }
         }
 
-        // Function for Single Choice Quiz
+        // Function for Single Choice Quiz (e.g., Monthly Report Question)
         function checkSingleChoiceQuiz(name, correctAnswer) {
             const selected = document.querySelector(`input[name="${name}"]:checked`);
             const feedbackDiv = document.getElementById(`feedback_${name}`);
             if (selected) {
                 if (selected.value === correctAnswer) {
-                    feedbackDiv.textContent = "Tepat sekali! Laporan bulanan adalah alat manajemen yang sangat penting untuk keberlanjutan dan peningkatan kualitas PoC.";
+                    feedbackDiv.innerHTML = "Tepat sekali! Laporan bulanan adalah alat manajemen yang sangat penting untuk keberlanjutan dan peningkatan kualitas PoC.";
                     feedbackDiv.className = "quiz-feedback correct";
                 } else {
-                    feedbackDiv.textContent = "Kurang tepat. Coba tinjau kembali tujuan utama dari pelaporan bulanan.";
+                    feedbackDiv.innerHTML = "Kurang tepat. Coba tinjau kembali tujuan utama dari pelaporan bulanan.";
                     feedbackDiv.className = "quiz-feedback incorrect";
                 }
                 feedbackDiv.style.display = "block";
             } else {
-                feedbackDiv.textContent = "Silakan pilih salah satu jawaban.";
+                feedbackDiv.innerHTML = "Silakan pilih salah satu jawaban.";
                 feedbackDiv.className = "quiz-feedback incorrect";
                 feedbackDiv.style.display = "block";
             }
@@ -1267,7 +1258,7 @@
             const shmSolution = document.getElementById('shmSolution');
 
             if (isNaN(shmDone) || isNaN(shmTotal) || shmTotal === 0) {
-                shmFeedback.textContent = "Mohon masukkan angka yang valid untuk perhitungan.";
+                shmFeedback.innerHTML = "Mohon masukkan angka yang valid untuk perhitungan.";
                 shmFeedback.className = "quiz-feedback incorrect";
                 shmFeedback.style.display = "block";
                 shmSolution.style.display = "none";
@@ -1277,14 +1268,15 @@
             const calculatedPercentage = (shmDone / shmTotal) * 100;
             shmResultInput.value = calculatedPercentage.toFixed(2) + "%";
 
+            // Check if the answer is approximately 75%
             if (Math.abs(calculatedPercentage - 75) < 0.01) {
-                shmFeedback.textContent = "Hebat! Anda berhasil menghitungnya dengan tepat. Ini menunjukkan seberapa efektif PoC Anda menjangkau dan memfasilitasi layanan SHM.";
+                shmFeedback.innerHTML = "Hebat! Anda berhasil menghitungnya dengan tepat. Ini menunjukkan seberapa efektif PoC Anda menjangkau dan memfasilitasi layanan SHM.";
                 shmFeedback.className = "quiz-feedback correct";
-                shmSolution.style.display = "none";
+                shmSolution.style.display = "none"; // Hide solution if correct
             } else {
-                shmFeedback.textContent = "Oops, sepertinya ada yang perlu diperbaiki. Ingat rumusnya dan coba lagi!";
+                shmFeedback.innerHTML = "Oops, sepertinya ada yang perlu diperbaiki. Ingat rumusnya dan coba lagi!";
                 shmFeedback.className = "quiz-feedback incorrect";
-                shmSolution.style.display = "block";
+                shmSolution.style.display = "block"; // Show solution if incorrect
             }
             shmFeedback.style.display = "block";
         }
@@ -1298,7 +1290,7 @@
             const ltfuSolution = document.getElementById('ltfuSolution');
 
             if (isNaN(ltfuIdentified) || isNaN(ltfuReturned) || ltfuIdentified === 0) {
-                ltfuFeedback.textContent = "Mohon masukkan angka yang valid untuk perhitungan.";
+                ltfuFeedback.innerHTML = "Mohon masukkan angka yang valid untuk perhitungan.";
                 ltfuFeedback.className = "quiz-feedback incorrect";
                 ltfuFeedback.style.display = "block";
                 ltfuSolution.style.display = "none";
@@ -1308,98 +1300,93 @@
             const calculatedPercentage = (ltfuReturned / ltfuIdentified) * 100;
             ltfuResultInput.value = calculatedPercentage.toFixed(2) + "%";
 
+            // Check if the answer is approximately (10/15)*100
             if (Math.abs(calculatedPercentage - (10 / 15) * 100) < 0.01) {
-                ltfuFeedback.textContent = "Luar biasa! Anda memahami perhitungan retensi dengan baik. Ini adalah indikator krusial dalam layanan pengembangan PoC.";
+                ltfuFeedback.innerHTML = "Luar biasa! Anda memahami perhitungan retensi dengan baik. Ini adalah indikator krusial dalam layanan pengembangan PoC.";
                 ltfuFeedback.className = "quiz-feedback correct";
-                ltfuSolution.style.display = "none";
+                ltfuSolution.style.display = "none"; // Hide solution if correct
             } else {
-                ltfuFeedback.textContent = "Hampir benar! Periksa kembali rumus dan angka yang dimasukkan. Solusi tersedia di bawah.";
+                ltfuFeedback.innerHTML = "Hampir benar! Periksa kembali rumus dan angka yang dimasukkan. Solusi tersedia di bawah.";
                 ltfuFeedback.className = "quiz-feedback incorrect";
-                ltfuSolution.style.display = "block";
+                ltfuSolution.style.display = "block"; // Show solution if incorrect
             }
             ltfuFeedback.style.display = "block";
         }
 
         // Modal for Indicator Details and Illustrations
         const modal = document.getElementById("indicatorDetailModal");
-        const closeButton = document.querySelector(".close-button");
+        const closeButton = document.querySelector("#indicatorDetailModal .close-button"); // Ensure correct close button
         const modalTitle = document.getElementById("modalTitle");
         const modalBody = document.getElementById("modalBody");
         const modalIllustrationContainer = document.getElementById("modalIllustrationContainer");
-        const modalIllustration = document.getElementById("modalIllustration");
-        const modalIllustrationCaption = document.getElementById("modalIllustrationCaption");
+        const modalIllustrationElement = document.getElementById("modalIllustrationElement");
 
-
-        function showIndicatorDetail(id, illustrationUrl = null, illustrationCaption = null) {
+        function showIndicatorDetail(id) {
             const infoContent = document.getElementById(id);
             if (!infoContent) return;
 
-            // Clear previous content to avoid bolding everything again
+            // Clear previous content
             modalTitle.textContent = '';
             modalBody.innerHTML = '';
+            modalIllustrationElement.innerHTML = ''; // Clear previous illustration content
 
-            // Extract title from the first strong tag in the hidden content
-            const titleElement = infoContent.querySelector('strong');
-            if (titleElement) {
-                modalTitle.textContent = titleElement.textContent;
+            // Get the content to display.
+            // Create a temporary div to manipulate content
+            const tempDiv = document.createElement('div');
+            tempDiv.innerHTML = infoContent.innerHTML; // Get full HTML content including strong tags
+
+            // Extract title (which should now be plain text after tag removal, if it was the first element)
+            // For this, we'll assume the first line of the content is the title, or you might need a dedicated data-attribute.
+            // For simplicity, let's just use the first line of text.
+            const lines = tempDiv.innerHTML.split('<br>'); // Split by <br> tags in the original HTML
+            if (lines.length > 0) {
+                // Take the first line as title, and trim "Indikator:" prefix if it exists
+                let titleCandidate = lines[0].trim();
+                // Remove <strong> tags from the title candidate for clean display in modal title
+                titleCandidate = titleCandidate.replace(/<strong>(.*?)<\/strong>/g, '$1');
+                if (titleCandidate.startsWith('Indikator:')) {
+                    titleCandidate = titleCandidate.substring('Indikator:'.length).trim();
+                }
+                modalTitle.textContent = titleCandidate;
             } else {
                 modalTitle.textContent = 'Detail Indikator'; // Fallback
             }
 
-            // Clone content and re-apply bolding where needed
-            const clonedContent = infoContent.cloneNode(true);
-            clonedContent.style.display = 'block'; // Ensure it's visible for copying content
+            // Get illustration details before removing the span
+            const illustrationSpan = tempDiv.querySelector('.illustration-type');
+            let iconClass = '';
+            let captionText = '';
 
-            // Process paragraphs and strong tags within the cloned content for modal body
-            let contentHtml = '';
-            clonedContent.childNodes.forEach(node => {
-                if (node.nodeType === Node.TEXT_NODE) {
-                    contentHtml += node.textContent;
-                } else if (node.nodeType === Node.ELEMENT_NODE) {
-                    if (node.tagName === 'BR') {
-                        contentHtml += '<br>';
-                    } else if (node.tagName === 'EM') {
-                        // Handle <em> tags to keep them italic, but ensure inner content is processed
-                        contentHtml += '<em>' + node.innerHTML + '</em>';
-                    } else if (node.tagName === 'STRONG') {
-                        contentHtml += '<strong>' + node.innerHTML + '</strong>';
-                    } else {
-                        // For other tags like <ul>, <li>, <p>, etc., ensure their internal text is not bolded unless explicitly strong
-                        // Or, re-apply the styling based on the original structure (simpler to just copy innerHTML and control via CSS)
-                        contentHtml += node.outerHTML; // Copy outer HTML
-                    }
-                }
-            });
-            modalBody.innerHTML = contentHtml; // Set the processed content
-
-
-            // Handle illustration
-            if (illustrationUrl) {
-                modalIllustration.src = illustrationUrl;
-                modalIllustrationCaption.textContent = illustrationCaption || '';
-                modalIllustrationContainer.style.display = 'block';
+            if (illustrationSpan) {
+                iconClass = illustrationSpan.getAttribute('data-icon') || 'fas fa-info-circle';
+                captionText = illustrationSpan.getAttribute('data-text') || 'Tidak ada ilustrasi spesifik.';
+                illustrationSpan.remove(); // Remove the span from tempDiv
             } else {
-                modalIllustration.src = '';
-                modalIllustrationCaption.textContent = '';
-                modalIllustrationContainer.style.display = 'none';
+                iconClass = 'fas fa-info-circle';
+                captionText = 'Tidak ada ilustrasi tersedia untuk indikator ini.';
             }
 
-            modal.style.display = "flex";
+            // The remaining HTML in tempDiv is the modalBody content (now includes <strong> tags)
+            modalBody.innerHTML = tempDiv.innerHTML;
+
+            // Display illustration
+            modalIllustrationContainer.style.display = 'block';
+            modalIllustrationElement.innerHTML = `<i class="${iconClass}"></i><div class="illustration-text">${captionText}</div>`;
+
+            modal.style.display = "flex"; // Use flex to center the modal
         }
 
         // Close the modal when the close button is clicked
         closeButton.onclick = function() {
             modal.style.display = "none";
-            modalIllustration.src = '';
-            modalIllustrationCaption.textContent = '';
+            modalIllustrationElement.innerHTML = ''; // Clear illustration
         }
 
         // Close the modal when clicking outside of it
         window.onclick = function(event) {
             if (event.target == modal) {
                 modal.style.display = "none";
-                modalIllustration.src = '';
-                modalIllustrationCaption.textContent = '';
+                modalIllustrationElement.innerHTML = ''; // Clear illustration
             }
         }
 
@@ -1410,29 +1397,43 @@
 
             barrierWalls.forEach(wall => {
                 wall.addEventListener('click', function() {
-                    // Temporarily collapse other walls for visual effect, then make them reappear
-                    barrierWalls.forEach(otherWall => {
-                        if (otherWall !== this) {
-                            otherWall.classList.add('collapsed');
+                    // Close any other pop-up-info elements (except the main modal, which is handled separately)
+                    document.querySelectorAll('.pop-up-info').forEach(p => {
+                        // Check if it's currently displayed AND not the barrier solution itself
+                        if (p.style.display === 'block' && p.id !== 'barrierSolution' && p.id !== 'indicatorDetailModal') {
+                            p.style.display = 'none';
                         }
                     });
 
-                    setTimeout(() => {
-                        const solutionText = this.getAttribute('data-solution');
+                    // Get the content directly from data-solution-content (now expects <strong> tags)
+                    let solutionText = this.getAttribute('data-solution-content');
+
+                    // Toggle the barrierSolutionDiv
+                    if (barrierSolutionDiv.style.display === "block" && barrierSolutionDiv.innerHTML === solutionText) {
+                        // If clicking the same wall and solution is already open, close it
+                        barrierSolutionDiv.style.display = "none";
+                    } else {
+                        // Set innerHTML directly
                         barrierSolutionDiv.innerHTML = solutionText;
-                        barrierSolutionDiv.style.display = 'block';
+                        barrierSolutionDiv.style.display = "block";
                         barrierSolutionDiv.style.animation = 'fadeIn 0.5s ease-out';
+                    }
 
-                        // After showing the solution, make the other walls visible again if needed
-                        // Or, if you want them to remain collapsed until a full reset, remove this part
-                        barrierWalls.forEach(otherWall => {
-                            if (otherWall !== this) {
-                                otherWall.classList.remove('collapsed'); // Reappear
-                            }
-                        });
-
-                    }, 500); // Adjust delay to match collapse animation
+                    // Optional: add/remove collapsed class for visual effect on walls
+                    barrierWalls.forEach(otherWall => {
+                        if (otherWall !== this) {
+                            otherWall.classList.add('collapsed');
+                            setTimeout(() => { // Make them reappear after a short delay
+                                otherWall.classList.remove('collapsed');
+                            }, 800); // Slightly longer than fade in animation
+                        }
+                    });
                 });
+            });
+
+            // Ensure pop-up-info elements are hidden on load
+            document.querySelectorAll('.pop-up-info').forEach(popup => {
+                popup.style.display = 'none';
             });
         });
     </script>
