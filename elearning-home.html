@@ -55,7 +55,7 @@
 
     main {
       flex: 1;
-      max-width: 1000px;
+      max-width: 800px;
       width: 100%;
       margin: 0 auto;
       padding: 20px;
@@ -66,32 +66,34 @@
       color: var(--accent);
       font-size: 1.3rem;
       font-weight: bold;
-      margin-bottom: 20px;
+      margin-bottom: 30px;
     }
 
-    .dashboard-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 24px;
+    .journey-container {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
 
-    .card {
+    .journey-card {
       background: #fff;
       border-radius: 12px;
       box-shadow: 0 4px 10px rgba(0,0,0,.07);
       padding: 20px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
+      width: 100%;
+      max-width: 700px;
+      margin-bottom: 40px;
+      position: relative;
       transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
 
-    .card:hover {
+    .journey-card:hover {
       transform: translateY(-6px) scale(1.02);
       box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
     }
 
-    .card h3 {
+    .journey-card h3 {
       font-size: 1.2rem;
       color: var(--accent);
       margin-bottom: 12px;
@@ -100,15 +102,14 @@
       gap: 8px;
     }
 
-    .card p {
+    .journey-card p {
       font-size: 0.95rem;
       margin-bottom: 16px;
       color: #444;
-      line-height: 1.4;
+      line-height: 1.5;
     }
 
-    .card a {
-      align-self: flex-start;
+    .journey-card a {
       padding: 10px 16px;
       background-color: var(--primary);
       color: #fff;
@@ -116,11 +117,33 @@
       font-weight: bold;
       border-radius: 6px;
       transition: background-color 0.3s ease, transform 0.2s ease;
+      display: inline-block;
     }
 
-    .card a:hover {
+    .journey-card a:hover {
       background-color: var(--primary-dark);
       transform: scale(1.05);
+    }
+
+    /* garis dan panah antar card */
+    .journey-container::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 20px;
+      width: 4px;
+      height: 100%;
+      background-color: var(--primary);
+      z-index: -1;
+    }
+
+    .arrow-down {
+      width: 0;
+      height: 0;
+      border-left: 12px solid transparent;
+      border-right: 12px solid transparent;
+      border-top: 16px solid var(--primary);
+      margin: -20px 0 20px;
     }
 
     footer {
@@ -129,10 +152,9 @@
       text-align: center;
       padding: 14px 8px;
       font-size: .9rem;
-      margin-top: 30px;
+      margin-top: 40px;
     }
 
-    /* Tambahan untuk tampilan mobile */
     @media (max-width: 480px) {
       h1 {
         font-size: 1.4rem;
@@ -140,8 +162,11 @@
       .section-heading {
         font-size: 1.1rem;
       }
-      .card h3 {
+      .journey-card h3 {
         font-size: 1.05rem;
+      }
+      .journey-container::before {
+        left: 10px;
       }
     }
   </style>
@@ -155,32 +180,40 @@
 </header>
 
 <main>
-  <p class="section-heading">Selamat datang di halaman utama pembelajaran daring untuk mendukung pencegahan dan pengendalian HIV dan IMS melalui pendekatan komunitas.</p>
+  <p class="section-heading">
+    Selamat datang di halaman utama pembelajaran daring untuk mendukung pencegahan dan pengendalian HIV dan IMS melalui pendekatan komunitas.
+  </p>
 
-  <div class="dashboard-grid">
+  <div class="journey-container">
 
-    <section class="card">
+    <section class="journey-card">
       <h3><i class="fas fa-chalkboard-teacher"></i> BAB I: Pengantar Pos Layanan Komunitas (PoC)</h3>
       <p>Pengenalan konsep, latar belakang, dan prinsip dasar pelaksanaan Pos Layanan Komunitas untuk HIV dan IMS.</p>
-      <a href="bab1.html" target="_blank"><i class="fas fa-arrow-right"></i> Pelajari BAB Ini</a>
+      <a href="bab1.html">Pelajari BAB Ini</a>
     </section>
 
-    <section class="card">
+    <div class="arrow-down"></div>
+
+    <section class="journey-card">
       <h3><i class="fas fa-handshake"></i> BAB II: Implementasi Pos Layanan Komunitas</h3>
       <p>Langkah-langkah teknis dan operasional dalam menyelenggarakan layanan komunitas di lapangan.</p>
-      <a href="bab2.html" target="_blank"><i class="fas fa-arrow-right"></i> Pelajari BAB Ini</a>
+      <a href="bab2.html">Pelajari BAB Ini</a>
     </section>
 
-    <section class="card">
+    <div class="arrow-down"></div>
+
+    <section class="journey-card">
       <h3><i class="fas fa-chart-line"></i> BAB III: Pemantauan dan Evaluasi PoC</h3>
       <p>Panduan dalam melakukan pemantauan, supervisi, serta evaluasi terhadap pelaksanaan layanan komunitas.</p>
-      <a href="bab3.html" target="_blank"><i class="fas fa-arrow-right"></i> Pelajari BAB Ini</a>
+      <a href="bab3.html">Pelajari BAB Ini</a>
     </section>
 
-    <section class="card">
+    <div class="arrow-down"></div>
+
+    <section class="journey-card">
       <h3><i class="fas fa-file-alt"></i> BAB IV: Alur & Instrumen Pencatatan, Pelaporan, Pemantauan, dan Evaluasi</h3>
       <p>Instrumen dan sistem yang digunakan dalam pencatatan data layanan, pelaporan, dan evaluasi program secara menyeluruh.</p>
-      <a href="bab4.html" target="_blank"><i class="fas fa-arrow-right"></i> Pelajari BAB Ini</a>
+      <a href="bab4.html">Pelajari BAB Ini</a>
     </section>
 
   </div>
