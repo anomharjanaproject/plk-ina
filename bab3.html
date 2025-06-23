@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>BAB III: Pemantauan dan Evaluasi PoC – E-Learning</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <style>
+    :root {
+      --primary: #009688;
+      --primary-dark: #00796b;
+      --accent: #004d40;
+      --light: #fff;
+      --bg: #f5f5f5;
+      --footer-dark: #263238;
+    }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+    body {
+      background: var(--bg);
+      color: #333;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+    header {
+      background: var(--light);
+      padding: 24px;
+      text-align: center;
+      border-bottom: 1px solid #ccc;
+    }
+    header img.logo {
+      max-width: 200px;
+      margin-bottom: 10px;
+    }
+    header h1 {
+      font-size: 1.8rem;
+      color: var(--accent);
+      margin-bottom: 15px;
+    }
+    header ul {
+        list-style-type: none;
+        padding: 0;
+        margin-top: 15px;
+        display: inline-block; /* Untuk memusatkan list */
+        text-align: left;
+    }
+    header ul li {
+        margin-bottom: 8px;
+        font-size: 1rem;
+        color: #555;
+    }
+    header ul li i {
+        margin-right: 8px;
+        color: var(--primary);
+    }
+    main {
+      flex: 1;
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 30px 16px;
+    }
+    section.slide {
+      margin-bottom: 40px;
+      background: white;
+      padding: 24px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    }
+    section.slide h2 {
+      font-size: 1.6rem;
+      border-bottom: 2px solid var(--primary);
+      padding-bottom: 10px;
+      margin-bottom: 25px;
+      text-align: center;
+      color: var(--primary);
+    }
+    section.slide h3 {
+      font-size: 1.2rem;
+      margin-bottom: 12px;
+      color: var(--accent);
+    }
+    section.slide p {
+      font-size: 1rem;
+      margin-bottom: 16px;
+      line-height: 1.6;
+    }
+    ul {
+      list-style-type: none;
+      padding-left: 0;
+    }
+    ul li {
+      margin-bottom: 8px;
+    }
+    .media-box, .interactive-box, .quiz-box {
+      margin-top: 20px;
+      padding: 15px;
+      background: #e0f2f1;
+      border-left: 5px solid var(--primary);
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      margin-bottom: 25px;
+    }
+    .media-box h4, .interactive-box h4, .quiz-box h4 {
+      background-color: var(--primary);
+      color: var(--light);
+      padding: 10px 15px;
+      border-radius: 8px 8px 0 0;
+      margin: -15px -15px 15px -15px;
+      display: flex;
+      align-items: center;
+      font-size: 1.1rem;
+    }
+    .media-box h4 i, .interactive-box h4 i, .quiz-box h4 i {
+      margin-right: 10px;
+      color: var(--light);
+      font-size: 1.3em;
+    }
+    .pop-up-info {
+        background-color: #f0f8ff;
+        border-left: 4px solid var(--primary);
+        padding: 12px;
+        margin-top: 15px;
+        border-radius: 8px;
+        font-size: 0.95em;
+        display: none;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.08);
+    }
+    .target-icon {
+        cursor: pointer;
+        color: var(--primary-dark);
+        font-size: 1.2em;
+        margin-right: 5px;
+    }
+    .quiz-question {
+        background-color: #fff;
+        border: 1px solid #ddd;
+        padding: 15px;
+        border-radius: 8px;
+        margin-bottom: 15px;
+    }
+    .quiz-question p {
+        font-weight: bold;
+        margin-bottom: 10px;
+    }
+    .quiz-options label {
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px;
+        padding: 8px 12px;
+        border: 1px solid #eee;
+        border-radius: 6px;
+        transition: background-color 0.3s ease;
+        cursor: pointer;
+    }
+    .quiz-options label:hover {
+        background-color: #f0f0f0;
+    }
+    .quiz-options input[type="radio"], .quiz-options input[type="checkbox"] {
+        margin-right: 10px;
+        transform: scale(1.2);
+    }
+    .quiz-feedback {
+        margin-top: 10px;
+        padding: 10px;
+        border-radius: 8px;
+        font-weight: bold;
+        text-align: center;
+        display: none;
+    }
+    .quiz-feedback.correct {
+        background-color: #e6ffe6;
+        color: #006400;
+    }
+    .quiz-feedback.incorrect {
+        background-color: #ffe6e6;
+        color: #8B0000;
+    }
+    .button-check {
+        background-color: var(--primary-dark);
+        color: var(--light);
+        border: none;
+        padding: 10px 20px;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 1em;
+        margin-top: 10px;
+        transition: background-color 0.3s ease;
+    }
+    .button-check:hover {
+        background-color: var(--accent);
+    }
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
+    table th, table td {
+        padding: 12px;
+        border: 1px solid #ddd;
+        text-align: left;
+    }
+    table th {
+        background-color: var(--primary);
+        color: var(--light);
+    }
+    table tr:nth-child(even) {
+        background-color: #f9f9f9;
+    }
+    table tr:hover {
+        background-color: #f0f0f0;
+    }
+    .interactive-grid {
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+      gap: 20px;
+      margin-top: 20px;
+    }
+    .interactive-grid .grid-item {
+      flex: 1;
+      min-width: 250px;
+      max-width: 30%;
+      background-color: var(--primary-dark);
+      color: var(--light);
+      padding: 20px;
+      border-radius: 10px;
+      text-align: center;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+    .interactive-grid .grid-item:hover {
+      background-color: var(--accent);
+      transform: translateY(-5px);
+    }
+    .interactive-grid .grid-item i {
+      font-size: 3em;
+      margin-bottom: 10px;
+    }
+    .interactive-grid .grid-item strong {
+      display: block;
+      font-size: 1.1em;
+    }
+    .calculation-exercise input[type="number"], .calculation-exercise input[type="text"] {
+        padding: 8px;
+        margin: 5px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        width: 100px;
+    }
+    .calculation-exercise .solution-box {
+        background-color: #f7f7f7;
+        border: 1px dashed #ccc;
+        padding: 10px;
+        border-radius: 8px;
+        margin-top: 15px;
+        font-style: italic;
+        color: #555;
+        display: none;
+    }
+    footer {
+      background: var(--footer-dark);
+      color: #fff;
+      text-align: center;
+      padding: 16px;
+      font-size: .9rem;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <img src="https://res.cloudinary.com/djexglfns/image/upload/v1749135749/logo_kemenkes_c2ggdg.png" alt="Logo Kemenkes" class="logo">
+    <h1>BAB III: Mengukur Dampak, Membangun Masa Depan</h1>
+    <p>Setelah menyelesaikan bab ini, Anda diharapkan dapat:</p>
+    <ul>
+      <li><i class="fas fa-chart-line"></i> **Memahami mengapa** Pemantauan dan Evaluasi (Monev) sangat penting bagi keberhasilan Pos Layanan Komunitas (PoC).</li>
+      <li><i class="fas fa-list-check"></i> **Mengidentifikasi indikator kunci** untuk layanan PoC, baik paket minimal maupun pengembangan.</li>
+      <li><i class="fas fa-chart-simple"></i> **Menganalisis data sederhana** untuk mengukur capaian program PoC.</li>
+    </ul>
+  </header>
+
+  <main>
+    <section class="slide">
+      <h2>Modul 3.1: Mengapa Monev Adalah Jantung PoC?</h2>
+      <p><strong>Narasi Pembuka:</strong> Setiap program hebat butuh bukti. Bukti bahwa ia bekerja, bahwa ia mencapai tujuannya, dan bahwa ia memberi dampak nyata. Di sinilah **Pemantauan dan Evaluasi (Monev)** memegang peran krusial bagi Pos Layanan Komunitas Anda.</p>
+      <p><em>[**IDE ARTICULATE STORYLINE:** Tempatkan **Video Animasi Pendek (30-45 detik)** di sini. Contoh: Animasi pohon yang tumbuh dari benih, lalu menunjukkan pengukuran (daun, tinggi, buah) untuk menandakan kesehatan dan pertumbuhan, analogikan dengan PoC.]</em></p>
+
+      <div class="interactive-box">
+        <h4><i class="fas fa-question-circle"></i> Mengapa Monev Itu Esensial?</h4>
+        <p>Monev adalah kompas dan cermin bagi program PoC Anda. Klik ikon di bawah untuk memahami mengapa!</p>
+        <div class="interactive-grid">
+          <div class="grid-item" onclick="togglePopup('accountability')">
+            <i class="fas fa-handshake"></i>
+            <strong>Akuntabilitas</strong>
+          </div>
+          <div class="grid-item" onclick="togglePopup('effectiveness')">
+            <i class="fas fa-chart-bar"></i>
+            <strong>Efektivitas Program</strong>
+          </div>
+          <div class="grid-item" onclick="togglePopup('continuousImprovement')">
+            <i class="fas fa-cogs"></i>
+            <strong>Perbaikan Berkelanjutan</strong>
+          </div>
+        </div>
+
+        <div id="accountability" class="pop-up-info">
+          **Monev memastikan kita bertanggung jawab** kepada komunitas, donor, dan pemerintah bahwa sumber daya digunakan secara efektif dan hasilnya nyata. Ini tentang kepercayaan dan transparansi.
+        </div>
+        <div id="effectiveness" class="pop-up-info">
+          **Monev membantu kita melihat apakah strategi kita berhasil.** Apakah jumlah tes meningkat? Apakah kepatuhan ARV membaik? Jika tidak, kenapa? Ini membantu mengidentifikasi keberhasilan dan tantangan.
+        </div>
+        <div id="continuousImprovement" class="pop-up-info">
+          Data Monev adalah **cermin kita.** Ia menunjukkan apa yang perlu diperbaiki, di mana ada hambatan, dan bagaimana kita bisa terus **berinovasi dan beradaptasi** untuk layanan yang lebih baik.
+        </div>
+        <script>
+            function togglePopup(id) {
+                var popup = document.getElementById(id);
+                if (popup.style.display === "block") {
+                    popup.style.display = "none";
+                } else {
+                    document.querySelectorAll('.pop-up-info').forEach(p => p.style.display = 'none'); // Close all others
+                    popup.style.display = "block";
+                }
+            }
+        </script>
+
+        <div class="quiz-box" style="margin-top: 30px;">
+            <h4><i class="fas fa-lightbulb"></i> Pertanyaan Refleksi</h4>
+            <div class="quiz-question">
+                <p>Menurut Anda, dari ketiga alasan pentingnya Monev, mana yang paling penting bagi PoC di komunitas Anda? Mengapa?</p>
+                <div class="quiz-options">
+                    <label><input type="radio" name="reflection_q1" value="accountability"> Akuntabilitas</label>
+                    <label><input type="radio" name="reflection_q1" value="effectiveness"> Efektivitas Program</label>
+                    <label><input type="radio" name="reflection_q1" value="improvement"> Perbaikan Berkelanjutan</label>
+                </div>
+                <button class="button-check" onclick="checkReflection('reflection_q1')">Kirim Jawaban</button>
+                <div id="feedback_reflection_q1" class="quiz-feedback"></div>
+            </div>
+            <script>
+                function checkReflection(name) {
+                    const selected = document.querySelector(`input[name="${name}"]:checked`);
+                    const feedbackDiv = document.getElementById(`feedback_${name}`);
+                    if (selected) {
+                        feedbackDiv.textContent = "Pilihan yang menarik! Setiap aspek Monev memiliki nilai penting tergantung pada konteks dan prioritas. Memahami ketiganya akan memperkuat program PoC Anda.";
+                        feedbackDiv.className = "quiz-feedback correct"; // Always positive for reflection
+                        feedbackDiv.style.display = "block";
+                    } else {
+                        feedbackDiv.textContent = "Silakan pilih salah satu jawaban untuk melanjutkan.";
+                        feedbackDiv.className = "quiz-feedback incorrect";
+                        feedbackDiv.style.display = "block";
+                    }
+                }
+            </script>
+        </div>
+      </div>
+
+      <div class="media-box">
+        <h4><i class="fas fa-users-gear"></i> Siapa Saja yang Terlibat dalam Monev PoC?</h4>
+        <p>Monev adalah upaya kolektif. Setiap pihak memiliki peran vital dalam memastikan data yang akurat dan lengkap. Klik pada setiap entitas untuk melihat tanggung jawab mereka!</p>
+        <p><em>[**IDE ARTICULATE STORYLINE:** Tampilkan **infografis visual** yang menempatkan **PoC sebagai pusat**, dengan ikon/label untuk **LSM/Mitra Komunitas** dan **Fasyankes Pengampu** di sekitarnya. Panah menunjukkan aliran data. Setiap ikon/label dapat **diklik** untuk memunculkan pop-up dengan daftar tanggung jawab.]</em></p>
+        <div class="interactive-grid" style="grid-template-columns: repeat(3, 1fr);">
+            <div class="grid-item" onclick="togglePopup('lsmRoles')">
+                <i class="fas fa-handshake-angle"></i>
+                <strong>LSM/Mitra Komunitas</strong>
+            </div>
+            <div class="grid-item" onclick="togglePopup('pocRoles')">
+                <i class="fas fa-user-tie"></i>
+                <strong>Petugas PoC</strong>
+            </div>
+            <div class="grid-item" onclick="togglePopup('fasyankesRoles')">
+                <i class="fas fa-hospital"></i>
+                <strong>Fasyankes Pengampu</strong>
+            </div>
+        </div>
+        <div id="lsmRoles" class="pop-up-info">
+            **LSM/Mitra Komunitas:** Mengumpulkan data awal di lapangan (penjangkauan, skrining awal), melaporkan kegiatan penjangkauan, berpartisipasi dalam diskusi evaluasi komunitas, memberikan umpan balik dari lapangan.
+        </div>
+        <div id="pocRoles" class="pop-up-info">
+            **Petugas PoC:** Mencatat layanan harian (tes, rujukan, pendampingan), merekapitulasi data bulanan, melakukan validasi awal data dengan fasyankes, menyusun laporan kegiatan PoC.
+        </div>
+        <div id="fasyankesRoles" class="pop-up-info">
+            **Fasyankes Pengampu (Nakes, Petugas RR, Lab):** Memvalidasi data PoC, melakukan input data ke SIHA/PrEP Nasional, menyediakan data hasil tes lab, memberikan dukungan teknis Monev, menyediakan ARV & PrEP.
+        </div>
+      </div>
+
+      <div class="media-box">
+        <h4><i class="fas fa-calendar-check"></i> Mekanisme Pelaporan Berkala: Laporan Bulanan</h4>
+        <p>Laporan rekapitulasi bulanan adalah tulang punggung dari sistem Monev PoC Anda. Ini adalah momen untuk merefleksikan capaian dan merencanakan langkah selanjutnya.</p>
+        <p><em>[**IDE ARTICULATE STORYLINE:** Tampilkan **visual kalender atau timeline** yang menyoroti "setiap bulan" sebagai siklus pelaporan.]</em></p>
+        <ul>
+          <li><i class="fas fa-clipboard-list" style="color: var(--accent);"></i> **Petugas PoC** bertanggung jawab menyusun laporan ini dari data harian yang terkumpul.</li>
+          <li><i class="fas fa-file-export" style="color: var(--accent);"></i> Data kemudian **divalidasi dan dikirim ke fasyankes pengampu** untuk integrasi dan pelaporan ke tingkat yang lebih tinggi.</li>
+          <li><i class="fas fa-chart-pie" style="color: var(--accent);"></i> Laporan ini menjadi **dasar untuk pengambilan keputusan** dan perbaikan program di bulan berikutnya.</li>
+        </ul>
+        <div class="quiz-box" style="margin-top: 20px;">
+            <h4><i class="fas fa-spell-check"></i> Pertanyaan Penguatan</h4>
+            <div class="quiz-question">
+                <p>Mengapa menurut Anda laporan bulanan ini tidak boleh terlewatkan dalam operasional PoC?</p>
+                <div class="quiz-options">
+                    <label><input type="radio" name="monthly_report_q" value="a"> Untuk memenuhi persyaratan administratif saja.</label>
+                    <label><input type="radio" name="monthly_report_q" value="b"> Karena ini adalah dasar untuk menilai kinerja, mengidentifikasi masalah, dan merencanakan perbaikan program.</label>
+                    <label><input type="radio" name="monthly_report_q" value="c"> Hanya untuk menunjukkan jumlah layanan yang diberikan kepada atasan.</label>
+                    <label><input type="radio" name="monthly_report_q" value="d"> Agar PoC terlihat aktif di komunitas.</label>
+                </div>
+                <button class="button-check" onclick="checkSingleChoiceQuiz('monthly_report_q', 'b')">Periksa Jawaban</button>
+                <div id="feedback_monthly_report_q" class="quiz-feedback"></div>
+            </div>
+            <script>
+                function checkSingleChoiceQuiz(name, correctAnswer) {
+                    const selected = document.querySelector(`input[name="${name}"]:checked`);
+                    const feedbackDiv = document.getElementById(`feedback_${name}`);
+                    if (selected) {
+                        if (selected.value === correctAnswer) {
+                            feedbackDiv.textContent = "Tepat sekali! Laporan bulanan adalah alat manajemen yang sangat penting untuk keberlanjutan dan peningkatan kualitas PoC.";
+                            feedbackDiv.className = "quiz-feedback correct";
+                        } else {
+                            feedbackDiv.textContent = "Kurang tepat. Coba tinjau kembali tujuan utama dari pelaporan bulanan.";
+                            feedbackDiv.className = "quiz-feedback incorrect";
+                        }
+                        feedbackDiv.style.display = "block";
+                    } else {
+                        feedbackDiv.textContent = "Silakan pilih salah satu jawaban.";
+                        feedbackDiv.className = "quiz-feedback incorrect";
+                        feedbackDiv.style.display = "block";
+                    }
+                }
+            </script>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide">
+      <h2>Modul 3.2: Indikator Kunci: Paket Layanan Minimal</h2>
+      <p><strong>Narasi Pembuka:</strong> Untuk mengetahui apakah PoC kita efektif, kita perlu mengukur hal yang tepat. Mari kita lihat indikator-indikator kunci untuk **paket layanan minimal** yang wajib Anda pantau.</p>
+
+      <div class="interactive-box">
+        <h4><i class="fas fa-table"></i> Tabel Interaktif Indikator Minimal</h4>
+        <p>Berikut adalah indikator esensial yang harus dipantau untuk paket layanan minimal PoC. Klik pada setiap indikator untuk melihat detail lebih lanjut (Definisi Operasional, Perhitungan, Instrumen, Penyedia Data).</p>
+        <table>
+          <thead>
+            <tr>
+              <th>No.</th>
+              <th>Indikator (Klik untuk Detail)</th>
+              <th>Instrumen (Sumber Data)</th>
+              <th>Penyedia Data</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr onclick="showIndicatorDetail('ind1')">
+              <td>1</td>
+              <td style="cursor: pointer; color: var(--primary-dark); font-weight: bold;">Jumlah Layanan Tes HIV</td>
+              <td>Buku Register PoC, Form Rujukan/Pencatatan Tes HIV</td>
+              <td>Petugas PoC</td>
+            </tr>
+            <tr onclick="showIndicatorDetail('ind2')">
+              <td>2</td>
+              <td style="cursor: pointer; color: var(--primary-dark); font-weight: bold;">Proporsi Hasil Tes HIV Reaktif</td>
+              <td>Buku Register PoC, Hasil Lab Fasyankes</td>
+              <td>Petugas PoC, Fasyankes</td>
+            </tr>
+            <tr onclick="showIndicatorDetail('ind3')">
+              <td>3</td>
+              <td style="cursor: pointer; color: var(--primary-dark); font-weight: bold;">Proporsi Layanan Skrining HIV Mandiri (SHM)</td>
+              <td>Buku Register PoC</td>
+              <td>Petugas PoC</td>
+            </tr>
+            <tr onclick="showIndicatorDetail('ind4')">
+              <td>4</td>
+              <td style="cursor: pointer; color: var(--primary-dark); font-weight: bold;">Proporsi ODHIV Reaktif yang Dirujuk ke Fasyankes PDP</td>
+              <td>Buku Register PoC, Form Rujukan</td>
+              <td>Petugas PoC</td>
+            </tr>
+            <tr onclick="showIndicatorDetail('ind5')">
+              <td>5</td>
+              <td style="cursor: pointer; color: var(--primary-dark); font-weight: bold;">Jumlah Komoditas Tes HIV yang Diterima/Digunakan</td>
+              <td>Buku Inventaris Komoditas PoC</td>
+              <td>Petugas PoC</td>
+            </tr>
+            </tbody>
+        </table>
+
+        <div id="ind1" class="pop-up-info">
+            **Indikator: Jumlah Layanan Tes HIV**<br>
+            **Definisi Operasional:** Total tes HIV (termasuk skrining, konfirmasi) yang difasilitasi oleh PoC.<br>
+            **Perhitungan:** Cukup menjumlahkan data dari buku register.<br>
+            **Instrumen:** Buku Register PoC, Form Pencatatan Tes HIV.<br>
+            **Penyedia Data:** Petugas PoC.<br>
+            <em>[**IDE ARTICULATE STORYLINE:** Sertakan **screenshot** dari contoh bagian Buku Register PoC yang relevan.]</em>
+        </div>
+        <div id="ind2" class="pop-up-info">
+            **Indikator: Proporsi Hasil Tes HIV Reaktif**<br>
+            **Definisi Operasional:** Persentase individu dengan hasil tes HIV reaktif dari total tes yang difasilitasi.<br>
+            **Perhitungan:** (Jumlah hasil tes HIV reaktif / Total tes HIV yang dilakukan) x 100%.<br>
+            **Instrumen:** Buku Register PoC, Hasil Lab Fasyankes.<br>
+            **Penyedia Data:** Petugas PoC, Fasyankes.<br>
+        </div>
+        <div id="ind3" class="pop-up-info">
+            **Indikator: Proporsi Layanan Skrining HIV Mandiri (SHM)**<br>
+            **Definisi Operasional:** Persentase individu yang menyatakan ingin SHM dan berhasil melakukannya dengan pendampingan.<br>
+            **Perhitungan:** (Jumlah individu yang melakukan SHM / Total individu yang terdaftar ingin melakukan SHM) x 100%.<br>
+            **Instrumen:** Buku Register PoC.<br>
+            **Penyedia Data:** Petugas PoC.<br>
+        </div>
+        <div id="ind4" class="pop-up-info">
+            **Indikator: Proporsi ODHIV Reaktif yang Dirujuk ke Fasyankes PDP**<br>
+            **Definisi Operasional:** Persentase individu dengan hasil tes reaktif yang berhasil dirujuk ke fasyankes untuk layanan PDP.<br>
+            **Perhitungan:** (Jumlah ODHIV reaktif yang dirujuk / Total ODHIV reaktif yang ditemukan) x 100%.<br>
+            **Instrumen:** Buku Register PoC, Form Rujukan/Verifikasi Rujukan.<br>
+            **Penyedia Data:** Petugas PoC.<br>
+        </div>
+        <div id="ind5" class="pop-up-info">
+            **Indikator: Jumlah Komoditas Tes HIV yang Diterima/Digunakan**<br>
+            **Definisi Operasional:** Jumlah *reagen* tes HIV atau alat SHM yang diterima dan digunakan oleh PoC.<br>
+            **Perhitungan:** Cukup menjumlahkan atau menghitung selisih stok awal dan akhir.<br>
+            **Instrumen:** Buku Inventaris Komoditas PoC.<br>
+            **Penyedia Data:** Petugas PoC.<br>
+        </div>
+      </div>
+
+      <div class="quiz-box">
+        <h4><i class="fas fa-calculator"></i> Latihan Praktis: Menghitung Indikator</h4>
+        <p>Mari kita latih kemampuan Anda dalam menghitung indikator kunci PoC!</p>
+
+        <div class="quiz-question calculation-exercise">
+            <p><strong>Skenario 1: Proporsi Layanan Skrining HIV Mandiri (SHM)</strong></p>
+            <p>Dalam satu bulan, PoC Anda mencatat **120 individu** yang menyatakan keinginan untuk melakukan SHM. Dari jumlah tersebut, **90 individu** berhasil melakukan SHM dengan pendampingan.</p>
+            <p>Berapa proporsi layanan SHM yang berhasil difasilitasi PoC Anda?</p>
+            Jumlah individu yang melakukan SHM: <input type="number" id="shmDone" value="" placeholder="90"><br>
+            Total individu yang ingin SHM: <input type="number" id="shmTotal" value="" placeholder="120"><br>
+            Proporsi SHM (%): <input type="text" id="shmResult" value="" readonly><br>
+            <button class="button-check" onclick="checkSHMCalculation()">Cek Jawaban</button>
+            <div id="shmFeedback" class="quiz-feedback"></div>
+            <div id="shmSolution" class="solution-box">
+                **Rumus:** (Jumlah individu yang melakukan SHM / Total individu yang terdaftar ingin melakukan SHM) x 100%<br>
+                **Perhitungan:** (90 / 120) x 100% = 75%
+            </div>
+        </div>
+        <script>
+            function checkSHMCalculation() {
+                const shmDone = parseFloat(document.getElementById('shmDone').value);
+                const shmTotal = parseFloat(document.getElementById('shmTotal').value);
+                const shmResultInput = document.getElementById('shmResult');
+                const shmFeedback = document.getElementById('shmFeedback');
+                const shmSolution = document.getElementById('shmSolution');
+
+                if (isNaN(shmDone) || isNaN(shmTotal) || shmTotal === 0) {
+                    shmFeedback.textContent = "Mohon masukkan angka yang valid untuk perhitungan.";
+                    shmFeedback.className = "quiz-feedback incorrect";
+                    shmFeedback.style.display = "block";
+                    shmSolution.style.display = "none";
+                    return;
+                }
+
+                const calculatedPercentage = (shmDone / shmTotal) * 100;
+                shmResultInput.value = calculatedPercentage.toFixed(2) + "%";
+
+                if (Math.abs(calculatedPercentage - 75) < 0.01) { // Toleransi kecil untuk float
+                    shmFeedback.textContent = "Hebat! Anda berhasil menghitungnya dengan tepat. Ini menunjukkan seberapa efektif PoC Anda menjangkau dan memfasilitasi layanan SHM.";
+                    shmFeedback.className = "quiz-feedback correct";
+                    shmSolution.style.display = "none";
+                } else {
+                    shmFeedback.textContent = "Oops, sepertinya ada yang perlu diperbaiki. Ingat rumusnya dan coba lagi!";
+                    shmFeedback.className = "quiz-feedback incorrect";
+                    shmSolution.style.display = "block";
+                }
+                shmFeedback.style.display = "block";
+            }
+        </script>
+      </div>
+    </section>
+
+    <section class="slide">
+      <h2>Modul 3.3: Indikator Kunci: Paket Layanan Pengembangan</h2>
+      <p><strong>Narasi Pembuka:</strong> Jika PoC Anda sudah menyediakan layanan pengembangan, ada indikator tambahan yang perlu kita pantau untuk melihat efektivitas layanan yang lebih kompleks ini.</p>
+
+      <div class="interactive-box">
+        <h4><i class="fas fa-table"></i> Tabel Interaktif Indikator Pengembangan</h4>
+        <p>Berikut adalah indikator untuk paket layanan pengembangan PoC. Klik pada setiap indikator untuk melihat detail lengkapnya.</p>
+        <table>
+          <thead>
+            <tr>
+              <th>No.</th>
+              <th>Indikator (Klik untuk Detail)</th>
+              <th>Instrumen (Sumber Data)</th>
+              <th>Penyedia Data</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr onclick="showIndicatorDetail('devInd1')">
+              <td>1</td>
+              <td style="cursor: pointer; color: var(--primary-dark); font-weight: bold;">Proporsi ODHIV yang Memulai ARV dari Rujukan PoC</td>
+              <td>SIHA/PrEP Nasional, Buku Register PoC</td>
+              <td>Fasyankes, Petugas PoC</td>
+            </tr>
+            <tr onclick="showIndicatorDetail('devInd2')">
+              <td>2</td>
+              <td style="cursor: pointer; color: var(--primary-dark); font-weight: bold;">Jumlah Pemberian/Pengambilan PrEP</td>
+              <td>Buku Register PrEP, Catatan PoC</td>
+              <td>Petugas PoC, Fasyankes</td>
+            </tr>
+            <tr onclick="showIndicatorDetail('devInd3')">
+              <td>3</td>
+              <td style="cursor: pointer; color: var(--primary-dark); font-weight: bold;">Persentase Retensi ODHIV yang Kembali ke ARV</td>
+              <td>SIHA/PrEP Nasional, Catatan PoC/LSM</td>
+              <td>Fasyankes, Petugas PoC, LSM</td>
+            </tr>
+            </tbody>
+        </table>
+
+        <div id="devInd1" class="pop-up-info">
+            **Indikator: Proporsi ODHIV yang Memulai ARV dari Rujukan PoC**<br>
+            **Definisi Operasional:** Persentase ODHIV yang dirujuk dari PoC dan memulai terapi ARV di fasyankes.<br>
+            **Perhitungan:** (Jumlah ODHIV memulai ARV dari rujukan PoC / Total ODHIV reaktif yang dirujuk PoC) x 100%.<br>
+            **Instrumen:** SIHA/PrEP Nasional, Buku Register PoC.<br>
+            **Penyedia Data:** Fasyankes, Petugas PoC.<br>
+        </div>
+        <div id="devInd2" class="pop-up-info">
+            **Indikator: Jumlah Pemberian/Pengambilan PrEP**<br>
+            **Definisi Operasional:** Jumlah *dosis* atau *pasien* yang menerima/mengambil PrEP melalui PoC.<br>
+            **Perhitungan:** Menjumlahkan catatan pemberian PrEP.<br>
+            **Instrumen:** Buku Register PrEP, Catatan PoC.<br>
+            **Penyedia Data:** Petugas PoC, Fasyankes.<br>
+        </div>
+        <div id="devInd3" class="pop-up-info">
+            **Indikator: Persentase Retensi ODHIV yang Kembali ke ARV**<br>
+            **Definisi Operasional:** Persentase ODHIV yang sebelumnya putus pengobatan yang berhasil dijangkau dan kembali memulai ARV.<br>
+            **Perhitungan:** (Jumlah ODHIV yang kembali terapi ARV / Total ODHIV putus obat yang dijangkau) x 100%.<br>
+            **Instrumen:** SIHA/PrEP Nasional, Catatan PoC/LSM.<br>
+            **Penyedia Data:** Fasyankes, Petugas PoC, LSM.<br>
+        </div>
+        <script>
+            function showIndicatorDetail(id) {
+                togglePopup(id); // Reusing the existing togglePopup function
+            }
+        </script>
+      </div>
+
+      <div class="quiz-box">
+        <h4><i class="fas fa-user-friends"></i> Studi Kasus: Memahami Indikator Kompleks</h4>
+        <p>Mari kita hadapi skenario nyata untuk memahami indikator yang lebih kompleks!</p>
+
+        <div class="quiz-question calculation-exercise">
+            <p><strong>Skenario: Persentase Retensi ODHIV yang Kembali ke ARV</strong></p>
+            <p>Seorang petugas PoC dan LSM mengidentifikasi **15 ODHIV** yang sebelumnya 'hilang' dari pengobatan ARV (tidak mengambil ARV selama 3 bulan atau lebih). Setelah upaya penjangkauan intensif, **10 dari mereka** berhasil dibujuk dan kembali memulai terapi ARV melalui PoC.</p>
+            <p>Bagaimana Anda menghitung persentase retensinya?</p>
+            Jumlah ODHIV yang hilang & diidentifikasi: <input type="number" id="ltfuIdentified" value="" placeholder="15"><br>
+            Jumlah ODHIV yang kembali ke terapi: <input type="number" id="ltfuReturned" value="" placeholder="10"><br>
+            Persentase Retensi (%): <input type="text" id="ltfuResult" value="" readonly><br>
+            <button class="button-check" onclick="checkLTFUReturnCalculation()">Cek Jawaban</button>
+            <div id="ltfuFeedback" class="quiz-feedback"></div>
+            <div id="ltfuSolution" class="solution-box">
+                **Rumus:** (Jumlah ODHIV yang kembali terapi ARV / Total ODHIV putus obat yang dijangkau) x 100%<br>
+                **Perhitungan:** (10 / 15) x 100% = 66.67%
+            </div>
+        </div>
+        <script>
+            function checkLTFUReturnCalculation() {
+                const ltfuIdentified = parseFloat(document.getElementById('ltfuIdentified').value);
+                const ltfuReturned = parseFloat(document.getElementById('ltfuReturned').value);
+                const ltfuResultInput = document.getElementById('ltfuResult');
+                const ltfuFeedback = document.getElementById('ltfuFeedback');
+                const ltfuSolution = document.getElementById('ltfuSolution');
+
+                if (isNaN(ltfuIdentified) || isNaN(ltfuReturned) || ltfuIdentified === 0) {
+                    ltfuFeedback.textContent = "Mohon masukkan angka yang valid untuk perhitungan.";
+                    ltfuFeedback.className = "quiz-feedback incorrect";
+                    ltfuFeedback.style.display = "block";
+                    ltfuSolution.style.display = "none";
+                    return;
+                }
+
+                const calculatedPercentage = (ltfuReturned / ltfuIdentified) * 100;
+                ltfuResultInput.value = calculatedPercentage.toFixed(2) + "%";
+
+                if (Math.abs(calculatedPercentage - 66.67) < 0.01) { // Toleransi kecil
+                    ltfuFeedback.textContent = "Hebat! Anda berhasil menghitung persentase retensi dengan benar. Ini adalah indikator penting untuk efektivitas PoC dalam mendukung kepatuhan pengobatan.";
+                    ltfuFeedback.className = "quiz-feedback correct";
+                    ltfuSolution.style.display = "none";
+                } else {
+                    ltfuFeedback.textContent = "Belum tepat. Ingat rumusnya: (Jumlah ODHIV yang kembali ke terapi / Jumlah ODHIV yang hilang & diidentifikasi) x 100%. Perhatikan pembulatan jika perlu.";
+                    ltfuFeedback.className = "quiz-feedback incorrect";
+                    ltfuSolution.style.display = "block";
+                }
+                ltfuFeedback.style.display = "block";
+            }
+        </script>
+
+        <div class="quiz-box" style="margin-top: 30px;">
+            <h4><i class="fas fa-comments"></i> Diskusi Tambahan (Opsional)</h4>
+            <div class="quiz-question">
+                <p>Menurut Anda, apa saja faktor kunci yang berkontribusi pada keberhasilan (atau kegagalan) upaya retensi ODHIV kembali ke pengobatan ARV?</p>
+                <textarea style="width: 100%; height: 80px; padding: 10px; border: 1px solid #ccc; border-radius: 5px;" placeholder="Tuliskan pendapat Anda di sini..."></textarea>
+                <p style="font-size: 0.85em; color: #666; margin-top: 5px;"><em>(Ini adalah pertanyaan refleksi, tidak ada jawaban "benar" atau "salah". Anda bisa berdiskusi lebih lanjut dalam sesi virtual.)</em></p>
+            </div>
+        </div>
+      </div>
+
+      <div class="media-box">
+        <h4><i class="fas fa-link"></i> Mengintegrasikan Data</h4>
+        <p>Pengumpulan data yang akurat hanyalah setengah pertempuran. Integrasi dan koordinasi data adalah kunci untuk gambaran yang utuh dan pelaporan yang efektif.</p>
+        <p><em>[**IDE ARTICULATE STORYLINE:** Tampilkan ikon jabat tangan atau rantai yang saling terkait, melambangkan sinergi data antara PoC, LSM, dan Fasyankes.]</em></p>
+        <ul>
+          <li><i class="fas fa-handshake-angle" style="color: var(--primary);"></i> Pentingnya **koordinasi erat** antara PoC, LSM, dan fasyankes pengampu.</li>
+          <li><i class="fas fa-database" style="color: var(--primary);"></i> Data yang akurat dan terintegrasi adalah kunci untuk **pengambilan keputusan yang tepat**.</li>
+          <li><i class="fas fa-upload" style="color: var(--primary);"></i> Pelaporan ke sistem nasional seperti **SIHA dan PrEP Nasional** memerlukan validasi silang data yang baik.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="slide" style="text-align: center;">
+      <h2>Penutup Bab III: Uji Pemahaman & Ringkasan</h2>
+      <p style="font-size: 1.1em; line-height: 1.8;">Kini Anda telah sampai di akhir Bab III. Anda sudah membekali diri dengan pemahaman mendalam tentang pentingnya **Pemantauan dan Evaluasi (Monev)** bagi keberhasilan PoC, bagaimana mengidentifikasi **indikator kunci** baik untuk paket layanan minimal maupun pengembangan, serta cara **menganalisis data sederhana** untuk mengukur capaian program.</p>
+
+      <div class="quiz-box">
+        <h4><i class="fas fa-clipboard-question"></i> Kuis Akhir Bab</h4>
+        <p>Yuk, uji pemahaman Anda dengan beberapa pertanyaan!</p>
+
+        <div class="quiz-question">
+            <p>1. Mengapa "Perbaikan Berkelanjutan" menjadi salah satu alasan pentingnya Monev PoC?</p>
+            <div class="quiz-options">
+                <label><input type="radio" name="final_q1" value="a"> Karena data Monev hanya digunakan untuk menyusun laporan akhir.</label>
+                <label><input type="radio" name="final_q1" value="b"> Karena Monev membantu mengidentifikasi masalah dan peluang untuk inovasi program.</label>
+                <label><input type="radio" name="final_q1" value="c"> Karena itu adalah persyaratan dari donor saja.</label>
+                <label><input type="radio" name="final_q1" value="d"> Agar PoC bisa membandingkan diri dengan PoC lain.</label>
+            </div>
+            <button class="button-check" onclick="checkSingleChoiceQuiz('final_q1', 'b')">Periksa Jawaban</button>
+            <div id="feedback_final_q1" class="quiz-feedback"></div>
+        </div>
+
+        <div class="quiz-question">
+            <p>2. Siapa yang bertanggung jawab utama dalam mencatat layanan harian dan merekapitulasi data bulanan PoC?</p>
+            <div class="quiz-options">
+                <label><input type="radio" name="final_q2" value="a"> Fasyankes Pengampu</label>
+                <label><input type="radio" name="final_q2" value="b"> LSM/Mitra Komunitas</label>
+                <label><input type="radio" name="final_q2" value="c"> Petugas PoC</label>
+                <label><input type="radio" name="final_q2" value="d"> Dinas Kesehatan</label>
+            </div>
+            <button class="button-check" onclick="checkSingleChoiceQuiz('final_q2', 'c')">Periksa Jawaban</button>
+            <div id="feedback_final_q2" class="quiz-feedback"></div>
+        </div>
+
+        <div class="quiz-question">
+            <p>3. Benar atau Salah: Proporsi Layanan Skrining HIV Mandiri (SHM) adalah indikator untuk paket layanan pengembangan PoC.</p>
+            <div class="quiz-options">
+                <label><input type="radio" name="final_q3" value="true"> Benar</label>
+                <label><input type="radio" name="final_q3" value="false"> Salah</label>
+            </div>
+            <button class="button-check" onclick="checkSingleChoiceQuiz('final_q3', 'false')">Periksa Jawaban</button>
+            <div id="feedback_final_q3" class="quiz-feedback"></div>
+        </div>
+
+        <div class="quiz-question">
+            <p>4. Pilih semua yang benar: Indikator-indikator paket layanan pengembangan PoC seringkali memerlukan data dari:</p>
+            <div class="quiz-options">
+                <label><input type="checkbox" name="final_q4" value="a"> Buku Register PoC</label>
+                <label><input type="checkbox" name="final_q4" value="b"> SIHA/PrEP Nasional</label>
+                <label><input type="checkbox" name="final_q4" value="c"> Catatan Laboratorium Fasyankes</label>
+                <label><input type="checkbox" name="final_q4" value="d"> Laporan keuangan PoC</label>
+            </div>
+            <button class="button-check" onclick="checkMultiChoiceQuiz('final_q4', ['a', 'b', 'c'])">Periksa Jawaban</button>
+            <div id="feedback_final_q4" class="quiz-feedback"></div>
+        </div>
+
+        <script>
+            function checkMultiChoiceQuiz(name, correctAnswers) {
+                const selectedOptions = document.querySelectorAll(`input[name="${name}"]:checked`);
+                const feedbackDiv = document.getElementById(`feedback_${name}`);
+                const selectedValues = Array.from(selectedOptions).map(input => input.value);
+
+                const isCorrect = correctAnswers.every(val => selectedValues.includes(val)) && selectedValues.length === correctAnswers.length;
+
+                if (isCorrect) {
+                    feedbackDiv.textContent = "Tepat sekali! Anda memahami berbagai sumber data yang diperlukan.";
+                    feedbackDiv.className = "quiz-feedback correct";
+                } else {
+                    feedbackDiv.textContent = "Ada yang perlu ditinjau ulang. Pastikan Anda memilih semua jawaban yang benar.";
+                    feedbackDiv.className = "quiz-feedback incorrect";
+                }
+                feedbackDiv.style.display = "block";
+            }
+        </script>
+      </div>
+
+      <p style="font-size: 1.1em; line-height: 1.8; margin-top: 30px;">Ingat, setiap angka adalah cerita, dan setiap data adalah langkah menuju Indonesia Bebas AIDS 2030.</p>
+      <div style="margin-top: 30px;">
+        <i class="fas fa-hand-holding-heart fa-5x" style="color: var(--primary);"></i>
+        <i class="fas fa-arrow-right fa-3x" style="color: var(--accent); margin: 0 20px;"></i>
+        <i class="fas fa-book-reader fa-5x" style="color: var(--primary-dark);"></i>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    Disiapkan oleh PIKAT untuk Kementerian Kesehatan Republik Indonesia © 2025
+  </footer>
+</body>
+</html>
