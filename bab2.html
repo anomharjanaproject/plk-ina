@@ -388,25 +388,6 @@
             color: var(--accent);
         }
 
-        /* Video Simulation Styles */
-        .video-container {
-            margin-top: 15px;
-            margin-bottom: 10px;
-            position: relative;
-            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
-            height: 0;
-            overflow: hidden;
-            border-radius: 8px;
-        }
-        .video-container iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
-
         /* Styles for the Animated Illustrations */
         .illustration-container {
             width: 100%;
@@ -522,17 +503,151 @@
             margin-bottom: 10px;
         }
 
-        /* Table service detail popups */
-        .service-popup h4 {
-            color: var(--accent);
-            font-size: 1.4em;
-            margin-bottom: 10px;
-            border-bottom: 2px solid var(--primary-light);
-            padding-bottom: 5px;
+        /* Drag and Drop Styles */
+        .drag-drop-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-top: 25px;
+            justify-content: center;
+            padding: 20px;
+            border: 2px dashed var(--primary-light);
+            border-radius: 10px;
+            background-color: #f7fcfa;
         }
-        .service-popup .video-container {
+        .drag-source, .drop-target {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.08);
+            font-weight: 600;
+            color: var(--accent);
+            text-align: center;
+            cursor: grab;
+            transition: all 0.3s ease;
+            min-width: 150px;
+        }
+        .drag-source:active {
+            cursor: grabbing;
+            transform: scale(1.05);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+        }
+        .drop-target {
+            border: 2px dashed var(--primary);
+            background-color: #e0f2f1;
+            min-height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #666;
+            font-style: italic;
+            position: relative;
+        }
+        .drop-target.hover {
+            background-color: #d4f0ee;
+            border-color: var(--primary-dark);
+        }
+        .drop-target.correct {
+            background-color: #e6ffe6;
+            border-color: #006400;
+        }
+        .drop-target.incorrect {
+            background-color: #ffe6e6;
+            border-color: #8B0000;
+        }
+        .dropped-item {
+            background-color: var(--primary-light);
+            color: var(--light);
+            padding: 8px 12px;
+            border-radius: 5px;
+            margin: 5px;
+            font-size: 0.9em;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        .drag-drop-feedback {
+            margin-top: 15px;
+            padding: 12px;
+            border-radius: 8px;
+            font-weight: bold;
+            text-align: center;
+            display: none;
+            font-size: 1em;
+        }
+        .drag-drop-feedback.correct {
+            background-color: #e6ffe6;
+            color: #006400;
+            border: 1px solid #006400;
+        }
+        .drag-drop-feedback.incorrect {
+            background-color: #ffe6e6;
+            color: #8B0000;
+            border: 1px solid #8B0000;
+        }
+        .drag-drop-item {
+            padding: 10px 15px;
+            background-color: var(--primary);
+            color: white;
+            border-radius: 5px;
+            cursor: grab;
+            margin-bottom: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            font-weight: 500;
+        }
+        .drag-drop-area {
+            min-height: 120px;
+            border: 2px dashed #ccc;
+            border-radius: 8px;
+            padding: 15px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            align-items: center;
+            justify-content: center;
+            background-color: #f0f8ff;
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+        }
+        .drag-drop-area.highlight {
+            border-color: var(--primary);
+            background-color: #e6f2ff;
+        }
+        .drop-zone-label {
+            position: absolute;
+            top: 5px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.8em;
+            color: #999;
+            pointer-events: none;
+        }
+        .drag-drop-correct-item {
+            background-color: #4CAF50;
+            color: white;
+            padding: 8px 12px;
+            border-radius: 5px;
+            margin: 5px;
+            font-size: 0.9em;
+        }
+        .drag-drop-incorrect-item {
+            background-color: #F44336;
+            color: white;
+            padding: 8px 12px;
+            border-radius: 5px;
+            margin: 5px;
+            font-size: 0.9em;
+        }
+        .drag-drop-source-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 20px;
+            justify-content: center;
+        }
+        .check-drag-drop {
             margin-top: 20px;
-            margin-bottom: 15px;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
         }
     </style>
 </head>
@@ -558,7 +673,12 @@
                 <h4><i class="fas fa-handshake"></i> Pos Layanan Komunitas (PoC): Menjemput Kesehatan, Menjangkau Semua</h4>
                 <p><strong>Narasi/Teks:</strong> "Dalam upaya kita mencapai Indonesia Bebas AIDS 2030, akses layanan HIV dan IMS harus menjangkau setiap individu yang membutuhkan, tanpa terkecuali. Namun, fasyankes formal seringkali jauh, waktu layanan terbatas, atau bahkan menjadi tempat yang terasa tidak aman bagi sebagian orang. Di sinilah <span class="bold-attractive">PoC hadir sebagai jawaban inovatif</span>!"</p>
                 <div class="illustration-container">
-                    <div id="lottie-reaching-out" class="lottie-animation"></div>
+                    <div id="lottie-reaching-out" class="lottie-animation">
+                         <div style="font-size: 1.5em; color: var(--primary); text-align: center;">
+                            <i class="fas fa-search-location"></i> Ilustrasi: PoC Menjangkau Komunitas
+                            <p style="font-size: 0.7em; color: #666; margin-top: 5px;">(Animasi Lottie atau ilustrasi sederhana tentang PoC yang mendekati masyarakat)</p>
+                        </div>
+                    </div>
                     <svg class="svg-fallback" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet">
                         <g class="hand">
                             <path fill="var(--primary)" d="M50,20 C45,15 40,15 35,20 L30,25 C25,30 25,35 30,40 L35,45 C40,50 45,50 50,45 L55,40 C60,35 60,30 55,25 Z"/>
@@ -744,403 +864,433 @@
                 </div>
                 <div id="popTrans" class="pop-up-info">
                     <span class="close-btn" onclick="togglePopup('popTrans')">×</span>
-                    <strong>Transgender:</strong> Seringkali menghadapi <span class="bold-attractive">stigma dan diskriminasi</span>, sehingga sulit mengakses layanan kesehatan yang ramah, serta faktor risiko lainnya.
+                    <strong>Transgender:</strong> Seringkali mengalami diskriminasi dalam fasilitas kesehatan formal, menyebabkan <span class="bold-attractive">penghalang akses</span> ke layanan yang krusial.
                 </div>
-                <div id="popPasangan" class="pop-up-info">
+                 <div id="popPasangan" class="pop-up-info">
                     <span class="close-btn" onclick="togglePopup('popPasangan')">×</span>
-                    <strong>Pasangan dari Populasi Kunci:</strong> Berisiko tinggi karena berhubungan seks dengan individu dari populasi kunci yang mungkin sudah terinfeksi, dan perlu <span class="bold-attractive">dukungan pencegahan</span>.
+                    <strong>Pasangan Populasi Kunci:</strong> Memiliki risiko tinggi penularan karena kedekatan hubungan, memerlukan edukasi dan <span class="bold-attractive">penjangkauan khusus</span> untuk pencegahan dan pengetesan.
                 </div>
             </div>
 
-            <h3>2.2 Melawan Hambatan: PoC sebagai Solusi</h3>
+            <h3>2.2 Tantangan Akses Layanan: Hambatan yang Harus Diatasi</h3>
+            <div class="media-box">
+                <h4><i class="fas fa-exclamation-triangle"></i> Mengatasi Hambatan: Mengapa PoC Penting</h4>
+                <p><strong>Narasi/Teks:</strong> "Populasi kunci sering menghadapi berbagai tantangan saat mencoba mengakses layanan kesehatan. PoC dirancang untuk mengatasi hambatan-hambatan ini."</p>
+                <div class="illustration-container">
+                    <div class="barrier-illustration">
+                        <div class="wall" id="barrierWall">
+                            <span>Stigma</span>
+                            <span>Diskriminasi</span>
+                            <span>Jarak</span>
+                            <span>Biaya</span>
+                            <span>Waktu</span>
+                        </div>
+                        <div class="solution-text" id="solutionText">
+                            <i class="fas fa-lightbulb solution-icon"></i>
+                            <p><strong>Solusi PoC:</strong><br>Aksesibilitas, Kerahasiaan, & Dukungan Komunitas!</p>
+                        </div>
+                    </div>
+                </div>
+                <p style="text-align: center; margin-top: 15px; font-style: italic; color: #555;">Klik pada "dinding" di atas untuk melihat bagaimana PoC mengatasi hambatan!</p>
+            </div>
+
+            <h3>2.3 Aktivitas: Drag & Drop Layanan PoC</h3>
             <div class="interactive-box">
-                <h4><i class="fas fa-hand-fist"></i> Stigma, Takut, dan Jauh: PoC Mengatasi Hambatan</h4>
-                <p><strong>Narasi/Teks:</strong> "Bagi populasi kunci, hambatan ini nyata dan seringkali menjadi penghalang terbesar untuk mendapatkan layanan kesehatan. <span class="bold-attractive">PoC dirancang untuk meruntuhkan dinding-dinding ini</span>."</p>
-                <div class="illustration-container barrier-illustration">
-                    <div id="barrier-wall" class="wall">
-                        <span>Stigma</span>
-                        <span>Diskriminasi</span>
-                        <span>Jauh</span>
-                        <span>Takut Data Bocor</span>
+                <h4><i class="fas fa-hand-pointer"></i> Pasangkan Kebutuhan dengan Layanan PoC!</h4>
+                <p><strong>Instruksi:</strong> "Seret dan letakkan setiap kebutuhan populasi kunci ke layanan PoC yang sesuai."</p>
+                <div class="drag-drop-container">
+                    <div class="drag-drop-source-container" id="drag-items">
+                        <div class="drag-drop-item" draggable="true" id="item1" data-target="target1">Perlu tes HIV anonim</div>
+                        <div class="drag-drop-item" draggable="true" id="item2" data-target="target2">Ingin tahu tentang PrEP</div>
+                        <div class="drag-drop-item" draggable="true" id="item3" data-target="target3">Cari dukungan sebaya</div>
+                        <div class="drag-drop-item" draggable="true" id="item4" data-target="target4">Butuh kondom gratis</div>
                     </div>
-                    <div id="barrier-solution" class="solution-text">
-                        <i id="solution-icon" class="solution-icon fas fa-info-circle"></i>
-                        <span id="solution-dynamic-text">Klik penghalang untuk melihat solusinya!</span>
-                    </div>
-                </div>
-                <div class="interactive-grid">
-                    <div class="grid-item" onclick="showBarrierSolution(this, 'stigma')">
-                        <i class="fas fa-block"></i>
-                        <h5>Stigma/Diskriminasi</h5>
-                    </div>
-                    <div class="grid-item" onclick="showBarrierSolution(this, 'kepercayaan')">
-                        <i class="fas fa-user-secret"></i>
-                        <h5>Kurang Kepercayaan</h5>
-                    </div>
-                    <div class="grid-item" onclick="showBarrierSolution(this, 'data')">
-                        <i class="fas fa-database"></i>
-                        <h5>Takut Pelaporan Data</h5>
-                    </div>
-                    <div class="grid-item" onclick="showBarrierSolution(this, 'waktu')">
-                        <i class="fas fa-clock"></i>
-                        <h5>Ketidakcocokan Waktu</h5>
+                    <div style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: center; width: 100%;">
+                        <div class="drop-target" id="target1" data-correct-item="item1">
+                            <span class="drop-zone-label">Layanan Tes & Konseling</span>
+                        </div>
+                        <div class="drop-target" id="target2" data-correct-item="item2">
+                            <span class="drop-zone-label">Edukasi & Pencegahan</span>
+                        </div>
+                        <div class="drop-target" id="target3" data-correct-item="item3">
+                            <span class="drop-zone-label">Dukungan Psikososial</span>
+                        </div>
+                        <div class="drop-target" id="target4" data-correct-item="item4">
+                            <span class="drop-zone-label">Distribusi Alat Pencegahan</span>
+                        </div>
                     </div>
                 </div>
-            </div>
-
-            <h3>2.3 Skenario Empati: Memahami Pilihan Klien</h3>
-            <div class="quiz-box">
-                <h4><i class="fas fa-user-circle"></i> Menempatkan Diri: Mengapa Memilih PoC?</h4>
-                <p><strong>Skenario:</strong> "Ani (28 tahun) adalah seorang transgender yang sering menghadapi tatapan aneh atau perlakuan kurang ramah saat mengunjungi Puskesmas di kotanya. Ia juga bekerja di malam hari dan sulit menemukan waktu yang pas untuk datang ke layanan kesehatan formal. Belakangan ia merasa tidak enak badan dan khawatir terkena IMS."</p>
-                <div class="quiz-question">
-                    <p>Mengingat kondisi Ani, mengapa ia kemungkinan besar akan merasa lebih nyaman dan memilih Pos Layanan Komunitas (PoC) daripada Puskesmas formal?</p>
-                    <div class="quiz-options">
-                        <label><input type="radio" name="aniCase" value="a"> PoC lebih murah.</label>
-                        <label><input type="radio" name="aniCase" value="b"> PoC buka 24 jam.</label>
-                        <label><input type="radio" name="aniCase" value="c"> PoC menyediakan lingkungan yang lebih ramah dan jadwal yang fleksibel.</label>
-                        <label><input type="radio" name="aniCase" value="d"> PoC memiliki dokter spesialis.</label>
-                    </div>
-                    <button class="button-check" onclick="checkAniCaseQuiz()">Cek Jawaban</button>
-                    <div id="aniCase-feedback" class="quiz-feedback"></div>
-                </div>
+                <button class="button-check check-drag-drop" onclick="checkDragAndDrop()">Cek Jawaban</button>
+                <div id="drag-drop-feedback" class="drag-drop-feedback"></div>
             </div>
         </section>
 
         ---
 
         <section class="slide">
-            <h2>Modul 3: Jenis dan Paket Layanan di PoC</h2>
-            <p>Durasi: 15-20 menit</p>
+            <h2>Modul 3: Layanan PoC</h2>
+            <p>Durasi: 12-18 menit</p>
 
-            <h3>3.1 Dua Paket Layanan, Satu Tujuan</h3>
+            <h3>3.1 Layanan Minimal PoC</h3>
             <div class="media-box">
-                <h4><i class="fas fa-box-open"></i> Layanan PoC: Dari Dasar Hingga Mendalam</h4>
-                <p><strong>Narasi/Teks:</strong> "Pos Layanan Komunitas menawarkan dua paket layanan utama: <span class="bold-attractive">Paket Minimal</span> yang wajib ada, dan <span class="bold-attractive">Paket Pengembangan</span> yang dapat ditambahkan sesuai kapasitas dan kebutuhan komunitas. Keduanya memiliki satu tujuan: mencegah dan mengendalikan HIV serta IMS secara efektif."</p>
-                <div class="two-buttons-container">
-                    <a href="#minimal-services-section" class="service-button"><i class="fas fa-boxes"></i> Layanan Minimal</a>
-                    <a href="#development-services-section" class="service-button"><i class="fas fa-box-open"></i> Layanan Pengembangan</a>
-                </div>
-            </div>
-
-            <h3 id="minimal-services-section">3.2 Paket Layanan Minimal (Wajib Ada)</h3>
-            <div class="interactive-box">
-                <h4><i class="fas fa-clipboard-list"></i> Paket Minimal: Fondasi Layanan PoC</h4>
-                <p><strong>Narasi/Teks:</strong> "Layanan minimal ini adalah inti dari PoC, memastikan dasar-dasar pencegahan dan dukungan tersedia bagi komunitas."</p>
+                <h4><i class="fas fa-list-check"></i> Fondasi Layanan: Minimal PoC</h4>
+                <p><strong>Narasi/Teks:</strong> "Setiap PoC, di mana pun lokasinya, harus menyediakan layanan dasar yang esensial untuk memenuhi kebutuhan awal populasi kunci."</p>
                 <table>
                     <thead>
                         <tr>
-                            <th>Nama Layanan</th>
-                            <th>Deskripsi</th>
-                            <th>Penyedia</th>
+                            <th>Layanan</th>
+                            <th>Deskripsi Singkat</th>
+                            <th>Ilustrasi</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td><strong onclick="toggleServicePopup('layananSosialPsiko')" style="cursor: pointer;"><i class="fas fa-comments target-icon"></i> Dukungan Sosial-Psikososial</strong></td>
-                            <td>Memberikan konseling dan dukungan emosional bagi individu atau kelompok.</td>
-                            <td>Petugas PoC, Nakes Fasyankes Pengampu</td>
+                            <td><strong>Edukasi Komprehensif</strong></td>
+                            <td>Informasi akurat tentang HIV, IMS, penularan, pencegahan, dan pentingnya tes.</td>
+                            <td><i class="fas fa-book-open"></i></td>
                         </tr>
                         <tr>
-                            <td><strong onclick="toggleServicePopup('layananSHM')" style="cursor: pointer;"><i class="fas fa-vial target-icon"></i> Skrining HIV Mandiri (SHM) dengan Pendampingan</strong></td>
-                            <td>Fasilitasi tes HIV mandiri dengan bimbingan dan konseling.</td>
-                            <td>Petugas PoC, Nakes Fasyankes Pengampu</td>
+                            <td><strong>Konseling & Tes HIV</strong></td>
+                            <td>Layanan tes HIV sukarela dan rahasia, didampingi konseling pra dan pasca-tes.</td>
+                            <td><i class="fas fa-user-friends"></i></td>
                         </tr>
                         <tr>
-                            <td><strong onclick="toggleServicePopup('layananKomoditasKIE')" style="cursor: pointer;"><i class="fas fa-boxes-stacked target-icon"></i> Distribusi Komoditas & KIE</strong></td>
-                            <td>Penyediaan kondom, pelicin, dan materi Komunikasi, Informasi, Edukasi.</td>
-                            <td>Petugas PoC, LSM/Mitra</td>
+                            <td><strong>Skrining IMS</strong></td>
+                            <td>Pemeriksaan sederhana untuk mendeteksi IMS dan memberikan penanganan awal.</td>
+                            <td><i class="fas fa-flask"></i></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Distribusi Kondom & Pelumas</strong></td>
+                            <td>Penyediaan kondom dan pelumas secara gratis untuk praktik seks yang lebih aman.</td>
+                            <td><i class="fas fa-hand-holding"></i></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Rujukan Terintegrasi</strong></td>
+                            <td>Menghubungkan klien dengan fasyankes untuk layanan lanjutan (ART, PrEP, PITC, TB, dll.).</td>
+                            <td><i class="fas fa-arrows-alt"></i></td>
                         </tr>
                     </tbody>
                 </table>
-                <div id="layananSosialPsiko" class="pop-up-info service-popup">
-                    <span class="close-btn" onclick="toggleServicePopup('layananSosialPsiko')">×</span>
-                    <h4>Dukungan Sosial-Psikososial</h4>
-                    <p>Sesi konseling dan dukungan yang empati, membantu klien mengatasi stigma dan masalah emosional. <span class="bold-attractive">Video Simulasi:</span> Petugas PoC berinteraksi dengan ODHIV dalam sesi pribadi atau kelompok, menunjukkan empati dan dukungan.</p>
-                    <div class="video-container">
-                        <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ?si=0234567890abcdef" title="Video Simulasi Dukungan Psikososial" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            </div>
+
+            <h3>3.2 Layanan Pengembangan PoC</h3>
+            <div class="interactive-box">
+                <h4><i class="fas fa-rocket"></i> Melebihi Batas: Layanan Pengembangan PoC</h4>
+                <p><strong>Narasi/Teks:</strong> "Selain layanan minimal, PoC didorong untuk mengembangkan layanan yang lebih spesifik, disesuaikan dengan kebutuhan unik komunitas mereka."</p>
+                <div class="interactive-grid">
+                    <div class="grid-item" onclick="showServiceDetail('PrEP')">
+                        <i class="fas fa-pills"></i>
+                        <h5>PrEP & PDP</h5>
                     </div>
-                    <small><em>*Anda dapat mengganti URL YouTube dengan video simulasi yang relevan.</em></small>
+                    <div class="grid-item" onclick="showServiceDetail('DukunganPsikososial')">
+                        <i class="fas fa-comments"></i>
+                        <h5>Dukungan Psikososial</h5>
+                    </div>
+                    <div class="grid-item" onclick="showServiceDetail('InovasiDigital')">
+                        <i class="fas fa-mobile-alt"></i>
+                        <h5>Inovasi Digital</h5>
+                    </div>
+                    <div class="grid-item" onclick="showServiceDetail('Advokasi')">
+                        <i class="fas fa-megaphone"></i>
+                        <h5>Advokasi & Hak</h5>
+                    </div>
                 </div>
-                <div id="layananSHM" class="pop-up-info service-popup">
-                    <span class="close-btn" onclick="toggleServicePopup('layananSHM')">×</span>
-                    <h4>Skrining HIV Mandiri (SHM) dengan Pendampingan</h4>
-                    <p>Proses SHM yang didampingi, dari pengambilan alat, instruksi, hingga interpretasi hasil dan konseling lanjutan, memastikan <span class="bold-attractive">akurasi dan kerahasiaan</span>. <span class="bold-attractive">Video Simulasi:</span> Proses SHM, mulai dari pengambilan alat, penjelasan instruksi, hingga interpretasi hasil dan konseling lanjutan oleh petugas PoC.</p>
-                    <div class="video-container">
-                        <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ?si=0234567890abcdef" title="Video Simulasi SHM" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                <div id="serviceDetail" class="pop-up-info service-popup">
+                    <span class="close-btn" onclick="hideServiceDetail()">×</span>
+                    <h4 id="serviceTitle"></h4>
+                    <p id="serviceDescription"></p>
+                    <div class="illustration-container" id="serviceIllustration">
+                        <div style="font-size: 1.2em; color: #555; text-align: center; padding: 20px;">
+                            <i class="fas fa-info-circle"></i> Ilustrasi detail layanan akan muncul di sini.
+                        </div>
                     </div>
-                    <small><em>*Anda dapat mengganti URL YouTube dengan video simulasi yang relevan.</em></small>
-                </div>
-                <div id="layananKomoditasKIE" class="pop-up-info service-popup">
-                    <span class="close-btn" onclick="toggleServicePopup('layananKomoditasKIE')">×</span>
-                    <h4>Distribusi Komoditas & KIE</h4>
-                    <p>Petugas PoC mendistribusikan alat pencegahan dan memberikan edukasi singkat tentang HIV/IMS. <span class="bold-attractive">Video Simulasi:</span> Petugas PoC mendistribusikan kondom, pelicin, dan memberikan materi KIE (brosur, poster) dengan penjelasan singkat.</p>
-                    <div class="video-container">
-                        <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ?si=0234567890abcdef" title="Video Simulasi Distribusi KIE" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-                    </div>
-                    <small><em>*Anda dapat mengganti URL YouTube dengan video simulasi yang relevan.</em></small>
                 </div>
             </div>
 
-            <h3 id="development-services-section">3.3 Paket Layanan Pengembangan (Opsional, Sesuai Kapasitas)</h3>
-            <div class="interactive-box">
-                <h4><i class="fas fa-layer-group"></i> Paket Pengembangan: PoC Lebih Jauh untuk Komunitas</h4>
-                <p><strong>Narasi/Teks:</strong> "Layanan pengembangan ini memungkinkan PoC untuk memberikan dukungan yang lebih mendalam, terutama bagi ODHIV dan individu berisiko tinggi yang membutuhkan penanganan lebih lanjut."</p>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Nama Layanan</th>
-                            <th>Deskripsi</th>
-                            <th>Penyedia</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><strong onclick="toggleServicePopup('layananPMPI')" style="cursor: pointer;"><i class="fas fa-shield-alt target-icon"></i> Pencegahan HIV & IMS (PMPI)</strong></td>
-                            <td>Edukasi dan intervensi untuk mencegah penularan HIV & IMS.</td>
-                            <td>Petugas PoC, LSM/Mitra</td>
-                        </tr>
-                        <tr>
-                            <td><strong onclick="toggleServicePopup('layananPTR')" style="cursor: pointer;"><i class="fas fa-hand-holding-heart target-icon"></i> Pelacakan Kontak, Tes, & Rujuk (PTR)</strong></td>
-                            <td>Mencari kontak, tes, dan merujuk untuk penanganan lebih lanjut.</td>
-                            <td>Petugas PoC, Nakes Fasyankes Pengampu</td>
-                        </tr>
-                        <tr>
-                            <td><strong onclick="toggleServicePopup('layananDukunganART')" style="cursor: pointer;"><i class="fas fa-pills target-icon"></i> Dukungan Pengobatan ARV</strong></td>
-                            <td>Dukungan kepatuhan minum ARV dan manajemen efek samping.</td>
-                            <td>Petugas PoC, Nakes Fasyankes Pengampu</td>
-                        </tr>
-                        <tr>
-                            <td><strong onclick="toggleServicePopup('layananVaksinasi')" style="cursor: pointer;"><i class="fas fa-syringe target-icon"></i> Vaksinasi Hepatitis B & HPV</strong></td>
-                            <td>Penyediaan vaksinasi sebagai upaya pencegahan tambahan.</td>
-                            <td>Nakes Fasyankes Pengampu, Petugas PoC (fasilitasi)</td>
-                        </tr>
-                        <tr>
-                            <td><strong onclick="toggleServicePopup('layananTB')" style="cursor: pointer;"><i class="fas fa-lungs target-icon"></i> Skrining & Pengobatan TB</strong></td>
-                            <td>Deteksi dini dan rujukan pengobatan TB bagi ODHIV.</td>
-                            <td>Nakes Fasyankes Pengampu, Petugas PoC (skrining awal)</td>
-                        </tr>
-                    </tbody>
-                </table>
-                <div id="layananPMPI" class="pop-up-info service-popup">
-                    <span class="close-btn" onclick="toggleServicePopup('layananPMPI')">×</span>
-                    <h4>Pencegahan HIV & IMS (PMPI)</h4>
-                    <p>Program edukasi komprehensif tentang praktik seks aman, pentingnya kondom, dan bahaya berbagi jarum suntik, dengan fokus pada <span class="bold-attractive">perubahan perilaku</span>. <span class="bold-attractive">Video Simulasi:</span> Simulasi edukasi PMPI di PoC.</p>
-                    <div class="video-container">
-                        <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ?si=0234567890abcdef" title="Video Simulasi PMPI" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            <h3>3.3 Kuis Akhir Modul</h3>
+            <div class="quiz-box">
+                <h4><i class="fas fa-question-circle"></i> Uji Pemahaman Anda!</h4>
+                <div class="quiz-question">
+                    <p>Manakah dari pernyataan berikut yang <span class="bold-attractive">BUKAN</span> merupakan salah satu tujuan utama implementasi Pos Layanan Komunitas (PoC)?</p>
+                    <div class="quiz-options">
+                        <label><input type="radio" name="quizFinal" value="a"> Meningkatkan aksesibilitas layanan HIV/IMS bagi populasi kunci.</label>
+                        <label><input type="radio" name="quizFinal" value="b"> Menggantikan sepenuhnya peran fasilitas kesehatan formal.</label>
+                        <label><input type="radio" name="quizFinal" value="c"> Mengurangi stigma dan diskriminasi terkait HIV/IMS.</label>
+                        <label><input type="radio" name="quizFinal" value="d"> Membangun jejaring kolaborasi yang kuat dengan berbagai pihak.</label>
                     </div>
-                    <small><em>*Anda dapat mengganti URL YouTube dengan video simulasi yang relevan.</em></small>
-                </div>
-                <div id="layananPTR" class="pop-up-info service-popup">
-                    <span class="close-btn" onclick="toggleServicePopup('layananPTR')">×</span>
-                    <h4>Pelacakan Kontak, Tes, & Rujuk (PTR)</h4>
-                    <p>Pendekatan proaktif untuk mengidentifikasi dan menguji individu yang berisiko, serta memastikan <span class="bold-attractive">rujukan cepat</span> ke layanan yang tepat jika positif. <span class="bold-attractive">Video Simulasi:</span> Contoh alur PTR.</p>
-                    <div class="video-container">
-                        <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ?si=0234567890abcdef" title="Video Simulasi PTR" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-                    </div>
-                    <small><em>*Anda dapat mengganti URL YouTube dengan video simulasi yang relevan.</em></small>
-                </div>
-                <div id="layananDukunganART" class="pop-up-info service-popup">
-                    <span class="close-btn" onclick="toggleServicePopup('layananDukunganART')">×</span>
-                    <h4>Dukungan Pengobatan ARV</h4>
-                    <p>Memberikan dukungan moral, pengingat minum obat, dan bantuan dalam mengatasi efek samping untuk <span class="bold-attractive">meningkatkan kepatuhan</span> terhadap terapi ARV. <span class="bold-attractive">Video Simulasi:</span> Sesi dukungan kepatuhan ARV.</p>
-                    <div class="video-container">
-                        <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ?si=0234567890abcdef" title="Video Simulasi Dukungan ARV" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-                    </div>
-                    <small><em>*Anda dapat mengganti URL YouTube dengan video simulasi yang relevan.</em></small>
-                </div>
-                <div id="layananVaksinasi" class="pop-up-info service-popup">
-                    <span class="close-btn" onclick="toggleServicePopup('layananVaksinasi')">×</span>
-                    <h4>Vaksinasi Hepatitis B & HPV</h4>
-                    <p>Menyediakan akses ke vaksinasi penting untuk <span class="bold-attractive">pencegahan penyakit terkait</span> yang seringkali menyertai HIV/IMS. <span class="bold-attractive">Video Simulasi:</span> Proses vaksinasi di PoC (jika memungkinkan).</p>
-                    <div class="video-container">
-                        <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ?si=0234567890abcdef" title="Video Simulasi Vaksinasi" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-                    </div>
-                    <small><em>*Anda dapat mengganti URL YouTube dengan video simulasi yang relevan.</em></small>
-                </div>
-                <div id="layananTB" class="pop-up-info service-popup">
-                    <span class="close-btn" onclick="toggleServicePopup('layananTB')">×</span>
-                    <h4>Skrining & Pengobatan TB</h4>
-                    <p>Melakukan skrining TB aktif dan <span class="bold-attractive">rujukan segera</span> untuk pengobatan bagi ODHIV, mengingat tingginya koinfeksi HIV-TB. <span class="bold-attractive">Video Simulasi:</span> Prosedur skrining TB awal.</p>
-                    <div class="video-container">
-                        <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ?si=0234567890abcdef" title="Video Simulasi TB Skrining" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-                    </div>
-                    <small><em>*Anda dapat mengganti URL YouTube dengan video simulasi yang relevan.</em></small>
+                    <button class="button-check" onclick="checkFinalQuiz()">Cek Jawaban</button>
+                    <div id="quizFinal-feedback" class="quiz-feedback"></div>
                 </div>
             </div>
         </section>
+
+        <div class="two-buttons-container">
+            <a href="#" class="service-button"><i class="fas fa-arrow-left"></i> Bab Sebelumnya</a>
+            <a href="#" class="service-button">Bab Selanjutnya <i class="fas fa-arrow-right"></i></a>
+        </div>
     </main>
 
     <footer>
-        <p>© 2025 E-Learning Pos Layanan Komunitas. Hak Cipta Dilindungi Undang-Undang.</p>
+        <p>&copy; 2025 E-Learning Kementerian Kesehatan Republik Indonesia. Semua hak dilindungi.</p>
     </footer>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.11.0/lottie.min.js"></script>
-
     <script>
-        // Global function to manage popups
+        // Fungsi untuk toggle pop-up informasi
         function togglePopup(id) {
             const popup = document.getElementById(id);
             if (popup) {
-                // Close all other popups first, except hover-info and service-popup
-                document.querySelectorAll('.pop-up-info:not(.hover-info):not(.service-popup)').forEach(p => {
-                    if (p.id !== id) {
-                        p.classList.remove('active');
-                    }
-                });
                 popup.classList.toggle('active');
             }
         }
 
-        // Function for hover info (Modul 1.3)
+        // Fungsi untuk menampilkan info hover pada item grid
+        let hoverTimeout;
         function showHoverInfo(element, text) {
+            clearTimeout(hoverTimeout); // Clear any existing timeout
             const hoverInfo = element.querySelector('.hover-info');
             if (hoverInfo) {
-                hoverInfo.textContent = text;
+                hoverInfo.innerHTML = `<p>${text}</p>`;
                 hoverInfo.style.display = 'block';
-                // Position the popup above the grid item
-                hoverInfo.style.top = `-${hoverInfo.offsetHeight + 10}px`; // 10px buffer
+                hoverInfo.style.opacity = '0';
+                hoverInfo.style.transform = 'translateY(10px) translateX(-50%)';
+                // Trigger a reflow to ensure the transition is applied
+                hoverInfo.offsetWidth;
+                hoverInfo.style.opacity = '1';
+                hoverInfo.style.transform = 'translateY(0) translateX(-50%)';
             }
         }
+
         function hideHoverInfo(element) {
             const hoverInfo = element.querySelector('.hover-info');
             if (hoverInfo) {
-                hoverInfo.style.display = 'none';
+                hoverInfo.style.opacity = '0';
+                hoverInfo.style.transform = 'translateY(10px) translateX(-50%)';
+                hoverTimeout = setTimeout(() => {
+                    hoverInfo.style.display = 'none';
+                }, 300); // Match this to your CSS transition duration
             }
         }
 
-        // Quiz Logic for Modul 1.4
+        // Fungsi untuk kuis Studi Kasus
         function checkCaseStudyQuiz() {
-            const selected = document.querySelector('input[name="caseStudy"]:checked');
+            const selectedOption = document.querySelector('input[name="caseStudy"]:checked');
             const feedbackDiv = document.getElementById('caseStudy-feedback');
-            feedbackDiv.style.display = "block"; // Ensure feedback is visible
-
-            if (selected) {
-                if (selected.value === 'a' || selected.value === 'c') { // Klinik Keliling atau Tenda Layanan di Pasar Desa
-                    feedbackDiv.textContent = "Tepat sekali! Moda seperti Klinik Keliling atau Tenda Layanan di lokasi strategis dan waktu fleksibel memungkinkan penjangkauan langsung, mengurangi kebutuhan transportasi, dan lebih adaptif dengan jam kerja petani. Ini juga membantu mengatasi ketertutupan masyarakat dengan pendekatan yang lebih informal dan mendekat.";
-                    feedbackDiv.className = "quiz-feedback correct";
+            if (selectedOption) {
+                if (selectedOption.value === 'a') { // Jawaban yang paling efektif untuk skenario ini adalah Klinik Keliling
+                    feedbackDiv.textContent = "Benar! Klinik Keliling sangat efektif untuk menjangkau desa terpencil dan fleksibel dengan jam kerja petani. Pendekatan ini juga lebih non-formal, membantu mengatasi ketertutupan masyarakat.";
+                    feedbackDiv.className = 'quiz-feedback correct';
                 } else {
-                    let feedbackText = "";
-                    if (selected.value === 'b') feedbackText = "Pusat Komunitas Tetap mungkin sulit dijangkau mengingat akses transportasi terbatas. ";
-                    else if (selected.value === 'd') feedbackText = "PoC di Posyandu mungkin kurang efektif untuk masyarakat yang tertutup dan jam kerja tidak menentu, karena Posyandu memiliki jadwal tetap. ";
-                    feedbackDiv.textContent = feedbackText + "Pilihan ini kurang optimal. Pertimbangkan tantangan utama di desa terpencil ini: akses transportasi terbatas, jam kerja tidak menentu, dan masyarakat yang masih tertutup. Pikirkan moda yang bisa lebih fleksibel dan menjangkau langsung.";
-                    feedbackDiv.className = "quiz-feedback incorrect";
+                    feedbackDiv.textContent = "Kurang tepat. Meskipun opsi lain memiliki kelebihan, Klinik Keliling menawarkan fleksibilitas dan jangkauan terbaik untuk skenario ini. Coba pikirkan kembali tantangan akses transportasi dan jam kerja yang tidak menentu.";
+                    feedbackDiv.className = 'quiz-feedback incorrect';
                 }
             } else {
-                feedbackDiv.textContent = "Silakan pilih salah satu jawaban untuk melanjutkan.";
-                feedbackDiv.className = "quiz-feedback incorrect";
+                feedbackDiv.textContent = "Silakan pilih salah satu jawaban.";
+                feedbackDiv.className = 'quiz-feedback incorrect';
             }
+            feedbackDiv.style.display = 'block';
         }
 
-        // Barrier Solution Logic for Modul 2.2
-        const barrierWall = document.getElementById('barrier-wall');
-        const solutionText = document.getElementById('solution-dynamic-text');
-        const solutionContainer = document.getElementById('barrier-solution');
-        const solutionIcon = document.getElementById('solution-icon');
+        // Fungsi untuk ilustrasi Breaking Barriers (Modul 2.2)
+        document.getElementById('barrierWall').addEventListener('click', function() {
+            const wall = document.getElementById('barrierWall');
+            const solutionText = document.getElementById('solutionText');
 
-        function showBarrierSolution(element, barrierType) {
-            // Remove active class from all grid items and reset their styles
-            document.querySelectorAll('.interactive-grid .grid-item').forEach(item => {
-                item.style.backgroundColor = '#f0f8ff';
-                item.style.boxShadow = '0 3px 8px rgba(0,0,0,0.1)';
-            });
-            // Highlight the clicked item
-            element.style.backgroundColor = '#e0ffe0';
-            element.style.boxShadow = '0 4px 10px rgba(0,0,0,0.15)';
-
-            // Hide the wall and show the solution text
-            barrierWall.classList.add('hidden');
-            solutionContainer.classList.add('active');
-
-            let solution = '';
-            let iconClass = '';
-
-            if (barrierType === 'stigma') {
-                solution = 'PoC menawarkan lingkungan yang aman dan non-diskriminatif, dengan staf yang <span class="bold-attractive">memahami dan empati</span> terhadap populasi kunci.';
-                iconClass = 'fas fa-handshake-alt-slash';
-            } else if (barrierType === 'kepercayaan') {
-                solution = 'Staf PoC dilatih untuk membangun <span class="bold-attractive">kepercayaan</span> melalui pendekatan yang ramah, personal, dan berbasis komunitas, bukan hanya medis.';
-                iconClass = 'fas fa-heart';
-            } else if (barrierType === 'data') {
-                solution = 'Kerahasiaan data klien adalah <span class="bold-attractive">prioritas utama</span> PoC, memberikan rasa aman bagi mereka untuk mencari layanan tanpa takut data bocor.';
-                iconClass = 'fas fa-lock';
-            } else if (barrierType === 'waktu') {
-                solution = 'PoC beroperasi dengan <span class="bold-attractive">jadwal yang fleksibel</span> disesuaikan kebutuhan komunitas, termasuk di luar jam kerja formal fasyankes.';
-                iconClass = 'fas fa-calendar-alt';
-            }
-            solutionText.innerHTML = solution;
-            solutionIcon.className = `solution-icon ${iconClass}`;
-        }
-
-        // Initial state for barrier solution
-        window.addEventListener('load', () => {
-            barrierWall.classList.remove('hidden');
-            solutionContainer.classList.remove('active');
-            solutionText.innerHTML = 'Klik penghalang untuk melihat solusinya!';
-            solutionIcon.className = 'solution-icon fas fa-info-circle';
+            wall.classList.add('hidden');
+            setTimeout(() => {
+                solutionText.classList.add('active');
+            }, 500); // Delay to sync with wall animation
         });
 
 
-        // Quiz Logic for Modul 2.3
-        function checkAniCaseQuiz() {
-            const selected = document.querySelector('input[name="aniCase"]:checked');
-            const feedbackDiv = document.getElementById('aniCase-feedback');
-            feedbackDiv.style.display = "block"; // Ensure feedback is visible
+        // Fungsi Drag & Drop
+        const dragItems = document.querySelectorAll('.drag-drop-item');
+        const dropTargets = document.querySelectorAll('.drop-target');
+        const dragDropFeedback = document.getElementById('drag-drop-feedback');
 
-            if (selected) {
-                if (selected.value === 'c') {
-                    feedbackDiv.textContent = "Tepat! Aspek inklusivitas dan fleksibilitas waktu sangat penting bagi Ani. PoC dirancang untuk menjadi tempat yang aman, nyaman, dan menerima bagi semua, termasuk populasi kunci yang sering terpinggirkan.";
-                    feedbackDiv.className = "quiz-feedback correct";
+        let draggedItem = null;
+
+        dragItems.forEach(item => {
+            item.addEventListener('dragstart', (e) => {
+                draggedItem = e.target;
+                e.dataTransfer.setData('text/plain', e.target.id);
+                setTimeout(() => {
+                    e.target.style.opacity = '0.5';
+                }, 0);
+            });
+
+            item.addEventListener('dragend', (e) => {
+                e.target.style.opacity = '1';
+                draggedItem = null;
+            });
+        });
+
+        dropTargets.forEach(target => {
+            target.addEventListener('dragover', (e) => {
+                e.preventDefault(); // Allow drop
+                target.classList.add('hover');
+            });
+
+            target.addEventListener('dragleave', () => {
+                target.classList.remove('hover');
+            });
+
+            target.addEventListener('drop', (e) => {
+                e.preventDefault();
+                target.classList.remove('hover');
+                const data = e.dataTransfer.getData('text/plain');
+                const droppedElement = document.getElementById(data);
+
+                if (droppedElement && !target.querySelector('.drag-drop-item')) { // Only one item per target
+                    target.appendChild(droppedElement);
+                    droppedElement.style.position = 'relative'; // Reset position if any
+                    droppedElement.style.left = 'unset';
+                    droppedElement.style.top = 'unset';
+                    droppedElement.draggable = false; // Make it not draggable after dropping
+                }
+            });
+        });
+
+        function checkDragAndDrop() {
+            let allCorrect = true;
+            dropTargets.forEach(target => {
+                target.classList.remove('correct', 'incorrect');
+                const droppedItem = target.querySelector('.drag-drop-item');
+                const correctItemId = target.dataset.correctItem;
+
+                if (droppedItem && droppedItem.id === correctItemId) {
+                    target.classList.add('correct');
+                    // Ensure the label is hidden when an item is dropped
+                    const label = target.querySelector('.drop-zone-label');
+                    if (label) label.style.display = 'none';
                 } else {
-                    let feedbackText = "";
-                    if (selected.value === 'a') feedbackText = "Harga bukan faktor utama di sini, layanan PoC berfokus pada aksesibilitas dan dukungan yang inklusif. ";
-                    else if (selected.value === 'b') feedbackText = "Tidak semua PoC buka 24 jam, tapi jam operasionalnya jauh lebih fleksibel disesuaikan dengan kebutuhan komunitas. ";
-                    else if (selected.value === 'd') feedbackText = "PoC tidak selalu memiliki dokter spesialis di tempat, namun perannya adalah menjangkau dan jika perlu, memberikan rujukan ke fasyankes yang lebih lengkap. ";
-                    feedbackDiv.textContent = feedbackText + "Pilihan Anda kurang tepat. Pertimbangkan faktor kenyamanan, penerimaan, dan ketersediaan waktu yang sangat berarti bagi Ani dalam kasus ini.";
-                    feedbackDiv.className = "quiz-feedback incorrect";
+                    allCorrect = false;
+                    target.classList.add('incorrect');
+                    // Show the label if the target is empty or has wrong item
+                    const label = target.querySelector('.drop-zone-label');
+                    if (label) label.style.display = 'block';
+                }
+            });
+
+            if (allCorrect) {
+                dragDropFeedback.textContent = "Hebat! Semua pasangan sudah benar. Anda memahami layanan PoC dengan baik!";
+                dragDropFeedback.className = 'drag-drop-feedback correct';
+            } else {
+                dragDropFeedback.textContent = "Ada beberapa pasangan yang belum tepat. Coba lagi untuk memahami kebutuhan dan layanan PoC.";
+                dragDropFeedback.className = 'drag-drop-feedback incorrect';
+            }
+            dragDropFeedback.style.display = 'block';
+        }
+
+        // Fungsi untuk menampilkan detail layanan pengembangan
+        function showServiceDetail(serviceType) {
+            const serviceDetailPopup = document.getElementById('serviceDetail');
+            const serviceTitle = document.getElementById('serviceTitle');
+            const serviceDescription = document.getElementById('serviceDescription');
+            const serviceIllustration = document.getElementById('serviceIllustration');
+
+            // Clear previous content
+            serviceIllustration.innerHTML = '';
+
+            let title = '';
+            let description = '';
+            let illustrationContent = '';
+
+            switch (serviceType) {
+                case 'PrEP':
+                    title = 'PrEP (Pre-Exposure Prophylaxis) & PDP (Post-Exposure Prophylaxis)';
+                    description = 'Pemberian obat untuk mencegah penularan HIV pada individu yang berisiko tinggi (PrEP) atau setelah paparan (PDP). Ini adalah salah satu strategi pencegahan yang sangat efektif.';
+                    illustrationContent = `
+                        <div style="font-size: 1.2em; color: var(--primary-dark); text-align: center; display: flex; flex-direction: column; align-items: center;">
+                            <i class="fas fa-shield-alt" style="font-size: 3em; margin-bottom: 10px;"></i>
+                            <p><strong>Perlindungan Ekstra dari HIV</strong></p>
+                            <p style="font-size: 0.9em; color: #666;">Pil pencegah yang efektif untuk individu berisiko.</p>
+                        </div>
+                    `;
+                    break;
+                case 'DukunganPsikososial':
+                    title = 'Dukungan Psikososial & Konseling Lanjutan';
+                    description = 'Bantuan emosional, mental, dan sosial bagi individu yang hidup dengan HIV atau populasi kunci, termasuk konseling kepatuhan ART, manajemen stres, dan dukungan kelompok.';
+                    illustrationContent = `
+                        <div style="font-size: 1.2em; color: var(--primary-dark); text-align: center; display: flex; flex-direction: column; align-items: center;">
+                            <i class="fas fa-hand-holding-heart" style="font-size: 3em; margin-bottom: 10px;"></i>
+                            <p><strong>Dukungan Emosional & Mental</strong></p>
+                            <p style="font-size: 0.9em; color: #666;">Membangun resiliensi dan kualitas hidup.</p>
+                        </div>
+                    `;
+                    break;
+                case 'InovasiDigital':
+                    title = 'Inovasi Digital & Telekonseling';
+                    description = 'Penggunaan platform digital (aplikasi, telemedicine) untuk edukasi, konsultasi, pengingat janji, dan penjangkauan yang lebih luas dan efisien.';
+                    illustrationContent = `
+                        <div style="font-size: 1.2em; color: var(--primary-dark); text-align: center; display: flex; flex-direction: column; align-items: center;">
+                            <i class="fas fa-mobile-alt" style="font-size: 3em; margin-bottom: 10px;"></i>
+                            <p><strong>Layanan di Ujung Jari Anda</strong></p>
+                            <p style="font-size: 0.9em; color: #666;">Akses mudah melalui teknologi.</p>
+                        </div>
+                    `;
+                    break;
+                case 'Advokasi':
+                    title = 'Advokasi & Perlindungan Hak';
+                    description = 'Membantu klien memahami hak-hak mereka, menghadapi stigma dan diskriminasi, serta menghubungkan mereka dengan bantuan hukum jika diperlukan.';
+                    illustrationContent = `
+                        <div style="font-size: 1.2em; color: var(--primary-dark); text-align: center; display: flex; flex-direction: column; align-items: center;">
+                            <i class="fas fa-gavel" style="font-size: 3em; margin-bottom: 10px;"></i>
+                            <p><strong>Melindungi Hak & Martabat</strong></p>
+                            <p style="font-size: 0.9em; color: #666;">Memastikan kesetaraan akses layanan.</p>
+                        </div>
+                    `;
+                    break;
+                default:
+                    title = 'Detail Layanan';
+                    description = 'Pilih salah satu layanan pengembangan untuk melihat detailnya.';
+                    illustrationContent = `
+                        <div style="font-size: 1.2em; color: #555; text-align: center; padding: 20px;">
+                            <i class="fas fa-info-circle"></i> Pilih layanan di atas untuk detail.
+                        </div>
+                    `;
+            }
+
+            serviceTitle.textContent = title;
+            serviceDescription.textContent = description;
+            serviceIllustration.innerHTML = illustrationContent;
+            serviceDetailPopup.classList.add('active');
+        }
+
+        function hideServiceDetail() {
+            document.getElementById('serviceDetail').classList.remove('active');
+        }
+
+        // Kuis Akhir Modul
+        function checkFinalQuiz() {
+            const selectedOption = document.querySelector('input[name="quizFinal"]:checked');
+            const feedbackDiv = document.getElementById('quizFinal-feedback');
+            if (selectedOption) {
+                if (selectedOption.value === 'b') { // Menggantikan sepenuhnya peran fasilitas kesehatan formal.
+                    feedbackDiv.textContent = "Benar! PoC bertujuan melengkapi dan memperluas jangkauan layanan, bukan menggantikan fasyankes formal.";
+                    feedbackDiv.className = 'quiz-feedback correct';
+                } else {
+                    feedbackDiv.textContent = "Kurang tepat. PoC justru sangat berperan dalam tujuan-tujuan tersebut kecuali yang Anda pilih. Coba pikirkan kembali peran PoC dalam ekosistem kesehatan.";
+                    feedbackDiv.className = 'quiz-feedback incorrect';
                 }
             } else {
-                feedbackDiv.textContent = "Silakan pilih salah satu jawaban untuk melanjutkan.";
-                feedbackDiv.className = "quiz-feedback incorrect";
+                feedbackDiv.textContent = "Silakan pilih salah satu jawaban.";
+                feedbackDiv.className = 'quiz-feedback incorrect';
             }
+            feedbackDiv.style.display = 'block';
         }
 
-        // Service Popup Logic for Modul 3.2 & 3.3
-        function toggleServicePopup(id) {
-            const popup = document.getElementById(id);
-            if (popup) {
-                // Close all other service popups
-                document.querySelectorAll('.service-popup').forEach(p => {
-                    if (p.id !== id) {
-                        p.classList.remove('active');
-                    }
-                });
-                popup.classList.toggle('active');
-            }
-        }
-
-        // Lottie Animation setup (Modul 1.1)
-        // Ensure you have a Lottie JSON file (e.g., reaching-out.json)
-        // You can download free animations from lottiefiles.com and replace the path below
-        const lottieReachingOut = document.getElementById('lottie-reaching-out');
-        if (lottieReachingOut) {
-            // Check if Lottie is available or if you prefer SVG fallback
-            if (typeof lottie !== 'undefined') {
-                lottie.loadAnimation({
-                    container: lottieReachingOut, // the dom element that will contain the animation
-                    renderer: 'svg',
-                    loop: true,
-                    autoplay: true,
-                    path: 'https://assets2.lottiefiles.com/packages/lf20_mK2jTf.json' // REPLACE WITH YOUR LOTTIE JSON PATH
-                    // Example: 'animations/reaching-out.json' if you host it locally
-                });
-                // Hide SVG fallback if Lottie is used
-                lottieReachingOut.nextElementSibling.style.display = 'none';
-            } else {
-                console.warn('Lottie library not loaded, using SVG fallback for reaching illustration.');
-                lottieReachingOut.style.display = 'none'; // Hide Lottie container
-                lottieReachingOut.nextElementSibling.style.display = 'block'; // Show SVG fallback
-            }
-        }
+        // Initialize Lottie (if using it) - uncomment if you add the script tag
+        // document.addEventListener('DOMContentLoaded', function() {
+        //     if (typeof lottie !== 'undefined') {
+        //         lottie.loadAnimation({
+        //             container: document.getElementById('lottie-reaching-out'),
+        //             renderer: 'svg',
+        //             loop: true,
+        //             autoplay: true,
+        //             path: 'URL_ANIMASI_LOTTIE_ANDA.json' // Replace with your Lottie animation URL
+        //         });
+        //     }
+        // });
     </script>
 </body>
 </html>
