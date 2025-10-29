@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Dashboard Layanan Kesehatan Komunitas LGBTQ+ dan HIV/IMS</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin=""/>
+
+    <style>
+        /* -------- Palet Warna Baru -------- */
+        :root{
+            --primary-accent: #6C5CE7;
+            --secondary-accent: #A29BFE;
+            --background-light: #F7F2FF;
+            --card-bg: #FFFFFF;
+            --text-dark: #34495E;
+            --text-light: #F8F9FA;
+            --btn-login: #E84393;
+            --btn-login-dark: #D6287C;
+            --btn-info: #00B894;
+            --btn-info-dark: #00A381;
+            --error-red: #D63031;
+            --header-gradient: linear-gradient(135deg, #FF6B6B, #55E6C1);
+            --card-header-1: #6C5CE7;
+            --card-header-2: #FD79A8;
+            --card-header-3: #55E6C1;
+            --card-header-4: #FFEAA7;
+            --card-header-5: #3498DB;
+        }
+
+        /* -------- RESET -------- */
+        *{
+            box-sizing:border-box;
+            margin:0;
+            padding:0;
+            font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
+        }
+
+        /* -------- LAYOUT UTAMA -------- */
+        body{
+            background:var(--background-light);
+            display:flex;
+            flex-direction:column;
+            min-height:100vh
+        }
+        main{
+            flex:1;
+            max-width:1200px;
+            width:100%;
+            margin:0 auto;
+            padding:20px
+        }
+        footer{
+            background:var(--text-dark);
+            color:var(--text-light);
+            text-align:center;
+            padding:14px 8px;
+            font-size:.9rem;
+        }
+
+        /* -------- HEADER -------- */
+        header{
+            background: var(--header-gradient);
+            color: var(--text-light);
+            padding:24px 16px;
+            text-align:center;
+            display:flex;
+            flex-direction:column;
+            align-items:center;
+            gap:20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        .logo{
+            max-width:280px;
+            width:100%;
+            filter: drop-shadow(0 0 5px rgba(0,0,0,0.2));
+        }
+        .title-wrapper h1{
+            font-size:1.8rem;
+            line-height:1.3;
+            color: var(--text-light);
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+        .title-wrapper h2{
+            font-size:1.2rem;
+            color:var(--text-light);
+            margin-top: 5px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+        .running-text{
+            font-size:1rem;
+            color:var(--text-dark);
+            background: var(--card-bg);
+            padding:10px;
+            width:100%;
+            white-space:nowrap;
+            overflow:hidden;
+            box-shadow:inset 0 0 4px rgba(0,0,0,.1);
+            border-radius: 8px;
+        }
+        .running-text span{
+            display:inline-block;
+            padding-left:100%;
+            animation:marquee 15s linear infinite
+        }
+        @keyframes marquee{
+            0%{transform:translateX(0)}
+            100%{transform:translateX(-100%)}
+        }
+        .button-group{
+            display:flex;
+            gap:12px;
+            flex-wrap:wrap;
+            justify-content:center
+        }
+        .login-btn,.info-btn{
+            border:none;
+            padding:10px 26px;
+            border-radius:6px;
+            font-weight:bold;
+            font-size:16px;
+            cursor:pointer;
+            transition:.2s;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .login-btn{
+            background:var(--btn-login);
+            color:#fff;
+            animation:pulse 2.5s ease-in-out infinite
+        }
+        .login-btn:hover{
+            background:var(--btn-login-dark);
+            transform:scale(1.05)
+        }
+        @keyframes pulse{
+            0%,100%{transform:scale(1)}
+            50%{transform:scale(1.06)}
+        }
+        .info-btn{
+            background:var(--btn-info);
+            color:#fff;
+        }
+        .info-btn:hover{
+            background:var(--btn-info-dark);
+            transform:scale(1.05)
+        }
+        @media(max-width:600px){
+            .login-btn,.info-btn{
+                width:100%
+            }
+        }
+
+        /* -------- GRID DASHBOARD -------- */
+        .dashboard-grid{
+            display:grid;
+            grid-template-columns:repeat(auto-fill,minmax(300px,1fr));
+            gap:24px;
+            padding-top:20px
+        }
+        .full-card{
+            grid-column:1/-1
+        }
+        @media(max-width:768px){
+            .dashboard-grid{
+                grid-template-columns:1fr;
+                gap:16px
+            }
+        }
+
+        /* -------- CARD -------- */
+        .card{
+            background:var(--card-bg);
+            border-radius:12px;
+            box-shadow:0 4px 10px rgba(0,0,0,.07);
+            padding:20px;
+            display:flex;
+            flex-direction:column;
+        }
+        .card h2{
+            font-size:1.2rem;
+            color:var(--text-dark);
+            margin-bottom:12px;
+            display:flex;
+            align-items:center;
+            gap:8px;
+            border-bottom: 2px solid;
+            padding-bottom: 8px;
+        }
+
+        .card h2 i {
+            color: var(--secondary-accent);
+        }
+
+        /* Card-specific header colors */
+        .card:nth-of-type(1) h2 { border-color: var(--card-header-1); }
+        .card:nth-of-type(2) h2 { border-color: var(--card-header-2); }
+        .card:nth-of-type(3) h2 { border-color: var(--card-header-3); }
+        .card:nth-of-type(4) h2 { border-color: var(--card-header-4); }
+        .card:nth-of-type(5) h2 { border-color: var(--card-header-5); }
+
+
+        /* -------- IFRAME LOOKER -------- */
+        .looker-embed{
+            border:none;
+            border-radius:8px;
+            width:100%;
+            height:300px
+        }
+        @media(max-width:768px){
+            .looker-embed{
+                height:400px
+            }
+        }
+        .card.full-card .looker-embed{
+            height:80vh;
+            min-height:500px;
+            max-height:1000px
+        }
+
+        /* -------- MAP -------- */
+        #map{
+            width:100%;
+            height:400px;
+            border-radius:8px
+        }
+        @media(max-width:768px){
+            #map{
+                height:420px
+            }
+        }
+
+        /* -------- POPUP LOGIN -------- */
+        .popup-overlay{
+            position:fixed;
+            inset:0;
+            background:rgba(0,0,0,.5);
+            display:none;
+            align-items:center;
+            justify-content:center;
+            z-index:999
+        }
+        .popup-box{
+            background:var(--card-bg);
+            padding:40px 30px;
+            border-radius:14px;
+            width:100%;
+            max-width:420px;
+            position:relative;
+            box-shadow:0 10px 25px rgba(0,0,0,.15);
+            animation:slideUp .4s
+        }
+        .popup-box h2{
+            text-align:center;
+            margin-bottom:24px;
+            color:var(--text-dark);
+            font-size:1.5rem;
+            border-bottom: none;
+        }
+        label{
+            display:block;
+            margin:14px 0 6px;
+            font-weight:600;
+            font-size:.95rem
+        }
+        select,input{
+            width:100%;
+            padding:12px 14px;
+            margin-top:4px;
+            border-radius:8px;
+            border:1px solid #ccc;
+            font-size:1rem
+        }
+        select:focus,input:focus{
+            border-color:var(--primary-accent);
+            outline:none
+        }
+        .password-wrapper{
+            position:relative
+        }
+        .password-wrapper input{
+            padding-right:44px
+        }
+        .toggle-password{
+            position:absolute;
+            top:50%;
+            right:12px;
+            transform:translateY(-50%);
+            cursor:pointer;
+            color:#888
+        }
+        .popup-box button[type="submit"]{
+            margin-top:22px;
+            background:var(--primary-accent);
+            color:#fff;
+            border:none;
+            width:100%;
+            padding:12px;
+            border-radius:8px;
+            font-weight:bold;
+            font-size:1rem;
+            cursor:pointer;
+            transition:background .25s,transform .15s
+        }
+        .popup-box button[type="submit"]:hover{
+            background:var(--secondary-accent);
+            transform:translateY(-1px);
+            box-shadow:0 3px 10px rgba(0,0,0,.1)
+        }
+        .close-btn{
+            position:absolute;
+            top:14px;
+            right:14px;
+            background:none;
+            border:none;
+            font-size:1.2rem;
+            color:#999;
+            cursor:pointer
+        }
+        .close-btn:hover{
+            color:#444
+        }
+        .error{
+            color:var(--error-red);
+            margin-top:12px;
+            text-align:center;
+            font-size:.95rem
+        }
+        @keyframes slideUp{
+            from{transform:translateY(20px);opacity:0}
+            to{transform:translateY(0);opacity:1}
+        }
+        
+        .button-survey {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 10px 16px;
+            background-color: var(--btn-info);
+            color: #fff;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 6px;
+            transition: background-color 0.3s ease;
+        }
+        .button-survey:hover {
+            background-color: var(--btn-info-dark);
+        }
+
+        .dashboard-link {
+            display: block;
+            margin-top: 8px;
+            color: var(--primary-accent);
+            text-decoration: underline;
+            text-align: left;
+            font-weight: bold;
+            transition: color 0.2s ease;
+        }
+        .dashboard-link:hover {
+            color: var(--secondary-accent);
+        }
+
+        .lgbt-icon{
+            color: transparent;
+            background-image: linear-gradient(to right, #FF6B6B, #F6E66B, #55E6C1, #6C5CE7);
+            -webkit-background-clip: text;
+            background-clip: text;
+            display: inline-block;
+            vertical-align: middle;
+            margin-left: 8px;
+            font-size: 1.5rem;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <img src="https://res.cloudinary.com/djexglfns/image/upload/v1749135749/logo_kemenkes_c2ggdg.png" alt="Logo Kemenkes" class="logo">
+    <div class="title-wrapper">
+        <h1>Dashboard Program Layanan Kesehatan Komunitas</h1>
+        <h2>Inklusif, Berbasis Komunitas, Bebas Diskriminasi</h2>
+    </div>
+    <div class="running-text">
+        <span>
+            <i class="fas fa-heart lgbt-icon"></i> 
+            Kesehatan adalah hak semua, dan layanan terbaik dimulai dari kedekatan dengan komunitas. Bersama kita membangun masyarakat yang lebih inklusif. 
+            <i class="fas fa-handshake-angle lgbt-icon"></i>
+        </span>
+    </div>
+    <div class="button-group">
+        <button id="loginBtn" class="login-btn">Login</button>
+        <button id="infoBtn" class="info-btn">Media Informasi</button>
+    </div>
+</header>
+
+<main>
+    <div class="dashboard-grid">
+        <section class="card full-card">
+            <h2><i class="fas fa-rainbow"></i> Capaian Layanan Berdasarkan Lokasi</h2>
+            <div id="map"></div>
+        </section>
+
+        <section class="card full-card">
+            <h2><i class="fas fa-chart-line"></i> Ringkasan Capaian Program</h2>
+            <iframe class="looker-embed"
+                    src="https://lookerstudio.google.com/embed/reporting/db65eb65-5e58-4c8a-a9c6-e0d69f3b7da0/page/djCNF"
+                    allowfullscreen></iframe>
+        </section>
+    </div>
+</main>
+
+<footer>Didukung penuh oleh seluruh komunitas dan PIKAT untuk Kementerian Kesehatan RI. Bersama kita wujudkan kesehatan untuk semua. &copy; 2025</footer>
+
+<div class="popup-overlay" id="loginPopup">
+    <div class="popup-box">
+        <button class="close-btn" onclick="document.getElementById('loginPopup').style.display='none'"><i class="fas fa-times"></i></button>
+        <h2>Masuk ke Dashboard</h2>
+        <form id="loginForm">
+            <label for="role">Role:</label>
+            <select id="role" required>
+                <option value="">-- Pilih Role --</option>
+                <option>Dinas Kesehatan Kabupaten/Kota</option>
+                <option>Petugas Pos Layanan Komunitas</option>
+            </select>
+
+            <label for="username">Username:</label>
+            <input id="username" required>
+
+            <label for="password">Password:</label>
+            <div class="password-wrapper">
+                <input type="password" id="password" required>
+                <span class="toggle-password"><i class="fas fa-eye"></i></span>
+            </div>
+
+            <button type="submit">Masuk</button>
+            <p id="error" class="error"></p>
+        </form>
+    </div>
+</div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin></script>
+<script>
+    /* ========= PETA + POPUP ========= */
+    document.addEventListener('DOMContentLoaded', () => {
+        const map = L.map('map', { scrollWheelZoom: false }).setView([-2.5, 117], 5);
+        L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
+            maxZoom: 17, attribution: '© OpenTopoMap, © OpenStreetMap contributors'
+        }).addTo(map);
+
+        const locations = [
+            { kab: 'Kab. Badung', lat: -8.7083, lng: 115.2167, pos: 'Pos Komunitas Badung (Yayasan Gaya Dewata)', tel: '08174747273', dashboardLink: 'https://lookerstudio.google.com/embed/reporting/db65eb65-5e58-4c8a-a9c6-e0d69f3b7da0/page/djCNF' },
+            { kab: 'Kab. Bogor', lat: -6.595, lng: 106.8167, pos: 'Pos Komunitas Bogor (Pesona Bumi Pasundan)', tel: '08996921859', dashboardLink: 'https://lookerstudio.google.com/embed/reporting/db65eb65-5e58-4c8a-a9c6-e0d69f3b7da0/page/djCNF' },
+            { kab: 'Kab. Pati', lat: -6.747, lng: 111.0455, pos: 'Pos Komunitas Pati (Fatayat NU Jawa Tengah)', tel: '082327250425', dashboardLink: 'https://lookerstudio.google.com/embed/reporting/db65eb65-5e58-4c8a-a9c6-e0d69f3b7da0/page/djCNF' },
+            { kab: 'Kab. Sidoarjo', lat: -7.4478, lng: 112.7181, pos: 'Pos Komunitas Sidoarjo (PKBI JAWA TIMUR)', tel: '-', dashboardLink: 'https://lookerstudio.google.com/embed/reporting/db65eb65-5e58-4c8a-a9c6-e0d69f3b7da0/page/djCNF' },
+            { kab: 'Kota Balikpapan', lat: -1.2654, lng: 116.8312, pos: 'Pos Komunitas Balikpapan (PPTI BALIKPAPAN)', tel: '081223598444', dashboardLink: 'https://lookerstudio.google.com/embed/reporting/db65eb65-5e58-4c8a-a9c6-e0d69f3b7da0/page/djCNF' },
+            { kab: 'Kota Bandung', lat: -6.9147, lng: 107.6098, pos: 'Pos Komunitas Bandung (YAYASAN SRIKANDI PASUNDAN)', tel: '082130002190', dashboardLink: 'https://lookerstudio.google.com/embed/reporting/db65eb65-5e58-4c8a-a9c6-e0d69f3b7da0/page/djCNF' },
+            { kab: 'Kota Batam', lat: 1.0456, lng: 104.0305, pos: 'Pos Komunitas Batam (YAYASAN KANTI SEHATI)', tel: '-', dashboardLink: 'https://lookerstudio.google.com/embed/reporting/db65eb65-5e58-4c8a-a9c6-e0d69f3b7da0/page/djCNF' },
+            { kab: 'Kota Bekasi', lat: -6.2383, lng: 106.9756, pos: 'Pos Komunitas Bekasi (PKBI Jawa Barat – YLKIK)', tel: '085717230200', dashboardLink: 'https://lookerstudio.google.com/embed/reporting/db65eb65-5e58-4c8a-a9c6-e0d69f3b7da0/page/djCNF' },
+            { kab: 'Kota Bogor', lat: -6.5971, lng: 106.806, pos: 'Pos Komunitas Kota Bogor (Pesona Bumi Pasundan)', tel: '08996921859', dashboardLink: 'https://lookerstudio.google.com/embed/reporting/db65eb65-5e58-4c8a-a9c6-e0d69f3b7da0/page/djCNF' },
+            { kab: 'Kota Depok', lat: -6.4025, lng: 106.7942, pos: 'Pos Komunitas Depok (PKBI Jawa Barat – YLKIK)', tel: '085717230200', dashboardLink: 'https://lookerstudio.google.com/embed/reporting/db65eb65-5e58-4c8a-a9c6-e0d69f3b7da0/page/djCNF' },
+            { kab: 'Kota Jakarta Barat', lat: -6.1683, lng: 106.758, pos: 'Pos Komunitas Jakbar (YAYASAN PESONA JAKARTA)', tel: '081291197155', dashboardLink: 'https://lookerstudio.google.com/embed/reporting/db65eb65-5e58-4c8a-a9c6-e0d69f3b7da0/page/djCNF' },
+            { kab: 'Kota Jakarta Pusat', lat: -6.1862, lng: 106.8342, pos: 'Pos Komunitas Jakpus (YAYASAN PESONA JAKARTA)', tel: '081291197155', dashboardLink: 'https://lookerstudio.google.com/embed/reporting/db65eb65-5e58-4c8a-a9c6-e0d69f3b7da0/page/djCNF' },
+            { kab: 'Kota Jakarta Timur', lat: -6.225, lng: 106.9003, pos: 'Pos Komunitas Jaktim (YAYASAN PESONA JAKARTA)', tel: '081291197155', dashboardLink: 'https://lookerstudio.google.com/embed/reporting/db65eb65-5e58-4c8a-a9c6-e0d69f3b7da0/page/djCNF' },
+            { kab: 'Kota Jayapura', lat: -2.5337, lng: 140.7181, pos: 'Pos Komunitas Jayapura (YAYASAN PELANGI MALUKU)', tel: '-', dashboardLink: 'https://lookerstudio.google.com/embed/reporting/db65eb65-5e58-4c8a-a9c6-e0d69f3b7da0/page/djCNF' },
+            { kab: 'Kota Makassar', lat: -5.1477, lng: 119.4327, pos: 'Pos Komunitas Makassar (YAYASAN GAYA CELEBES)', tel: '081343544131', dashboardLink: 'https://lookerstudio.google.com/embed/reporting/db65eb65-5e58-4c8a-a9c6-e0d69f3b7da0/page/djCNF' },
+            { kab: 'Kota Malang', lat: -7.9819, lng: 112.6265, pos: 'Pos Komunitas Malang (FATAYAT NU JAWA TIMUR)', tel: '081333310911', dashboardLink: 'https://lookerstudio.google.com/embed/reporting/db65eb65-5e58-4c8a-a9c6-e0d69f3b7da0/page/djCNF' },
+            { kab: 'Kota Manado', lat: 1.4748, lng: 124.8421, pos: 'Pos Komunitas Manado (PKBI SULAWESI UTARA)', tel: '082189776161', dashboardLink: 'https://lookerstudio.google.com/embed/reporting/db65eb65-5e58-4c8a-a9c6-e0d69f3b7da0/page/djCNF' },
+            { kab: 'Kota Medan', lat: 3.5952, lng: 98.6722, pos: 'Pos Komunitas Medan (YAYASAN GALATEA)', tel: '08126511276', dashboardLink: 'https://lookerstudio.google.com/embed/reporting/db65eb65-5e58-4c8a-a9c6-e0d69f3b7da0/page/djCNF' },
+            { kab: 'Kota Samarinda', lat: -0.5022, lng: 117.1537, pos: 'Pos Komunitas Samarinda (PKBI KALIMANTAN TIMUR)', tel: '081346318799', dashboardLink: 'https://lookerstudio.google.com/embed/reporting/db65eb65-5e58-4c8a-a9c6-e0d69f3b7da0/page/djCNF' },
+            { kab: 'Kota Semarang', lat: -7.0051, lng: 110.4381, pos: 'Pos Komunitas Semarang (PKBI Kota Semarang)', tel: '085641557491', dashboardLink: 'https://lookerstudio.google.com/embed/reporting/db65eb65-5e58-4c8a-a9c6-e0d69f3b7da0/page/djCNF' },
+            { kab: 'Kota Surabaya', lat: -7.2575, lng: 112.7521, pos: 'Pos Komunitas Surabaya (PKBI JAWA TIMUR)', tel: '081357210113', dashboardLink: 'https://lookerstudio.google.com/embed/reporting/db65eb65-5e58-4c8a-a9c6-e0d69f3b7da0/page/djCNF' },
+            { kab: 'Kota Tangerang', lat: -6.1783, lng: 106.63, pos: 'Pos Komunitas Tangerang (WAHANA CITA INDONESIA)', tel: '081519608074', dashboardLink: 'https://lookerstudio.google.com/embed/reporting/db65eb65-5e58-4c8a-a9c6-e0d69f3b7da0/page/djCNF' },
+            { kab: 'Kota Yogyakarta', lat: -7.7972, lng: 110.3688, pos: 'Pos Komunitas Yogyakarta (YAYASAN VESTA INDONESIA)', tel: '087738698383', dashboardLink: 'https://lookerstudio.google.com/embed/reporting/db65eb65-5e58-4c8a-a9c6-e0d69f3b7da0/page/djCNF' },
+            { kab: 'Kota Mataram', lat: -8.5943, lng: 116.0895, pos: 'Pos Komunitas Mataram (YAYASAN INSET)', tel: '08xxxxxxxxxx', dashboardLink: 'https://lookerstudio.google.com/embed/reporting/db65eb65-5e58-4c8a-a9c6-e0d69f3b7da0/page/djCNF' }
+        ];
+
+        locations.forEach(l => {
+            const popupContent = `
+                <strong>${l.kab}</strong><br>
+                Pos: ${l.pos}<br>
+                Kontak: <a href="tel:${l.tel.replace(/[^0-9]/g, '')}" style="text-decoration:none;color:var(--btn-info)">${l.tel}</a>
+                ${l.dashboardLink ? `<a href="${l.dashboardLink}" target="_blank" class="dashboard-link">Lihat Dashboard</a>` : ''}
+            `;
+            L.marker([l.lat, l.lng])
+                .addTo(map)
+                .bindTooltip(l.kab, { direction: 'top' })
+                .bindPopup(popupContent);
+        });
+        setTimeout(() => map.invalidateSize(), 400);
+    });
+
+    /* ========= LOGIN / REDIRECT ========= */
+    const credentialList = [
+        { role: 'Dinas Kesehatan Kabupaten/Kota', username: 'dinkes_badung', password: 'Dinkes@Badung8492', link: 'badung.html' },
+        { role: 'Petugas Pos Layanan Komunitas', username: 'pos_badung', password: 'Pos@Badung3175', link: 'badung01.html' },
+        { role: 'Dinas Kesehatan Kabupaten/Kota', username: 'dinkes_bogor', password: 'Dinkes@Bogor2951', link: 'bogor.html' },
+        { role: 'Petugas Pos Layanan Komunitas', username: 'pos_bogor', password: 'Pos@Bogor7608', link: 'bogor01.html' },
+        { role: 'Dinas Kesehatan Kabupaten/Kota', username: 'dinkes_pati', password: 'Dinkes@Pati6043', link: 'pati.html' },
+        { role: 'Petugas Pos Layanan Komunitas', username: 'pos_pati', password: 'Pos@Pati1219', link: 'pati01.html' },
+        { role: 'Dinas Kesehatan Kabupaten/Kota', username: 'dinkes_sidoarjo', password: 'Dinkes@Sidoarjo8104', link: 'sidoarjo.html' },
+        { role: 'Petugas Pos Layanan Komunitas', username: 'pos_sidoarjo', password: 'Pos@Sidoarjo6820', link: 'sidoarjo01.html' },
+        { role: 'Dinas Kesehatan Kabupaten/Kota', username: 'dinkes_balikpapan', password: 'Dinkes@Balikpapan7623', link: 'balikpapan.html' },
+        { role: 'Petugas Pos Layanan Komunitas', username: 'pos_balikpapan', password: 'Pos@Balikpapan2094', link: 'balikpapan01.html' },
+        { role: 'Dinas Kesehatan Kabupaten/Kota', username: 'dinkes_bandung', password: 'Dinkes@Bandung1387', link: 'bandung.html' },
+        { role: 'Petugas Pos Layanan Komunitas', username: 'pos_bandung', password: 'Pos@Bandung8446', link: 'bandung01.html' },
+        { role: 'Dinas Kesehatan Kabupaten/Kota', username: 'dinkes_batam', password: 'Dinkes@Batam5482', link: 'batam.html' },
+        { role: 'Petugas Pos Layanan Komunitas', username: 'pos_batam', password: 'Pos@Batam9315', link: 'batam01.html' },
+        { role: 'Dinas Kesehatan Kabupaten/Kota', username: 'dinkes_bekasi', password: 'Dinkes@Bekasi7790', link: 'bekasi.html' },
+        { role: 'Petugas Pos Layanan Komunitas', username: 'pos_bekasi', password: 'Pos@Bekasi4411', link: 'bekasi01.html' },
+        { role: 'Dinas Kesehatan Kabupaten/Kota', username: 'dinkes_kota_bogor', password: 'Dinkes@KotaBogor2330', link: 'kota_bogor.html' },
+        { role: 'Petugas Pos Layanan Komunitas', username: 'pos_kota_bogor', password: 'Pos@KotaBogor6749', link: 'kota_bogor01.html' },
+        { role: 'Dinas Kesehatan Kabupaten/Kota', username: 'dinkes_depok', password: 'Dinkes@Depok4021', link: 'depok.html' },
+        { role: 'Petugas Pos Layanan Komunitas', username: 'pos_depok', password: 'Pos@Depok5896', link: 'depok01.html' },
+        { role: 'Dinas Kesehatan Kabupaten/Kota', username: 'dinkes_jakarta_barat', password: 'Dinkes@JakartaBarat6318', link: 'jakarta_barat.html' },
+        { role: 'Petugas Pos Layanan Komunitas', username: 'pos_jakarta_barat', password: 'Pos@JakartaBarat7903', link: 'jakarta_barat01.html' },
+        { role: 'Dinas Kesehatan Kabupaten/Kota', username: 'dinkes_jakarta_pusat', password: 'Dinkes@JakartaPusat2735', link: 'jakarta_pusat.html' },
+        { role: 'Petugas Pos Layanan Komunitas', username: 'pos_jakarta_pusat', password: 'Pos@JakartaPusat1552', link: 'jakarta_pusat01.html' },
+        { role: 'Dinas Kesehatan Kabupaten/Kota', username: 'dinkes_jakarta_timur', password: 'Dinkes@JakartaTimur4539', link: 'jakarta_timur.html' },
+        { role: 'Petugas Pos Layanan Komunitas', username: 'pos_jakarta_timur', password: 'Pos@JakartaTimur6890', link: 'jakarta_timur01.html' },
+        { role: 'Dinas Kesehatan Kabupaten/Kota', username: 'dinkes_jayapura', password: 'Dinkes@Jayapura5034', link: 'jayapura.html' },
+        { role: 'Petugas Pos Layanan Komunitas', username: 'pos_jayapura', password: 'Pos@Jayapura7942', link: 'jayapura01.html' },
+        { role: 'Dinas Kesehatan Kabupaten/Kota', username: 'dinkes_makassar', password: 'Dinkes@Makassar1826', link: 'makassar.html' },
+        { role: 'Petugas Pos Layanan Komunitas', username: 'pos_makassar', password: 'Pos@Makassar3461', link: 'makassar01.html' },
+        { role: 'Dinas Kesehatan Kabupaten/Kota', username: 'dinkes_malang', password: 'Dinkes@Malang2345', link: 'malang.html' },
+        { role: 'Petugas Pos Layanan Komunitas', username: 'pos_malang', password: 'Pos@Malang9182', link: 'malang01.html' },
+        { role: 'Dinas Kesehatan Kabupaten/Kota', username: 'dinkes_manado', password: 'Dinkes@Manado8712', link: 'manado.html' },
+        { role: 'Petugas Pos Layanan Komunitas', username: 'pos_manado', password: 'Pos@Manado0247', link: 'manado01.html' },
+        { role: 'Dinas Kesehatan Kabupaten/Kota', username: 'dinkes_medan', password: 'Dinkes@Medan3502', link: 'medan.html' },
+        { role: 'Petugas Pos Layanan Komunitas', username: 'pos_medan', password: 'Pos@Medan7863', link: 'medan01.html' },
+        { role: 'Dinas Kesehatan Kabupaten/Kota', username: 'dinkes_samarinda', password: 'Dinkes@Samarinda9341', link: 'samarinda.html' },
+        { role: 'Petugas Pos Layanan Komunitas', username: 'pos_samarinda', password: 'Pos@Samarinda6607', link: 'samarinda01.html' },
+        { role: 'Dinas Kesehatan Kabupaten/Kota', username: 'dinkes_semarang', password: 'Dinkes@Semarang1882', link: 'semarang.html' },
+        { role: 'Petugas Pos Layanan Komunitas', username: 'pos_semarang', password: 'Pos@Semarang5420', link: 'semarang01.html' },
+        { role: 'Dinas Kesehatan Kabupaten/Kota', username: 'dinkes_surabaya', password: 'Dinkes@Surabaya5733', link: 'surabaya.html' },
+        { role: 'Petugas Pos Layanan Komunitas', username: 'pos_surabaya', password: 'Pos@Surabaya3754', link: 'surabaya01.html' },
+        { role: 'Dinas Kesehatan Kabupaten/Kota', username: 'dinkes_tangerang', password: 'Dinkes@Tangerang6401', link: 'tangerang.html' },
+        { role: 'Petugas Pos Layanan Komunitas', username: 'pos_tangerang', password: 'Pos@Tangerang9860', link: 'tangerang01.html' },
+        { role: 'Dinas Kesehatan Kabupaten/Kota', username: 'dinkes_yogyakarta', password: 'Dinkes@Yogyakarta1174', link: 'yogyakarta.html' },
+        { role: 'Petugas Pos Layanan Komunitas', username: 'pos_yogyakarta', password: 'Pos@Yogyakarta8085', link: 'yogyakarta01.html' },
+        { role: 'Dinas Kesehatan Kabupaten/Kota', username: 'dinkes_mataram', password: 'Dinkes@Mataram1174', link: 'mataram.html' },
+        { role: 'Petugas Pos Layanan Komunitas', username: 'pos_mataram', password: 'Pos@Mataram8085', link: 'mataram01.html' },
+        { role: 'Dinas Kesehatan Kabupaten/Kota', username: 'contoh1234', password: 'contoh1234', link: 'contoh.html' },
+        { role: 'Petugas Pos Layanan Komunitas', username: 'contoh1234', password: 'contoh1234', link: 'contoh01.html' }
+    ];
+
+    /* ---------- toggle password ---------- */
+    document.querySelector('.toggle-password').onclick = e => {
+        const p = document.getElementById('password');
+        const open = p.type === 'text';
+        p.type = open ? 'password' : 'text';
+        e.currentTarget.innerHTML = open ? '<i class="fas fa-eye"></i>' : '<i class="fas fa-eye-slash"></i>';
+    };
+
+    /* ---------- tampilkan popup ---------- */
+    document.getElementById('loginBtn').onclick = () => document.getElementById('loginPopup').style.display = 'flex';
+
+    /* ---------- proses login ---------- */
+    document.getElementById('loginForm').onsubmit = e => {
+        e.preventDefault();
+        const role = document.getElementById('role').value.trim();
+        const user = document.getElementById('username').value.trim();
+        const pass = document.getElementById('password').value.trim();
+        const err = document.getElementById('error');
+
+        const found = credentialList.find(c => c.role === role && c.username === user && c.password === pass);
+        if (found) {
+            window.location.href = found.link;
+        } else {
+            err.textContent = 'Role, username, atau password tidak sesuai.';
+        }
+    };
+
+    document.getElementById('infoBtn').onclick = () => location.href = 'media.html';
+</script>
+</body>
+</html>
